@@ -1,0 +1,5 @@
+shaderlab/
+projects/*
+
+!projects/shaderlab.vcxproj
+!projects/shaderlab.vcxproj.filters
