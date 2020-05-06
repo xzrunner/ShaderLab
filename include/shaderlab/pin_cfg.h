@@ -4,6 +4,8 @@
 
 PIN_INFO(ANY, (255, 255, 255), "")
 
+PIN_INFO(DYNAMIC, (255, 0, 0), "d")
+
 PIN_INFO(BOOL,  (255, 0, 0), "b")
 PIN_INFO(BOOL2, (255, 0, 0), "b2")
 PIN_INFO(BOOL3, (255, 0, 0), "b3")

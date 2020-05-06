@@ -9,18 +9,9 @@
 #error "You must define PARM_NODE_NAME macro before include this file"
 #endif
 
-#define Bool    bool
-#define Int     int
-#define Int2    sm::ivec2
-#define Int3    sm::ivec3
-#define Int4    sm::ivec4
-#define Float   float
-#define Float2  sm::vec2
-#define Float3  sm::vec3
-#define Float4  sm::vec4
-#define Matrix4 sm::mat4
-#define String  std::string
-#define Array   std::vector
+#ifndef PARM_FILEPATH
+#define PARM_FILEPATH shadergraph/block/##PARM_NODE_CLASS##.parm.h
+#endif
 
 class PARM_NODE_CLASS : public Node
 {
@@ -31,21 +22,17 @@ public:
         InitPins(XSTR(PARM_NODE_NAME));
 	}
 
+#define PARAM_INFO(id, type, name, member, default_val) \
+    type member = type##default_val;
+#ifndef NO_PARM_FILEPATH
+#include XSTR(PARM_FILEPATH)
+#endif // NO_PARM_FILEPATH
+#undef  PARAM_INFO
+
 	RTTR_ENABLE(Node)
 };
 
-#undef Bool
-#undef Int
-#undef Int2
-#undef Int3
-#undef Int4
-#undef Float
-#undef Float2
-#undef Float3
-#undef Float4
-#undef Matrix4
-#undef String
-#undef Array
-
 #undef PARM_NODE_NAME
 #undef PARM_NODE_CLASS
+
+#undef NO_PARM_FILEPATH
