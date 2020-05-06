@@ -28,6 +28,9 @@
     <Filter Include="tools\eval">
       <UniqueIdentifier>{0f5b1504-a4cd-436c-a792-b5dded993c56}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tools\trans">
+      <UniqueIdentifier>{ab3d4f85-a706-46cd-be0c-ec266832c277}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\shaderlab\Node.h">
@@ -73,6 +76,9 @@
     <ClInclude Include="..\..\..\include\shaderlab\Evaluator.h">
       <Filter>tools\eval</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\shaderlab\ShaderAdapter.h">
+      <Filter>tools\trans</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\Node.cpp">
@@ -99,6 +105,9 @@
     <ClCompile Include="..\..\..\source\ShaderLab.cpp" />
     <ClCompile Include="..\..\..\source\Evaluator.cpp">
       <Filter>tools\eval</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ShaderAdapter.cpp">
+      <Filter>tools\trans</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

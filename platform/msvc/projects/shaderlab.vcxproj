@@ -22,6 +22,7 @@
     <ClInclude Include="..\..\..\include\shaderlab\pin_cfg.h" />
     <ClInclude Include="..\..\..\include\shaderlab\PreviewPage.h" />
     <ClInclude Include="..\..\..\include\shaderlab\RegistNodes.h" />
+    <ClInclude Include="..\..\..\include\shaderlab\ShaderAdapter.h" />
     <ClInclude Include="..\..\..\include\shaderlab\ShaderLab.h" />
     <ClInclude Include="..\..\..\include\shaderlab\WxGraphCanvas.h" />
     <ClInclude Include="..\..\..\include\shaderlab\WxGraphPage.h" />
@@ -33,6 +34,7 @@
     <ClCompile Include="..\..\..\source\PinCallback.cpp" />
     <ClCompile Include="..\..\..\source\PreviewPage.cpp" />
     <ClCompile Include="..\..\..\source\RegistNodes.cpp" />
+    <ClCompile Include="..\..\..\source\ShaderAdapter.cpp" />
     <ClCompile Include="..\..\..\source\ShaderLab.cpp" />
     <ClCompile Include="..\..\..\source\WxGraphCanvas.cpp" />
     <ClCompile Include="..\..\..\source\WxGraphPage.cpp" />
