@@ -9,7 +9,8 @@ namespace shaderlab
 {
 
 std::string Evaluator::Rebuild(const std::vector<bp::NodePtr>& nodes,
-                               const bp::BackendGraph<shadergraph::Variant>& eval)
+                               const bp::BackendGraph<shadergraph::Variant>& eval,
+                               std::vector<shadergraph::Evaluator::Uniform>& uniforms)
 {
     // build frag shader
     for (auto& node : nodes)
@@ -23,6 +24,7 @@ std::string Evaluator::Rebuild(const std::vector<bp::NodePtr>& nodes,
         if (block->get_type() == rttr::type::get<shadergraph::block::FragmentShader>())
         {
             shadergraph::Evaluator eval(block);
+            uniforms = eval.GetUniformValues();
             return eval.GenShaderCode();
         }
     }

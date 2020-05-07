@@ -7,6 +7,7 @@
 
 #include <shadergraph/VarType.h>
 #include <shadergraph/Variant.h>
+#include <shadergraph/ValueImpl.h>
 #include <shadergraph/Block.h>
 
 namespace shaderlab
@@ -15,6 +16,12 @@ namespace shaderlab
 Node::Node(const std::string& title)
     : bp::Node(title)
 {
+}
+
+void Node::Init(const std::string& name)
+{
+    InitPins(name);
+    InitProps(name);
 }
 
 void Node::InitPins(const std::string& name)
@@ -33,6 +40,70 @@ void Node::InitPins(const std::string& name)
     bp::BackendAdapter<shadergraph::Variant>
         trans("shadergraph", back2front);
     trans.InitNodePins(*this, name);
+}
+
+void Node::InitProps(const std::string& name)
+{
+    rttr::type t = rttr::type::get_by_name("shadergraph::" + name);
+    if (!t.is_valid()) {
+        return;
+    }
+
+    rttr::variant var = t.create();
+    assert(var.is_valid());
+
+    auto method_uniforms = t.get_method("GetUniforms");
+    assert(method_uniforms.is_valid());
+    auto var_uniforms = method_uniforms.invoke(var);
+    assert(var_uniforms.is_valid()
+        && var_uniforms.is_type<std::vector<shadergraph::Variant>>());
+    auto& uniforms = var_uniforms.get_value<std::vector<shadergraph::Variant>>();
+    for (auto& u : uniforms)
+    {
+        bp::Variant var;
+        var.name = u.name;
+        assert(u.type == shadergraph::VarType::Uniform);
+        auto u_var = std::static_pointer_cast<shadergraph::UniformVal>(u.val)->var;
+        switch (u_var.type)
+        {
+        case shadergraph::VarType::Bool:
+            var.type = bp::VarType::Bool;
+            var.b = std::static_pointer_cast<shadergraph::BoolVal>(u_var.val)->x;
+            break;
+        case shadergraph::VarType::Int:
+            var.type = bp::VarType::Int;
+            var.i = std::static_pointer_cast<shadergraph::IntVal>(u_var.val)->x;
+            break;
+        case shadergraph::VarType::Float:
+            var.type = bp::VarType::Float;
+            var.f = std::static_pointer_cast<shadergraph::FloatVal>(u_var.val)->x;
+            break;
+        case shadergraph::VarType::Float2:
+        {
+            var.type = bp::VarType::Float2;
+            auto src = std::static_pointer_cast<shadergraph::Float2Val>(u_var.val);
+            memcpy(var.f2, src->xy, sizeof(var.f2));
+        }
+            break;
+        case shadergraph::VarType::Float3:
+        {
+            var.type = bp::VarType::Float3;
+            auto src = std::static_pointer_cast<shadergraph::Float3Val>(u_var.val);
+            memcpy(var.f3, src->xyz, sizeof(var.f3));
+        }
+            break;
+        case shadergraph::VarType::Float4:
+        {
+            var.type = bp::VarType::Float4;
+            auto src = std::static_pointer_cast<shadergraph::Float4Val>(u_var.val);
+            memcpy(var.f4, src->xyzw, sizeof(var.f4));
+        }
+            break;
+        default:
+            assert(0);
+        }
+        m_props.push_back(var);
+    }
 }
 
 }

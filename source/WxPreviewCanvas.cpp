@@ -16,6 +16,10 @@
 #include <unirender/Factory.h>
 #include <unirender/PrimitiveType.h>
 #include <unirender/ShaderProgram.h>
+#include <unirender/Uniform.h>
+#include <shadergraph/Block.h>
+#include <shadergraph/ValueImpl.h>
+#include <shadergraph/Evaluator.h>
 
 namespace
 {
@@ -165,14 +169,50 @@ void WxPreviewCanvas::RebuildShader()
         return true;
     });
 
-    auto str = Evaluator::Rebuild(nodes, *m_eval);
+    std::vector<shadergraph::Evaluator::Uniform> uniforms;
+    auto str = Evaluator::Rebuild(nodes, *m_eval, uniforms);
     if (str.empty()) {
         return;
     }
 
     auto shader = m_dev.CreateShaderProgram(vs, str);
-    if (shader->CheckStatus()) {
-        m_shader = shader;
+    if (!shader->CheckStatus()) {
+        return;
+    }
+
+    m_shader = shader;
+
+    for (auto& u : uniforms)
+    {
+        auto unif = std::static_pointer_cast<shadergraph::UniformVal>(u.val);
+
+        auto uniform = m_shader->QueryUniform(u.name);
+        assert(uniform);
+
+        switch (unif->var.type)
+        {
+        case shadergraph::VarType::Bool:
+        {
+            auto b = std::static_pointer_cast<shadergraph::BoolVal>(unif->var.val)->x;
+            const int i = b ? 1 : 0;
+            uniform->SetValue(&i, 1);
+        }
+            break;
+        case shadergraph::VarType::Int:
+        {
+            const int i = std::static_pointer_cast<shadergraph::IntVal>(unif->var.val)->x;
+            uniform->SetValue(&i, 1);
+        }
+            break;
+        case shadergraph::VarType::Float:
+        {
+            const float f = std::static_pointer_cast<shadergraph::FloatVal>(unif->var.val)->x;
+            uniform->SetValue(&f, 1);
+        }
+            break;
+        default:
+            assert(0);
+        }
     }
 }
 

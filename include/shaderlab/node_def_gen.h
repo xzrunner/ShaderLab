@@ -19,7 +19,7 @@ public:
 	PARM_NODE_CLASS()
         : Node(XSTR(PARM_NODE_CLASS))
 	{
-        InitPins(XSTR(PARM_NODE_NAME));
+        Init(XSTR(PARM_NODE_NAME));
 	}
 
 #define PARAM_INFO(id, type, name, member, default_val) \

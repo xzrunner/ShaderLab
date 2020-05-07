@@ -2,6 +2,10 @@
 #include "shaderlab/PinType.h"
 
 #include <blueprint/Pin.h>
+#include <blueprint/Node.h>
+
+#include <shadergraph/Block.h>
+#include <shadergraph/ValueImpl.h>
 
 #include <assert.h>
 
@@ -92,6 +96,42 @@ int ShaderAdapter::TypeBackToFront(shadergraph::VarType type, int count)
 
 void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Variant>& back, const std::string& dir)
 {
+    // update uniforms
+    auto& src = front.GetProps();
+    auto& dst = static_cast<shadergraph::Block&>(back).GetUniforms();
+    for (auto& s : src) {
+        for (auto& d : dst) {
+            if (s.name != d.name) {
+                continue;
+            }
+
+            assert(d.type == shadergraph::VarType::Uniform);
+            auto u_var = std::static_pointer_cast<shadergraph::UniformVal>(d.val)->var;
+            switch (u_var.type)
+            {
+            case shadergraph::VarType::Bool:
+                std::static_pointer_cast<shadergraph::BoolVal>(u_var.val)->x = s.b;
+                break;
+            case shadergraph::VarType::Int:
+                std::static_pointer_cast<shadergraph::IntVal>(u_var.val)->x = s.i;
+                break;
+            case shadergraph::VarType::Float:
+                std::static_pointer_cast<shadergraph::FloatVal>(u_var.val)->x = s.f;
+                break;
+            case shadergraph::VarType::Float2:
+                memcpy(std::static_pointer_cast<shadergraph::Float2Val>(u_var.val)->xy, s.f2, sizeof(float) * 2);
+                break;
+            case shadergraph::VarType::Float3:
+                memcpy(std::static_pointer_cast<shadergraph::Float3Val>(u_var.val)->xyz, s.f3, sizeof(float) * 3);
+                break;
+            case shadergraph::VarType::Float4:
+                memcpy(std::static_pointer_cast<shadergraph::Float4Val>(u_var.val)->xyzw, s.f4, sizeof(float) * 4);
+                break;
+            default:
+                assert(0);
+            }
+        }
+    }
 }
 
 }
