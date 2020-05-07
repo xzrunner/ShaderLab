@@ -4,6 +4,7 @@
 
 #include <blueprint/Pin.h>
 #include <blueprint/BackendAdapter.h>
+#include <blueprint/PropDescImpl.h>
 
 #include <shadergraph/VarType.h>
 #include <shadergraph/Variant.h>
@@ -102,7 +103,26 @@ void Node::InitProps(const std::string& name)
         default:
             assert(0);
         }
-        m_props.push_back(var);
+
+        bp::Node::Property prop;
+        prop.var = var;
+
+        for (auto& d : std::static_pointer_cast<shadergraph::UniformVal>(u.val)->desc)
+        {
+            switch (d->GetType())
+            {
+            case shadergraph::ParserProp::Type::Enum:
+            {
+                auto src = std::static_pointer_cast<shadergraph::PropEnum>(d);
+                auto dst = std::make_shared<bp::PropEnum>();
+                dst->types = src->types;
+                prop.descs.push_back(dst);
+            }
+                break;
+            }
+        }
+
+        m_props.push_back(prop);
     }
 }
 
