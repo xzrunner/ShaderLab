@@ -21,6 +21,10 @@
 #define PARM_NODE_NAME float1
 #include EXE_FILEPATH
 
+#define PARM_NODE_CLASS Int
+#define PARM_NODE_NAME int1
+#include EXE_FILEPATH
+
 // geometry
 
 #define NO_PARM_FILEPATH
