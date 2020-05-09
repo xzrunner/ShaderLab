@@ -110,6 +110,11 @@ void WxPreviewCanvas::DrawForeground2D() const
     GetRenderContext().ur_ctx->Draw(ur::PrimitiveType::Triangles, ds, nullptr);
 }
 
+void WxPreviewCanvas::OnTimer()
+{
+    SetDirty();
+}
+
 void WxPreviewCanvas::InitRenderer(const ur::Device& dev)
 {
     m_shader = dev.CreateShaderProgram(vs, fs);

@@ -35,6 +35,8 @@ protected:
     virtual void DrawForeground3D() const override;
     virtual void DrawForeground2D() const override;
 
+    virtual void OnTimer() override;
+
 private:
     void InitRenderer(const ur::Device& dev);
 

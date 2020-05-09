@@ -11,6 +11,11 @@
 #define PARM_NODE_NAME combine
 #include EXE_FILEPATH
 
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS Split
+#define PARM_NODE_NAME split
+#include EXE_FILEPATH
+
 //////////////////////////////////////////////////////////////////////////
 // input
 //////////////////////////////////////////////////////////////////////////
@@ -23,6 +28,11 @@
 
 #define PARM_NODE_CLASS Int
 #define PARM_NODE_NAME int1
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS Time
+#define PARM_NODE_NAME time
 #include EXE_FILEPATH
 
 // geometry
