@@ -112,6 +112,8 @@ void WxPreviewCanvas::DrawForeground2D() const
 
 void WxPreviewCanvas::OnTimer()
 {
+    m_eval.UpdateUniforms();
+
     SetDirty();
 }
 
@@ -168,7 +170,8 @@ void WxPreviewCanvas::RebuildShader()
         return true;
     });
 
-    m_shader = Evaluator::BuildShader(m_dev, vs, nodes, *m_eval);
+    m_eval.BuildShader(m_dev, vs, nodes);
+    m_shader = m_eval.GetShader();
 }
 
 }

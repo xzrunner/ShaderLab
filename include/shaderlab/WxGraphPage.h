@@ -25,8 +25,6 @@ protected:
     virtual void OnEvalChangeed() override;
 
 private:
-    //Evaluator m_front_eval;
-
     std::string m_filepath;
 
 }; // WxGraphPage

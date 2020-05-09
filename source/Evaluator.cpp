@@ -14,17 +14,17 @@
 namespace shaderlab
 {
 
-std::shared_ptr<ur::ShaderProgram>
-Evaluator::BuildShader(const ur::Device& dev, const std::string& vs, const std::vector<bp::NodePtr>& nodes, const bp::BackendGraph<shadergraph::Variant>& eval)
+void Evaluator::BuildShader(const ur::Device& dev, const std::string& vs,
+                            const std::vector<bp::NodePtr>& nodes)
 {
-    std::vector<shadergraph::Evaluator::Uniform> uniforms;
+    assert(m_front_eval);
 
     std::string code;
 
-    // build frag shader
+    // build frag m_shader
     for (auto& node : nodes)
     {
-        auto back_node = eval.QueryBackNode(*node);
+        auto back_node = m_front_eval->QueryBackNode(*node);
         if (!back_node) {
             continue;
         }
@@ -32,31 +32,59 @@ Evaluator::BuildShader(const ur::Device& dev, const std::string& vs, const std::
         auto block = std::static_pointer_cast<shadergraph::Block>(back_node);
         if (block->get_type() == rttr::type::get<shadergraph::block::FragmentShader>())
         {
-            shadergraph::Evaluator eval(block);
-            uniforms = eval.GetUniformValues();
-            code = eval.GenShaderCode();
+            m_back_eval.Rebuild(block);
+            code = m_back_eval.GenShaderCode();
             break;
         }
     }
 
     if (code.empty()) {
-        return nullptr;
+        return;
     }
 
-    auto shader = dev.CreateShaderProgram(vs, code);
-    if (!shader->CheckStatus()) {
-        return nullptr;
+    m_shader = dev.CreateShaderProgram(vs, code);
+    if (!m_shader->CheckStatus()) {
+        return;
     }
 
+    for (auto& node : nodes)
+    {
+        auto back_node = m_front_eval->QueryBackNode(*node);
+        if (!back_node) {
+            continue;
+        }
+        assert(back_node);
+        auto block = std::static_pointer_cast<shadergraph::Block>(back_node);
+        if (block->get_type() == rttr::type::get<shadergraph::block::Time>())
+        {
+            auto up = std::make_shared<pt0::TimeUpdater>(*m_shader,
+                shadergraph::block::Time::TIME_STR,
+                shadergraph::block::Time::SIN_TIME_STR,
+                shadergraph::block::Time::COS_TIME_STR,
+                shadergraph::block::Time::DELTA_TIME_STR);
+            m_shader->AddUniformUpdater(up);
+        }
+    }
+
+    UpdateUniforms();
+}
+
+void Evaluator::UpdateUniforms()
+{
+    auto uniforms = m_back_eval.CalcUniformValues();
     for (auto& u : uniforms)
     {
         auto unif = std::static_pointer_cast<shadergraph::UniformVal>(u.val);
 
-        auto uniform = shader->QueryUniform(u.name);
-        assert(uniform);
+        auto uniform = m_shader->QueryUniform(u.name);
+        if (!uniform) {
+            continue;
+        }
 
         switch (unif->var.type)
         {
+        case shadergraph::VarType::Invalid:
+            break;
         case shadergraph::VarType::Bool:
         {
             auto b = std::static_pointer_cast<shadergraph::BoolVal>(unif->var.val)->x;
@@ -80,27 +108,6 @@ Evaluator::BuildShader(const ur::Device& dev, const std::string& vs, const std::
             assert(0);
         }
     }
-
-    for (auto& node : nodes)
-    {
-        auto back_node = eval.QueryBackNode(*node);
-        if (!back_node) {
-            continue;
-        }
-        assert(back_node);
-        auto block = std::static_pointer_cast<shadergraph::Block>(back_node);
-        if (block->get_type() == rttr::type::get<shadergraph::block::Time>())
-        {
-            auto up = std::make_shared<pt0::TimeUpdater>(*shader,
-                shadergraph::block::Time::TIME_STR,
-                shadergraph::block::Time::SIN_TIME_STR,
-                shadergraph::block::Time::COS_TIME_STR,
-                shadergraph::block::Time::DELTA_TIME_STR);
-            shader->AddUniformUpdater(up);
-        }
-    }
-
-    return shader;
 }
 
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "shaderlab/Evaluator.h"
+
 #include <ee3/WxStageCanvas.h>
 #include <blueprint/BackendGraph.h>
 
@@ -27,7 +29,8 @@ public:
     }
 
     void SetEval(const std::shared_ptr<bp::BackendGraph<shadergraph::Variant>>& eval) {
-        m_eval = eval;
+        m_front_eval = eval;
+        m_eval.SetFrontEval(eval);
     }
 
 protected:
@@ -43,7 +46,8 @@ private:
     void RebuildShader();
 
 private:
-    std::shared_ptr<bp::BackendGraph<shadergraph::Variant>> m_eval = nullptr;
+    std::shared_ptr<bp::BackendGraph<shadergraph::Variant>> m_front_eval = nullptr;
+    Evaluator m_eval;
 
     const WxGraphPage* m_graph_page = nullptr;
 
