@@ -74,13 +74,12 @@ void Evaluator::UpdateUniforms()
     auto uniforms = m_back_eval.CalcUniformValues();
     for (auto& u : uniforms)
     {
-        auto unif = std::static_pointer_cast<shadergraph::UniformVal>(u.val);
-
         auto uniform = m_shader->QueryUniform(u.name);
         if (!uniform) {
             continue;
         }
 
+        auto unif = std::static_pointer_cast<shadergraph::UniformVal>(u.val);
         switch (unif->var.type)
         {
         case shadergraph::VarType::Invalid:

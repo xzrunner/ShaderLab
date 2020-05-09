@@ -1,7 +1,5 @@
 #pragma once
 
-#include "shaderlab/Evaluator.h"
-
 #include <blueprint/WxGraphPage.h>
 
 #include <shadergraph/Variant.h>
@@ -20,9 +18,6 @@ public:
     }
 
     void SetCanvas(const std::shared_ptr<ee0::WxStageCanvas>& canvas);
-
-protected:
-    virtual void OnEvalChangeed() override;
 
 private:
     std::string m_filepath;
