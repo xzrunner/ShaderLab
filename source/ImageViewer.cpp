@@ -86,7 +86,7 @@ ImageViewer::ImageViewer(const ur::Device& dev)
     m_va->SetVertexBuffer(vbuf);
 }
 
-void ImageViewer::Draw(ur::Context& ctx) const
+void ImageViewer::Draw(ur::Context& ctx, const void* scene) const
 {
     ur::DrawState ds;
     ds.program = m_shader;
@@ -94,6 +94,11 @@ void ImageViewer::Draw(ur::Context& ctx) const
     ds.vertex_array = m_va;
 
     ctx.Draw(ur::PrimitiveType::Triangles, ds, nullptr);
+}
+
+void ImageViewer::Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgram>& shader)
+{
+    m_shader = shader;
 }
 
 }

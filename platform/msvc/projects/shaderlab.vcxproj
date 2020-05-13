@@ -23,6 +23,7 @@
     <ClInclude Include="..\..\..\include\shaderlab\PinType.h" />
     <ClInclude Include="..\..\..\include\shaderlab\pin_cfg.h" />
     <ClInclude Include="..\..\..\include\shaderlab\PreviewPage.h" />
+    <ClInclude Include="..\..\..\include\shaderlab\PreviewViewer.h" />
     <ClInclude Include="..\..\..\include\shaderlab\RegistNodes.h" />
     <ClInclude Include="..\..\..\include\shaderlab\ShaderAdapter.h" />
     <ClInclude Include="..\..\..\include\shaderlab\ShaderLab.h" />

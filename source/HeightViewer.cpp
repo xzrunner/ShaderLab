@@ -18,7 +18,7 @@
 #include <painting3/ViewMatUpdater.h>
 #include <painting3/ProjectMatUpdater.h>
 
-#define ONLY_DRAW_HEIGHTMAP
+//#define ONLY_DRAW_HEIGHTMAP
 
 namespace
 {
@@ -134,7 +134,7 @@ HeightViewer::HeightViewer(const ur::Device& dev)
     InitVertBuf(dev);
 }
 
-void HeightViewer::Draw(ur::Context& ctx, const std::shared_ptr<pt3::WindowContext>& wnd) const
+void HeightViewer::Draw(ur::Context& ctx, const void* scene) const
 {
 #ifdef ONLY_DRAW_HEIGHTMAP
     ctx.SetTexture(0, m_heightmap.GetTexture());
@@ -152,20 +152,14 @@ void HeightViewer::Draw(ur::Context& ctx, const std::shared_ptr<pt3::WindowConte
     ds.render_state.depth_test.enabled = false;
     ds.render_state.facet_culling.enabled = false;
     ds.vertex_array = m_va;
-    ctx.Draw(ur::PrimitiveType::Triangles, ds, wnd.get());
+    ctx.Draw(ur::PrimitiveType::Triangles, ds, scene);
 #endif // ONLY_DRAW_HEIGHTMAP
 }
 
-void HeightViewer::SetHeightScale(float scale)
-{
-    m_height_scale = scale;
-}
-
-void HeightViewer::UpdateShader(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgram>& shader)
+void HeightViewer::Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgram>& shader)
 {
     m_heightmap.Update(ctx, shader, m_img_viewer);
-
-    m_img_viewer.SetShader(shader);
+    m_img_viewer.Update(ctx, shader);
 }
 
 void HeightViewer::InitShader(const ur::Device& dev)
@@ -312,7 +306,7 @@ Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgram>& shader, Image
     clear.color.FromRGBA(0x88000088);
     ctx.Clear(clear);
 
-    img_viewer.SetShader(shader);
+    img_viewer.Update(ctx, shader);
     img_viewer.Draw(ctx);
 
     ctx.SetFramebuffer(nullptr);

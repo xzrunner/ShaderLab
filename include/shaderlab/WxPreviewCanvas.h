@@ -1,8 +1,6 @@
 #pragma once
 
 #include "shaderlab/Evaluator.h"
-#include "shaderlab/ImageViewer.h"
-#include "shaderlab/HeightViewer.h"
 
 #include <ee3/WxStageCanvas.h>
 #include <blueprint/BackendGraph.h>
@@ -16,6 +14,7 @@ namespace shaderlab
 {
 
 class WxGraphPage;
+class PreviewViewer;
 
 class WxPreviewCanvas : public ee3::WxStageCanvas
 {
@@ -46,8 +45,7 @@ private:
     void RebuildShader();
 
 private:
-    //ImageViewer m_viewer;
-    HeightViewer m_viewer;
+    std::shared_ptr<PreviewViewer> m_viewer = nullptr;
 
     std::shared_ptr<bp::BackendGraph<shadergraph::Variant>> m_front_eval = nullptr;
     Evaluator m_eval;

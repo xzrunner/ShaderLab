@@ -88,6 +88,9 @@
     <ClInclude Include="..\..\..\include\shaderlab\HeightViewer.h">
       <Filter>view\preview\viewer</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\shaderlab\PreviewViewer.h">
+      <Filter>view\preview</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\Node.cpp">

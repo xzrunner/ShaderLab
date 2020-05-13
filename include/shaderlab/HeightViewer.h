@@ -1,5 +1,6 @@
 #pragma once
 
+#include "shaderlab/PreviewViewer.h"
 #include "shaderlab/ImageViewer.h"
 
 #include <SM_Vector.h>
@@ -8,33 +9,25 @@
 
 #include <memory>
 
-namespace ur {
-    class Device;
-    class Context;
-    class ShaderProgram;
-    class VertexArray;
-    class Framebuffer;
-}
-
 namespace pt3 { class WindowContext; }
+namespace ur { class Framebuffer; }
 
 namespace shaderlab
 {
 
-class HeightViewer
+class HeightViewer : public PreviewViewer
 {
 public:
     HeightViewer(const ur::Device& dev);
 
-    void Draw(ur::Context& ctx,
-        const std::shared_ptr<pt3::WindowContext>& wnd) const;
+    virtual void Draw(ur::Context& ctx,
+        const void* scene = nullptr) const override;
+    virtual void Update(ur::Context& ctx,
+        const std::shared_ptr<ur::ShaderProgram>& shader) override;
 
-    void SetHeightScale(float scale);
-
-    void UpdateShader(ur::Context& ctx,
-        const std::shared_ptr<ur::ShaderProgram>& shader);
-
-    auto GetShader() const { return m_shader; }
+    void SetHeightScale(float scale) {
+        m_height_scale = scale;
+    }
 
 private:
     void InitShader(const ur::Device& dev);
@@ -87,9 +80,6 @@ private:
     }; // HeightMap
 
 private:
-    std::shared_ptr<ur::ShaderProgram> m_shader = nullptr;
-    std::shared_ptr<ur::VertexArray>   m_va = nullptr;
-
     float m_height_scale = 0.2f;
 
     sm::vec3 m_light_pos = sm::vec3(1000, 1000, 0);

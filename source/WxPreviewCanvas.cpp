@@ -1,6 +1,8 @@
 #include "shaderlab/WxPreviewCanvas.h"
 #include "shaderlab/MessageID.h"
 #include "shaderlab/WxGraphPage.h"
+#include "shaderlab/ImageViewer.h"
+#include "shaderlab/HeightViewer.h"
 
 #include <ee0/WxStagePage.h>
 #include <ee0/SubjectMgr.h>
@@ -35,8 +37,9 @@ namespace shaderlab
 WxPreviewCanvas::WxPreviewCanvas(const ur::Device& dev, ee0::WxStagePage* stage,
                                  ECS_WORLD_PARAM const ee0::RenderContext& rc)
     : ee3::WxStageCanvas(dev, stage, ECS_WORLD_VAR &rc, nullptr, true)
-    , m_viewer(dev)
 {
+    m_viewer = std::make_shared<HeightViewer>(dev);
+
     auto sub_mgr = stage->GetSubjectMgr();
     sub_mgr->RegisterObserver(MSG_SHADER_CHANGED, this);
 }
@@ -81,12 +84,12 @@ void WxPreviewCanvas::DrawForeground3D() const
 
 void WxPreviewCanvas::DrawForeground2D() const
 {
-    auto shader = m_viewer.GetShader();
+    auto shader = m_viewer->GetShader();
     auto model_updater = shader->QueryUniformUpdater(ur::GetUpdaterTypeID<pt0::ModelMatUpdater>());
     if (model_updater) {
         std::static_pointer_cast<pt0::ModelMatUpdater>(model_updater)->Update(sm::mat4());
     }
-    m_viewer.Draw(*GetRenderContext().ur_ctx, GetWidnowContext().wc3);
+    m_viewer->Draw(*GetRenderContext().ur_ctx, GetWidnowContext().wc3.get());
 }
 
 void WxPreviewCanvas::OnTimer()
@@ -112,7 +115,7 @@ void WxPreviewCanvas::RebuildShader()
     });
 
     auto shader = m_eval.BuildShader(m_dev, vs, nodes);
-    m_viewer.UpdateShader(*GetRenderContext().ur_ctx, shader);
+    m_viewer->Update(*GetRenderContext().ur_ctx, shader);
 }
 
 }
