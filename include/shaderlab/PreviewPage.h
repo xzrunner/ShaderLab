@@ -19,7 +19,6 @@ class PreviewPage : public ee0::Observer
 public:
     PreviewPage(const ur::Device& dev, ee0::WxStagePage& stage_page,
         const ee0::RenderContext& rc);
-    virtual ~PreviewPage();
 
     virtual void OnNotify(uint32_t msg, const ee0::VariantSet& variants) override;
 
