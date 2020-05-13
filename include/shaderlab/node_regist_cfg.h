@@ -154,3 +154,42 @@
 #define PARM_NODE_CLASS FragmentShader
 #define PARM_NODE_NAME frag_shader
 #include EXE_FILEPATH
+
+//////////////////////////////////////////////////////////////////////////
+// uv
+//////////////////////////////////////////////////////////////////////////
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS Flipbook
+#define PARM_NODE_NAME flipbook
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS PolarCoordinates
+#define PARM_NODE_NAME polar_coordinates
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS RadialShear
+#define PARM_NODE_NAME radial_shear
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS Rotate
+#define PARM_NODE_NAME rotate
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS Spherize
+#define PARM_NODE_NAME spherize
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS TilingAndOffset
+#define PARM_NODE_NAME tiling_and_offset
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS Twirl
+#define PARM_NODE_NAME twirl
+#include EXE_FILEPATH
