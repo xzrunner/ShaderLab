@@ -34,6 +34,9 @@
     <Filter Include="view\preview\viewer">
       <UniqueIdentifier>{9736a741-2e44-4ddc-83ca-04e1cb2aebbb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="view\toolbar">
+      <UniqueIdentifier>{a7d60cef-8c19-4cfb-ae82-ad3253371a70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\shaderlab\Node.h">
@@ -91,6 +94,9 @@
     <ClInclude Include="..\..\..\include\shaderlab\PreviewViewer.h">
       <Filter>view\preview</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\shaderlab\WxDefaultProperty.h">
+      <Filter>view\toolbar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\Node.cpp">
@@ -126,6 +132,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\HeightViewer.cpp">
       <Filter>view\preview\viewer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\WxDefaultProperty.cpp">
+      <Filter>view\toolbar</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

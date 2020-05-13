@@ -38,7 +38,8 @@ WxPreviewCanvas::WxPreviewCanvas(const ur::Device& dev, ee0::WxStagePage* stage,
                                  ECS_WORLD_PARAM const ee0::RenderContext& rc)
     : ee3::WxStageCanvas(dev, stage, ECS_WORLD_VAR &rc, nullptr, true)
 {
-    m_viewer = std::make_shared<HeightViewer>(dev);
+    m_viewers[VIEWER_IMAGE] = std::make_shared<ImageViewer>(dev);
+    m_viewers[VIEWER_HEIGHT] = std::make_shared<HeightViewer>(dev);
 
     auto sub_mgr = stage->GetSubjectMgr();
     sub_mgr->RegisterObserver(MSG_SHADER_CHANGED, this);
@@ -84,12 +85,12 @@ void WxPreviewCanvas::DrawForeground3D() const
 
 void WxPreviewCanvas::DrawForeground2D() const
 {
-    auto shader = m_viewer->GetShader();
+    auto shader = m_viewers[m_viewer_type]->GetShader();
     auto model_updater = shader->QueryUniformUpdater(ur::GetUpdaterTypeID<pt0::ModelMatUpdater>());
     if (model_updater) {
         std::static_pointer_cast<pt0::ModelMatUpdater>(model_updater)->Update(sm::mat4());
     }
-    m_viewer->Draw(*GetRenderContext().ur_ctx, GetWidnowContext().wc3.get());
+    m_viewers[m_viewer_type]->Draw(*GetRenderContext().ur_ctx, GetWidnowContext().wc3.get());
 }
 
 void WxPreviewCanvas::OnTimer()
@@ -115,7 +116,9 @@ void WxPreviewCanvas::RebuildShader()
     });
 
     auto shader = m_eval.BuildShader(m_dev, vs, nodes);
-    m_viewer->Update(*GetRenderContext().ur_ctx, shader);
+    for (auto& viewer : m_viewers) {
+        viewer->Update(*GetRenderContext().ur_ctx, shader);
+    }
 }
 
 }

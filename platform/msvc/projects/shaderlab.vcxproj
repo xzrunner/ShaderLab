@@ -27,6 +27,7 @@
     <ClInclude Include="..\..\..\include\shaderlab\RegistNodes.h" />
     <ClInclude Include="..\..\..\include\shaderlab\ShaderAdapter.h" />
     <ClInclude Include="..\..\..\include\shaderlab\ShaderLab.h" />
+    <ClInclude Include="..\..\..\include\shaderlab\WxDefaultProperty.h" />
     <ClInclude Include="..\..\..\include\shaderlab\WxGraphCanvas.h" />
     <ClInclude Include="..\..\..\include\shaderlab\WxGraphPage.h" />
     <ClInclude Include="..\..\..\include\shaderlab\WxPreviewCanvas.h" />
@@ -41,6 +42,7 @@
     <ClCompile Include="..\..\..\source\RegistNodes.cpp" />
     <ClCompile Include="..\..\..\source\ShaderAdapter.cpp" />
     <ClCompile Include="..\..\..\source\ShaderLab.cpp" />
+    <ClCompile Include="..\..\..\source\WxDefaultProperty.cpp" />
     <ClCompile Include="..\..\..\source\WxGraphCanvas.cpp" />
     <ClCompile Include="..\..\..\source\WxGraphPage.cpp" />
     <ClCompile Include="..\..\..\source\WxPreviewCanvas.cpp" />
