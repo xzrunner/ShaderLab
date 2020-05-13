@@ -5,15 +5,10 @@
 #include <ee0/WxStagePage.h>
 #include <ee0/SubjectMgr.h>
 
-#include <unirender/Device.h>
-#include <unirender/Context.h>
-#include <unirender/IndexBuffer.h>
-#include <unirender/VertexBuffer.h>
-#include <unirender/VertexArray.h>
-#include <unirender/VertexBufferAttribute.h>
-#include <unirender/ComponentDataType.h>
-#include <unirender/DrawState.h>
-#include <unirender/Factory.h>
+#include <unirender/ShaderProgram.h>
+#include <painting0/ModelMatUpdater.h>
+#include <painting3/ViewMatUpdater.h>
+#include <painting3/ProjectMatUpdater.h>
 
 namespace
 {
@@ -32,21 +27,6 @@ void main()
 }
 )";
 
-const char* fs = R"(
-#version 330 core
-out vec4 FragColor;
-
-in vec2 TexCoord;
-
-uniform sampler2D texture1;
-
-void main()
-{
-//	FragColor = texture(texture1, TexCoord);
-	FragColor = vec4(TexCoord, 0, 1);
-}
-)";
-
 }
 
 namespace shaderlab
@@ -55,11 +35,10 @@ namespace shaderlab
 WxPreviewCanvas::WxPreviewCanvas(const ur::Device& dev, ee0::WxStagePage* stage,
                                  ECS_WORLD_PARAM const ee0::RenderContext& rc)
     : ee3::WxStageCanvas(dev, stage, ECS_WORLD_VAR &rc, nullptr, true)
+    , m_viewer(dev)
 {
     auto sub_mgr = stage->GetSubjectMgr();
     sub_mgr->RegisterObserver(MSG_SHADER_CHANGED, this);
-
-    InitRenderer(dev);
 }
 
 WxPreviewCanvas::~WxPreviewCanvas()
@@ -102,12 +81,12 @@ void WxPreviewCanvas::DrawForeground3D() const
 
 void WxPreviewCanvas::DrawForeground2D() const
 {
-    ur::DrawState ds;
-    ds.program = m_shader;
-    ds.render_state = ur::DefaultRenderState2D();
-    ds.vertex_array = m_va;
-
-    GetRenderContext().ur_ctx->Draw(ur::PrimitiveType::Triangles, ds, nullptr);
+    auto shader = m_viewer.GetShader();
+    auto model_updater = shader->QueryUniformUpdater(ur::GetUpdaterTypeID<pt0::ModelMatUpdater>());
+    if (model_updater) {
+        std::static_pointer_cast<pt0::ModelMatUpdater>(model_updater)->Update(sm::mat4());
+    }
+    m_viewer.Draw(*GetRenderContext().ur_ctx, GetWidnowContext().wc3);
 }
 
 void WxPreviewCanvas::OnTimer()
@@ -115,44 +94,6 @@ void WxPreviewCanvas::OnTimer()
     m_eval.UpdateUniforms();
 
     SetDirty();
-}
-
-void WxPreviewCanvas::InitRenderer(const ur::Device& dev)
-{
-    m_shader = dev.CreateShaderProgram(vs, fs);
-    m_va = dev.CreateVertexArray();
-
-    auto usage = ur::BufferUsageHint::StaticDraw;
-
-    auto ibuf = dev.CreateIndexBuffer(usage, 0);
-    auto ibuf_sz = sizeof(unsigned short) * 6;
-    const unsigned short indices[] = { 0, 1, 2, 0, 2, 3 };
-    ibuf->Reset(ibuf_sz);
-    ibuf->ReadFromMemory(indices, ibuf_sz, 0);
-    m_va->SetIndexBuffer(ibuf);
-
-    auto vbuf = dev.CreateVertexBuffer(ur::BufferUsageHint::StaticDraw, 0);
-    auto vbuf_sz = sizeof(float) * 4 * 4;
-    vbuf->Reset(vbuf_sz);
-    sm::vec2 min(-1, -1);
-    sm::vec2 max(1, 1);
-    float vertices[] = {
-        // positions  // texture Coords
-        min.x, min.y, 0.0f, 0.0f,
-        max.x, min.y, 1.0f, 0.0f,
-        max.x, max.y, 1.0f, 1.0f,
-        min.x, max.y, 0.0f, 1.0f,
-    };
-    vbuf->ReadFromMemory(vertices, vbuf_sz, 0);
-
-    m_va->SetVertexBufferAttrs({
-        // pos
-        std::make_shared<ur::VertexBufferAttribute>(ur::ComponentDataType::Float, 2, 0, 16),
-        // uv
-        std::make_shared<ur::VertexBufferAttribute>(ur::ComponentDataType::Float, 2, 8, 16)
-    });
-
-    m_va->SetVertexBuffer(vbuf);
 }
 
 void WxPreviewCanvas::RebuildShader()
@@ -170,8 +111,8 @@ void WxPreviewCanvas::RebuildShader()
         return true;
     });
 
-    m_eval.BuildShader(m_dev, vs, nodes);
-    m_shader = m_eval.GetShader();
+    auto shader = m_eval.BuildShader(m_dev, vs, nodes);
+    m_viewer.UpdateShader(*GetRenderContext().ur_ctx, shader);
 }
 
 }

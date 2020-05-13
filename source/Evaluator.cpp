@@ -14,8 +14,9 @@
 namespace shaderlab
 {
 
-void Evaluator::BuildShader(const ur::Device& dev, const std::string& vs,
-                            const std::vector<bp::NodePtr>& nodes)
+std::shared_ptr<ur::ShaderProgram>
+Evaluator::BuildShader(const ur::Device& dev, const std::string& vs,
+                       const std::vector<bp::NodePtr>& nodes)
 {
     assert(m_front_eval);
 
@@ -39,12 +40,12 @@ void Evaluator::BuildShader(const ur::Device& dev, const std::string& vs,
     }
 
     if (code.empty()) {
-        return;
+        return nullptr;
     }
 
     m_shader = dev.CreateShaderProgram(vs, code);
     if (!m_shader->CheckStatus()) {
-        return;
+        return nullptr;
     }
 
     for (auto& node : nodes)
@@ -67,6 +68,8 @@ void Evaluator::BuildShader(const ur::Device& dev, const std::string& vs,
     }
 
     UpdateUniforms();
+
+    return m_shader;
 }
 
 void Evaluator::UpdateUniforms()

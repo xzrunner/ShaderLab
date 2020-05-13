@@ -20,11 +20,10 @@ public:
         m_front_eval = front_eval;
     }
 
-    void BuildShader(const ur::Device& dev, const std::string& vs,
-        const std::vector<bp::NodePtr>& nodes);
+    std::shared_ptr<ur::ShaderProgram>
+        BuildShader(const ur::Device& dev, const std::string& vs,
+            const std::vector<bp::NodePtr>& nodes);
     void UpdateUniforms();
-
-    auto& GetShader() const { return m_shader; }
 
 private:
     std::shared_ptr<bp::BackendGraph<shadergraph::Variant>> m_front_eval = nullptr;

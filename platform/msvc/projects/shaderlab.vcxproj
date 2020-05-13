@@ -12,6 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\shaderlab\Evaluator.h" />
+    <ClInclude Include="..\..\..\include\shaderlab\HeightViewer.h" />
+    <ClInclude Include="..\..\..\include\shaderlab\ImageViewer.h" />
     <ClInclude Include="..\..\..\include\shaderlab\MessageID.h" />
     <ClInclude Include="..\..\..\include\shaderlab\Node.h" />
     <ClInclude Include="..\..\..\include\shaderlab\node_def_gen.h" />
@@ -30,6 +32,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\Evaluator.cpp" />
+    <ClCompile Include="..\..\..\source\HeightViewer.cpp" />
+    <ClCompile Include="..\..\..\source\ImageViewer.cpp" />
     <ClCompile Include="..\..\..\source\Node.cpp" />
     <ClCompile Include="..\..\..\source\PinCallback.cpp" />
     <ClCompile Include="..\..\..\source\PreviewPage.cpp" />
