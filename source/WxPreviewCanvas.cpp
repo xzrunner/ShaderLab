@@ -86,9 +86,12 @@ void WxPreviewCanvas::DrawForeground3D() const
 void WxPreviewCanvas::DrawForeground2D() const
 {
     auto shader = m_viewers[m_viewer_type]->GetShader();
-    auto model_updater = shader->QueryUniformUpdater(ur::GetUpdaterTypeID<pt0::ModelMatUpdater>());
-    if (model_updater) {
-        std::static_pointer_cast<pt0::ModelMatUpdater>(model_updater)->Update(sm::mat4());
+    if (shader)
+    {
+        auto model_updater = shader->QueryUniformUpdater(ur::GetUpdaterTypeID<pt0::ModelMatUpdater>());
+        if (model_updater) {
+            std::static_pointer_cast<pt0::ModelMatUpdater>(model_updater)->Update(sm::mat4());
+        }
     }
     m_viewers[m_viewer_type]->Draw(*GetRenderContext().ur_ctx, GetWidnowContext().wc3.get());
 }
