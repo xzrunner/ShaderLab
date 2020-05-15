@@ -60,6 +60,15 @@
 #include EXE_FILEPATH
 
 //////////////////////////////////////////////////////////////////////////
+// master
+//////////////////////////////////////////////////////////////////////////
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS Raymarching
+#define PARM_NODE_NAME raymarching
+#include EXE_FILEPATH
+
+//////////////////////////////////////////////////////////////////////////
 // math
 //////////////////////////////////////////////////////////////////////////
 
@@ -114,6 +123,13 @@
 #define PARM_NODE_NAME worley_noise
 #include EXE_FILEPATH
 
+// sdf
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_Primitives
+#define PARM_NODE_NAME sdf_primitives
+#include EXE_FILEPATH
+
 // shapes
 
 #define NO_PARM_FILEPATH
@@ -149,6 +165,15 @@
 //////////////////////////////////////////////////////////////////////////
 // utility
 //////////////////////////////////////////////////////////////////////////
+
+// Illumination
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS Phong
+#define PARM_NODE_NAME phong
+#include EXE_FILEPATH
+
+// shader
 
 #define NO_PARM_FILEPATH
 #define PARM_NODE_CLASS FragmentShader
