@@ -11,6 +11,22 @@
 #include <shadergraph/ValueImpl.h>
 #include <shadergraph/Block.h>
 
+namespace
+{
+
+auto back2front = [](const dag::Node<shadergraph::Variant>::Port& back) -> bp::PinDesc
+{
+    bp::PinDesc front;
+
+    front.type = shaderlab::ShaderAdapter::TypeBackToFront(back.var.type.type, 1);
+    const_cast<shadergraph::Block::Port&>(back).var.full_name = back.var.type.name;
+    front.name = back.var.full_name;
+
+    return front;
+};
+
+}
+
 namespace shaderlab
 {
 
@@ -19,46 +35,47 @@ Node::Node(const std::string& title)
 {
 }
 
-void Node::Init(const std::string& name)
+void Node::Init(const shadergraph::Block& block)
 {
-    InitPins(name);
-    InitProps(name);
+    Clear();
+
+    // pins
+    bp::BackendAdapter<shadergraph::Variant>
+        trans("shadergraph", back2front);
+    trans.InitNodePins(*this, block);
+
+    // props
+    InitProps(block.GetUniforms());
 }
 
-void Node::InitPins(const std::string& name)
+void Node::Init(const std::string& name)
 {
-    auto back2front = [](const dag::Node<shadergraph::Variant>::Port& back) -> bp::PinDesc
-    {
-        bp::PinDesc front;
+    Clear();
 
-        front.type = ShaderAdapter::TypeBackToFront(back.var.type.type, 1);
-        const_cast<shadergraph::Block::Port&>(back).var.full_name = back.var.type.name;
-        front.name = back.var.full_name;
-
-        return front;
-    };
-
+    // pins
     bp::BackendAdapter<shadergraph::Variant>
         trans("shadergraph", back2front);
     trans.InitNodePins(*this, name);
+
+    // props
+    rttr::type t = rttr::type::get_by_name("shadergraph::" + name);
+    if (t.is_valid())
+    {
+        rttr::variant var = t.create();
+        assert(var.is_valid());
+
+        auto method_uniforms = t.get_method("GetUniforms");
+        assert(method_uniforms.is_valid());
+        auto var_uniforms = method_uniforms.invoke(var);
+        assert(var_uniforms.is_valid()
+            && var_uniforms.is_type<std::vector<shadergraph::Variant>>());
+        auto& uniforms = var_uniforms.get_value<std::vector<shadergraph::Variant>>();
+        InitProps(uniforms);
+    }
 }
 
-void Node::InitProps(const std::string& name)
+void Node::InitProps(const std::vector<shadergraph::Variant>& uniforms)
 {
-    rttr::type t = rttr::type::get_by_name("shadergraph::" + name);
-    if (!t.is_valid()) {
-        return;
-    }
-
-    rttr::variant var = t.create();
-    assert(var.is_valid());
-
-    auto method_uniforms = t.get_method("GetUniforms");
-    assert(method_uniforms.is_valid());
-    auto var_uniforms = method_uniforms.invoke(var);
-    assert(var_uniforms.is_valid()
-        && var_uniforms.is_type<std::vector<shadergraph::Variant>>());
-    auto& uniforms = var_uniforms.get_value<std::vector<shadergraph::Variant>>();
     for (auto& u : uniforms)
     {
         bp::Variant var;

@@ -1,11 +1,13 @@
 #include "shaderlab/ShaderAdapter.h"
 #include "shaderlab/PinType.h"
+#include "shaderlab/node/CustomBlock.h"
 
 #include <blueprint/Pin.h>
 #include <blueprint/Node.h>
 
 #include <shadergraph/Block.h>
 #include <shadergraph/ValueImpl.h>
+#include <shadergraph/block/CustomBlock.h>
 
 #include <assert.h>
 
@@ -132,6 +134,15 @@ void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Var
                 assert(0);
             }
         }
+    }
+
+    auto type = front.get_type();
+    if (type == rttr::type::get<node::CustomBlock>())
+    {
+        auto& src = static_cast<const node::CustomBlock&>(front);
+        auto& dst = static_cast<shadergraph::block::CustomBlock&>(back);
+        dst.SetCode(src.GetCode());
+        const_cast<node::CustomBlock&>(src).Init(dst);
     }
 }
 

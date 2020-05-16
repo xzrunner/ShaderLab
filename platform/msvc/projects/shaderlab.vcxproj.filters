@@ -37,6 +37,9 @@
     <Filter Include="view\toolbar">
       <UniqueIdentifier>{a7d60cef-8c19-4cfb-ae82-ad3253371a70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="nodes">
+      <UniqueIdentifier>{83035d00-32ef-44e6-85c2-f7a1d6f8f643}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\shaderlab\Node.h">
@@ -96,6 +99,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\shaderlab\WxDefaultProperty.h">
       <Filter>view\toolbar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\shaderlab\node\CustomBlock.h">
+      <Filter>nodes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,7 @@
 #include "shaderlab/RegistNodes.h"
 
+#include "shaderlab/node/CustomBlock.h"
+
 #include <ee0/ReflectPropTypes.h>
 
 RTTR_REGISTRATION
@@ -19,6 +21,16 @@ rttr::registration::class_<shaderlab::Node>("shaderlab::node")
 #include "shaderlab/node_regist_cfg.h"
 #undef SKIP_FILE_NODE
 #undef EXE_FILEPATH
+
+
+rttr::registration::class_<shaderlab::node::CustomBlock>("shaderlab::custom_block")
+.constructor<>()
+.property("code", &shaderlab::node::CustomBlock::GetCode, &shaderlab::node::CustomBlock::SetCode)
+(
+	rttr::metadata(ee0::UIMetaInfoTag(), ee0::UIMetaInfo("Code")),
+    rttr::metadata(ee0::PropEditCodeTag(), true)
+)
+;
 
 }
 
