@@ -37,8 +37,6 @@ Node::Node(const std::string& title)
 
 void Node::Init(const shadergraph::Block& block)
 {
-    Clear();
-
     // pins
     bp::BackendAdapter<shadergraph::Variant>
         trans("shadergraph", back2front);
@@ -50,8 +48,6 @@ void Node::Init(const shadergraph::Block& block)
 
 void Node::Init(const std::string& name)
 {
-    Clear();
-
     // pins
     bp::BackendAdapter<shadergraph::Variant>
         trans("shadergraph", back2front);
