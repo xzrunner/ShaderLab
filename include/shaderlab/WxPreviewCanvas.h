@@ -55,6 +55,8 @@ protected:
 private:
     void RebuildShader();
 
+    void BuildNodePreviewShader(const bp::NodePtr& node) const;
+
 private:
     std::array<std::shared_ptr<PreviewViewer>, VIEWER_MAX_NUM> m_viewers;
     VIEWER_TYPE m_viewer_type = VIEWER_IMAGE;

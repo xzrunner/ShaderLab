@@ -103,6 +103,9 @@
     <ClInclude Include="..\..\..\include\shaderlab\node\CustomBlock.h">
       <Filter>nodes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\shaderlab\NodePreview.h">
+      <Filter>dataset\node</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\Node.cpp">
@@ -141,6 +144,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\WxDefaultProperty.cpp">
       <Filter>view\toolbar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\NodePreview.cpp">
+      <Filter>dataset\node</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

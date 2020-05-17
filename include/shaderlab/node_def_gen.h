@@ -20,6 +20,11 @@ public:
         : Node(XSTR(PARM_NODE_CLASS))
 	{
         Init(XSTR(PARM_NODE_NAME));
+#ifdef ENABLE_PREVIEW
+        SetPreview(true);
+#else
+        SetPreview(false);
+#endif // ENABLE_PREVIEW
 	}
 
 #define PARAM_INFO(id, type, name, member, default_val) \
@@ -36,3 +41,4 @@ public:
 #undef PARM_NODE_CLASS
 
 #undef NO_PARM_FILEPATH
+#undef ENABLE_PREVIEW

@@ -215,6 +215,7 @@
 #include EXE_FILEPATH
 
 #define NO_PARM_FILEPATH
+#define ENABLE_PREVIEW
 #define PARM_NODE_CLASS Twirl
 #define PARM_NODE_NAME twirl
 #include EXE_FILEPATH

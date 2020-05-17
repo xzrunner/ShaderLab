@@ -1,6 +1,7 @@
 #include "shaderlab/WxGraphCanvas.h"
 #include "shaderlab/WxGraphPage.h"
 #include "shaderlab/Node.h"
+#include "shaderlab/NodePreview.h"
 
 #include <ee0/WxStagePage.h>
 #include <ee0/SubjectMgr.h>
@@ -11,6 +12,7 @@
 #include <node2/UpdateSystem.h>
 #include <node2/RenderSystem.h>
 #include <node2/CompTransform.h>
+#include <shadergraph/Block.h>
 
 namespace shaderlab
 {
@@ -46,6 +48,24 @@ void WxGraphCanvas::DrawForeground() const
         assert(front_node);
         if (!front_node->get_type().is_derived_from<Node>()) {
             return true;
+        }
+
+        // draw preview
+        auto& sl_node = std::static_pointer_cast<Node>(front_node);
+        if (sl_node->GetPreview())
+        {
+            auto back_node = eval->QueryBackNode(*front_node);
+            assert(back_node);
+
+            n2::RenderParams rp;
+            if (obj->HasUniqueComp<n2::CompTransform>())
+            {
+                auto& ctrans = obj->GetUniqueComp<n2::CompTransform>();
+                rp.SetMatrix(ctrans.GetTrans().GetMatrix());
+            }
+
+            auto sg_block = std::static_pointer_cast<shadergraph::Block>(back_node);
+            NodePreview::Draw(m_dev, *GetRenderContext().ur_ctx, *front_node, sg_block, rp);
         }
 
 		return true;

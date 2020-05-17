@@ -3,14 +3,18 @@
 #include "shaderlab/WxGraphPage.h"
 #include "shaderlab/ImageViewer.h"
 #include "shaderlab/HeightViewer.h"
+#include "shaderlab/Node.h"
 
 #include <ee0/WxStagePage.h>
 #include <ee0/SubjectMgr.h>
+#include <blueprint/Node.h>
 
+#include <unirender/Device.h>
 #include <unirender/ShaderProgram.h>
 #include <painting0/ModelMatUpdater.h>
 #include <painting3/ViewMatUpdater.h>
 #include <painting3/ProjectMatUpdater.h>
+#include <shadergraph/block/FragmentShader.h>
 
 namespace
 {
@@ -122,6 +126,74 @@ void WxPreviewCanvas::RebuildShader()
     for (auto& viewer : m_viewers) {
         viewer->Update(*GetRenderContext().ur_ctx, shader);
     }
+
+    for (auto& bp_node : nodes) {
+        BuildNodePreviewShader(bp_node);
+    }
+}
+
+void WxPreviewCanvas::BuildNodePreviewShader(const bp::NodePtr& bp_node) const
+{
+    if (!bp_node->get_type().is_derived_from<shaderlab::Node>()) {
+        return;
+    }
+
+    auto node = std::static_pointer_cast<Node>(bp_node);
+    if (!node->GetPreview()) {
+        return;
+    }
+
+    auto back_node = m_front_eval->QueryBackNode(*node);
+    if (!back_node) {
+        return;
+    }
+
+
+    auto& src_outputs = back_node->GetExports();
+    if (src_outputs.empty()) {
+        return;
+    }
+
+    int conn_fs_idx = -1;
+    switch (src_outputs[0].var.type.type)
+    {
+    case shadergraph::VarType::Float4:
+        conn_fs_idx = static_cast<int>(shadergraph::block::FragmentShader::Input::RGBA);
+        break;
+    case shadergraph::VarType::Float3:
+        conn_fs_idx = static_cast<int>(shadergraph::block::FragmentShader::Input::RGB);
+        break;
+    case shadergraph::VarType::Float2:
+        conn_fs_idx = static_cast<int>(shadergraph::block::FragmentShader::Input::RG);
+        break;
+    case shadergraph::VarType::Float:
+        conn_fs_idx = static_cast<int>(shadergraph::block::FragmentShader::Input::Grey);
+        break;
+    }
+    if (conn_fs_idx < 0) {
+        return;
+    }
+
+    auto fs_out = std::make_shared<shadergraph::block::FragmentShader>();
+    dag::make_connecting<shadergraph::Variant>({ back_node, 0 }, { fs_out, conn_fs_idx });
+
+    shadergraph::Evaluator back_eval;
+    back_eval.Rebuild(fs_out);
+
+    back_eval.Rebuild(fs_out);
+    auto fs = back_eval.GenShaderCode();
+    if (fs.empty()) {
+        return;
+    }
+
+    auto shader = m_dev.CreateShaderProgram(vs, fs);
+    if (!shader->CheckStatus()) {
+        return;
+    }
+
+    dag::disconnect<shadergraph::Variant>({ back_node, 0 }, { fs_out, conn_fs_idx });
+
+    node->SetPreviewShader(shader);
 }
 
 }
