@@ -6,6 +6,8 @@
 // channel
 //////////////////////////////////////////////////////////////////////////
 
+#define NODES_GROUP_NAME Channel
+
 #define NO_PARM_FILEPATH
 #define PARM_NODE_CLASS Combine
 #define PARM_NODE_NAME combine
@@ -16,11 +18,15 @@
 #define PARM_NODE_NAME split
 #include EXE_FILEPATH
 
+#undef NODES_GROUP_NAME
+
 //////////////////////////////////////////////////////////////////////////
 // input
 //////////////////////////////////////////////////////////////////////////
 
 // basic
+
+#define NODES_GROUP_NAME Input-Basic
 
 #define PARM_NODE_CLASS Float
 #define PARM_NODE_NAME float1
@@ -47,7 +53,11 @@
 #define PARM_NODE_NAME time
 #include EXE_FILEPATH
 
+#undef NODES_GROUP_NAME
+
 // geometry
+
+#define NODES_GROUP_NAME Input-Geometry
 
 #define NO_PARM_FILEPATH
 #define PARM_NODE_CLASS TexCoords
@@ -59,18 +69,26 @@
 #define PARM_NODE_NAME uv
 #include EXE_FILEPATH
 
+#undef NODES_GROUP_NAME
+
 //////////////////////////////////////////////////////////////////////////
 // master
 //////////////////////////////////////////////////////////////////////////
+
+#define NODES_GROUP_NAME Master
 
 #define NO_PARM_FILEPATH
 #define PARM_NODE_CLASS Raymarching
 #define PARM_NODE_NAME raymarching
 #include EXE_FILEPATH
 
+#undef NODES_GROUP_NAME
+
 //////////////////////////////////////////////////////////////////////////
 // math
 //////////////////////////////////////////////////////////////////////////
+
+#define NODES_GROUP_NAME Math
 
 #define NO_PARM_FILEPATH
 #define PARM_NODE_CLASS Add
@@ -92,11 +110,15 @@
 #define PARM_NODE_NAME div
 #include EXE_FILEPATH
 
+#undef NODES_GROUP_NAME
+
 //////////////////////////////////////////////////////////////////////////
 // procedural
 //////////////////////////////////////////////////////////////////////////
 
 // noise
+
+#define NODES_GROUP_NAME Procedural-Noise
 
 #define NO_PARM_FILEPATH
 #define PARM_NODE_CLASS fBm
@@ -123,14 +145,22 @@
 #define PARM_NODE_NAME worley_noise
 #include EXE_FILEPATH
 
+#undef NODES_GROUP_NAME
+
 // sdf
+
+#define NODES_GROUP_NAME Procedural-SDF
 
 #define NO_PARM_FILEPATH
 #define PARM_NODE_CLASS SDF_Primitives
 #define PARM_NODE_NAME sdf_primitives
 #include EXE_FILEPATH
 
+#undef NODES_GROUP_NAME
+
 // shapes
+
+#define NODES_GROUP_NAME Procedural-Shapes
 
 #define NO_PARM_FILEPATH
 #define PARM_NODE_CLASS Checkerboard
@@ -162,9 +192,13 @@
 #define PARM_NODE_NAME rounded_rectangle
 #include EXE_FILEPATH
 
+#undef NODES_GROUP_NAME
+
 //////////////////////////////////////////////////////////////////////////
 // utility
 //////////////////////////////////////////////////////////////////////////
+
+#define NODES_GROUP_NAME Utility
 
 // Illumination
 
@@ -180,9 +214,13 @@
 #define PARM_NODE_NAME frag_shader
 #include EXE_FILEPATH
 
+#undef NODES_GROUP_NAME
+
 //////////////////////////////////////////////////////////////////////////
 // uv
 //////////////////////////////////////////////////////////////////////////
+
+#define NODES_GROUP_NAME UV
 
 #define NO_PARM_FILEPATH
 #define PARM_NODE_CLASS Flipbook
@@ -219,3 +257,5 @@
 #define PARM_NODE_CLASS Twirl
 #define PARM_NODE_NAME twirl
 #include EXE_FILEPATH
+
+#undef NODES_GROUP_NAME

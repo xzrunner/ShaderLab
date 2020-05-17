@@ -25,6 +25,10 @@ public:
 #else
         SetPreview(false);
 #endif // ENABLE_PREVIEW
+
+#ifdef NODES_GROUP_NAME
+        SetGroup(XSTR(NODES_GROUP_NAME));
+#endif // NODES_GROUP_NAME
 	}
 
 #define PARAM_INFO(id, type, name, member, default_val) \
