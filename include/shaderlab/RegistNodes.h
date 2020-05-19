@@ -2,6 +2,8 @@
 
 #include "shaderlab/Node.h"
 
+#include <shadergraph/block/Blend.h>
+
 namespace shaderlab
 {
 

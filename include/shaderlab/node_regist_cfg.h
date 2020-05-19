@@ -3,6 +3,59 @@
 #endif
 
 //////////////////////////////////////////////////////////////////////////
+// artistic
+//////////////////////////////////////////////////////////////////////////
+
+// adjustment
+
+#define NODES_GROUP_NAME Artistic-Adjustment
+
+#define PARM_NODE_CLASS ChannelMixer
+#define PARM_NODE_NAME channel_mixer
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS Contrast
+#define PARM_NODE_NAME contrast
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS Hue
+#define PARM_NODE_NAME hue
+#include EXE_FILEPATH
+
+#define PARM_NODE_CLASS InvertColors
+#define PARM_NODE_NAME invert_colors
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS ReplaceColor
+#define PARM_NODE_NAME replace_color
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS Saturation
+#define PARM_NODE_NAME saturation
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS WhiteBalance
+#define PARM_NODE_NAME white_balance
+#include EXE_FILEPATH
+
+#undef NODES_GROUP_NAME
+
+// blend
+
+#define NODES_GROUP_NAME Artistic-Blend
+
+#define PARM_NODE_CLASS Blend
+#define PARM_NODE_NAME blend
+#include EXE_FILEPATH
+
+#undef NODES_GROUP_NAME
+
+//////////////////////////////////////////////////////////////////////////
 // channel
 //////////////////////////////////////////////////////////////////////////
 
