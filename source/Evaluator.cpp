@@ -106,6 +106,28 @@ void Evaluator::UpdateUniforms()
             uniform->SetValue(&f, 1);
         }
             break;
+        case shadergraph::VarType::Float4:
+        {
+            const auto f4 = std::static_pointer_cast<shadergraph::Float4Val>(unif->var.val)->xyzw;
+            switch (uniform->GetType())
+            {
+            case ur::UniformType::Float1:
+                uniform->SetValue(f4, 1);
+                break;
+            case ur::UniformType::Float2:
+                uniform->SetValue(f4, 2);
+                break;
+            case ur::UniformType::Float3:
+                uniform->SetValue(f4, 3);
+                break;
+            case ur::UniformType::Float4:
+                uniform->SetValue(f4, 4);
+                break;
+            default:
+                assert(0);
+            }
+        }
+            break;
         default:
             assert(0);
         }
