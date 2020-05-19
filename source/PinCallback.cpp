@@ -47,6 +47,19 @@ bool can_type_cast_func(int type_from, int type_to)
         return true;
     }
 
+    if (type_from >= shaderlab::PIN_BOOL && type_from >= shaderlab::PIN_BOOL4 &&
+        type_to >= shaderlab::PIN_BOOL && type_to >= shaderlab::PIN_BOOL4) {
+        return true;
+    }
+    if (type_from >= shaderlab::PIN_INT && type_from >= shaderlab::PIN_INT4 &&
+        type_to >= shaderlab::PIN_INT && type_to >= shaderlab::PIN_INT4) {
+        return true;
+    }
+    if (type_from >= shaderlab::PIN_FLOAT && type_from >= shaderlab::PIN_FLOAT4 &&
+        type_to >= shaderlab::PIN_FLOAT && type_to >= shaderlab::PIN_FLOAT4) {
+        return true;
+    }
+
     return false;
 }
 
