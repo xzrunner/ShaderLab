@@ -55,6 +55,56 @@
 
 #undef NODES_GROUP_NAME
 
+// mask
+
+#define NODES_GROUP_NAME Artistic-Mask
+
+#define PARM_NODE_CLASS ChannelMask
+#define PARM_NODE_NAME channel_mask
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS ColorMask
+#define PARM_NODE_NAME color_mask
+#include EXE_FILEPATH
+
+#undef NODES_GROUP_NAME
+
+// normal
+
+#define NODES_GROUP_NAME Artistic-Normal
+
+#define PARM_NODE_CLASS NormalBlend
+#define PARM_NODE_NAME normal_blend
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS NormalReconstructZ
+#define PARM_NODE_NAME normal_reconstruct_z
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS NormalStrength
+#define PARM_NODE_NAME normal_strength
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS NormalUnpack
+#define PARM_NODE_NAME normal_unpack
+#include EXE_FILEPATH
+
+#undef NODES_GROUP_NAME
+
+// utility
+
+#define NODES_GROUP_NAME Artistic-Utility
+
+#define PARM_NODE_CLASS ColorspaceConversion
+#define PARM_NODE_NAME colorspace_conversion
+#include EXE_FILEPATH
+
+#undef NODES_GROUP_NAME
+
 //////////////////////////////////////////////////////////////////////////
 // channel
 //////////////////////////////////////////////////////////////////////////
@@ -66,9 +116,17 @@
 #define PARM_NODE_NAME combine
 #include EXE_FILEPATH
 
+#define PARM_NODE_CLASS Flip
+#define PARM_NODE_NAME flip
+#include EXE_FILEPATH
+
 #define NO_PARM_FILEPATH
 #define PARM_NODE_CLASS Split
 #define PARM_NODE_NAME split
+#include EXE_FILEPATH
+
+#define PARM_NODE_CLASS Swizzle
+#define PARM_NODE_NAME swizzle
 #include EXE_FILEPATH
 
 #undef NODES_GROUP_NAME

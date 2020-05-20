@@ -3,6 +3,9 @@
 #include "shaderlab/Node.h"
 
 #include <shadergraph/block/Blend.h>
+#include <shadergraph/block/NormalBlend.h>
+#include <shadergraph/block/ColorspaceConversion.h>
+#include <shadergraph/block/Swizzle.h>
 
 namespace shaderlab
 {
