@@ -139,6 +139,14 @@
 
 #define NODES_GROUP_NAME Input-Basic
 
+#define PARM_NODE_CLASS Bool
+#define PARM_NODE_NAME bool
+#include EXE_FILEPATH
+
+#define PARM_NODE_CLASS Constant
+#define PARM_NODE_NAME constant
+#include EXE_FILEPATH
+
 #define PARM_NODE_CLASS Float
 #define PARM_NODE_NAME float1
 #include EXE_FILEPATH
@@ -182,11 +190,42 @@
 
 #undef NODES_GROUP_NAME
 
+// gradient
+
+#define NODES_GROUP_NAME Input-Gradient
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS Blackbody
+#define PARM_NODE_NAME blackbody
+#include EXE_FILEPATH
+
+#undef NODES_GROUP_NAME
+
+// texture
+
+#define NODES_GROUP_NAME Input-Texture
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SampleTexture2D
+#define PARM_NODE_NAME sample_texture2d
+#include EXE_FILEPATH
+
+//#define PARM_NODE_CLASS Texture2DAsset
+//#define PARM_NODE_NAME texture2d_asset
+//#include EXE_FILEPATH
+
+#undef NODES_GROUP_NAME
+
 //////////////////////////////////////////////////////////////////////////
 // master
 //////////////////////////////////////////////////////////////////////////
 
 #define NODES_GROUP_NAME Master
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS PBR
+#define PARM_NODE_NAME pbr
+#include EXE_FILEPATH
 
 #define NO_PARM_FILEPATH
 #define PARM_NODE_CLASS Raymarching

@@ -133,6 +133,9 @@ void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Var
             case shadergraph::VarType::Float4:
                 memcpy(std::static_pointer_cast<shadergraph::Float4Val>(u_var.val)->xyzw, s.f4, sizeof(float) * 4);
                 break;
+            case shadergraph::VarType::Array:
+                // todo
+                break;
             default:
                 assert(0);
             }

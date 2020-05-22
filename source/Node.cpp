@@ -113,6 +113,11 @@ void Node::InitProps(const std::vector<shadergraph::Variant>& uniforms)
             memcpy(var.f4, src->xyzw, sizeof(var.f4));
         }
             break;
+        case shadergraph::VarType::Array:
+        {
+            // todo
+        }
+            break;
         default:
             assert(0);
         }

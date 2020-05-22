@@ -6,6 +6,7 @@
 #include <shadergraph/block/NormalBlend.h>
 #include <shadergraph/block/ColorspaceConversion.h>
 #include <shadergraph/block/Swizzle.h>
+#include <shadergraph/block/Constant.h>
 
 namespace shaderlab
 {
