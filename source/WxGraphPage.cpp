@@ -2,6 +2,8 @@
 #include "shaderlab/MessageID.h"
 #include "shaderlab/ShaderAdapter.h"
 
+#include <ee0/WxStageCanvas.h>
+
 #include <boost/filesystem.hpp>
 
 namespace shaderlab
@@ -11,9 +13,11 @@ WxGraphPage::WxGraphPage(const ur::Device& dev, wxWindow* parent, const ee0::Gam
                          const ee0::SubjectMgrPtr& preview_sub_mgr)
     : bp::WxGraphPage<shadergraph::Variant>(parent, root, preview_sub_mgr, MSG_SHADER_CHANGED, "shadergraph", "shaderlab")
 {
-    m_eval->SetFront2BackCB([&](const bp::Node& front, dag::Node<shadergraph::Variant>& back) {
+    m_eval->SetFront2BackCB([&](const bp::Node& front, dag::Node<shadergraph::Variant>& back)
+    {
         auto dir = boost::filesystem::path(m_filepath).parent_path().string();
-        ShaderAdapter::Front2Back(front, back, dir);
+        auto& dev = GetImpl().GetCanvas()->GetRenderDevice();
+        ShaderAdapter::Front2Back(front, back, dir, dev);
     });
 }
 

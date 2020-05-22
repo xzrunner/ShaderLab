@@ -1,8 +1,11 @@
 #include "shaderlab/RegistNodes.h"
 
 #include "shaderlab/node/CustomBlock.h"
+#include "shaderlab/node/Texture2DAsset.h"
 
 #include <ee0/ReflectPropTypes.h>
+
+#include <js/RTTR.h>
 
 RTTR_REGISTRATION
 {
@@ -24,12 +27,22 @@ rttr::registration::class_<shaderlab::Node>("shaderlab::node")
 
 
 rttr::registration::class_<shaderlab::node::CustomBlock>("shaderlab::custom_block")
-.constructor<>()
-.property("code", &shaderlab::node::CustomBlock::GetCode, &shaderlab::node::CustomBlock::SetCode)
-(
-	rttr::metadata(ee0::UIMetaInfoTag(), ee0::UIMetaInfo("Code")),
-    rttr::metadata(ee0::PropEditCodeTag(), true)
-)
+    .constructor<>()
+    .property("code", &shaderlab::node::CustomBlock::GetCode, &shaderlab::node::CustomBlock::SetCode)
+    (
+	    rttr::metadata(ee0::UIMetaInfoTag(), ee0::UIMetaInfo("Code")),
+        rttr::metadata(ee0::PropEditCodeTag(), true)
+    )
+;
+
+rttr::registration::class_<shaderlab::node::Texture2DAsset>("shaderlab::texture2d_asset")
+    .constructor<>()
+    .property("filepath", &shaderlab::node::Texture2DAsset::GetFilepath, &shaderlab::node::Texture2DAsset::SetFilepath)
+    (
+	    rttr::metadata(js::RTTR::FilePathTag(), true),
+	    rttr::metadata(ee0::UIMetaInfoTag(), ee0::UIMetaInfo("Filepath")),
+	    rttr::metadata(ee0::PropOpenFileTag(), ee0::PropOpenFile("*.png"))
+    )
 ;
 
 }

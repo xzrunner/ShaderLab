@@ -1,5 +1,6 @@
 #include "shaderlab/Evaluator.h"
 #include "shaderlab/Node.h"
+#include "shaderlab/node/Texture2DAsset.h"
 
 #include <unirender/Device.h>
 #include <unirender/ShaderProgram.h>
@@ -132,6 +133,31 @@ void Evaluator::UpdateUniforms()
             assert(0);
         }
     }
+}
+
+std::vector<std::pair<std::string, ur::TexturePtr>>
+Evaluator::QueryTextures(const std::vector<bp::NodePtr>& nodes) const
+{
+    std::vector<std::pair<std::string, ur::TexturePtr>> textures;
+    for (auto& node : nodes)
+    {
+        if (node->get_type() != rttr::type::get<node::Texture2DAsset>()) {
+            continue;
+        }
+
+        auto tex = std::static_pointer_cast<node::Texture2DAsset>(node)->GetTexture();
+        if (!tex) {
+            continue;
+        }
+
+        auto back_node = m_front_eval->QueryBackNode(*node);
+        assert(back_node);
+        auto block = std::static_pointer_cast<shadergraph::Block>(back_node);
+        auto name = m_back_eval.QueryRealName(&block->GetExports()[0].var.type);
+
+        textures.push_back({ name, tex });
+    }
+    return textures;
 }
 
 }

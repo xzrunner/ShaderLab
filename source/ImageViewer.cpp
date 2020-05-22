@@ -10,6 +10,7 @@
 #include <unirender/ComponentDataType.h>
 #include <unirender/DrawState.h>
 #include <unirender/Factory.h>
+#include <unirender/ShaderProgram.h>
 
 namespace
 {
@@ -89,16 +90,33 @@ ImageViewer::ImageViewer(const ur::Device& dev)
 void ImageViewer::Draw(ur::Context& ctx, const void* scene) const
 {
     ur::DrawState ds;
-    ds.program = m_shader;
+    ds.program      = m_shader;
     ds.render_state = ur::DefaultRenderState2D();
     ds.vertex_array = m_va;
+
+    for (auto& t : m_textures) {
+        ctx.SetTexture(t.first, t.second);
+    }
 
     ctx.Draw(ur::PrimitiveType::Triangles, ds, nullptr);
 }
 
-void ImageViewer::Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgram>& shader)
+void ImageViewer::Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgram>& shader,
+                         const std::vector<std::pair<std::string, ur::TexturePtr>>& textures)
 {
     m_shader = shader;
+
+    m_textures.clear();
+    if (shader)
+    {
+        for (auto& tex : textures)
+        {
+            auto slot = shader->QueryTexSlot(tex.first);
+            if (slot >= 0) {
+                m_textures.push_back({ slot, tex.second });
+            }
+        }
+    }
 }
 
 }

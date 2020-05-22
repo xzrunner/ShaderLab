@@ -22,8 +22,8 @@ public:
 
     virtual void Draw(ur::Context& ctx,
         const void* scene = nullptr) const override;
-    virtual void Update(ur::Context& ctx,
-        const std::shared_ptr<ur::ShaderProgram>& shader) override;
+    virtual void Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgram>& shader,
+        const std::vector<std::pair<std::string, ur::TexturePtr>>& textures) override;
 
     void SetHeightScale(float scale) {
         m_height_scale = scale;
@@ -66,7 +66,7 @@ private:
             int width, int height);
 
         void Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgram>& shader,
-            ImageViewer& img_viewer);
+            const std::vector<std::pair<std::string, ur::TexturePtr>>& textures, ImageViewer& img_viewer);
 
         auto GetTexture() const { return m_tex; }
 

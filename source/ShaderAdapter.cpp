@@ -1,6 +1,7 @@
 #include "shaderlab/ShaderAdapter.h"
 #include "shaderlab/PinType.h"
 #include "shaderlab/node/CustomBlock.h"
+#include "shaderlab/node/Texture2DAsset.h"
 
 #include <blueprint/Pin.h>
 #include <blueprint/Node.h>
@@ -8,6 +9,7 @@
 #include <shadergraph/Block.h>
 #include <shadergraph/ValueImpl.h>
 #include <shadergraph/block/CustomBlock.h>
+#include <shadergraph/block/Texture2DAsset.h>
 
 #include <assert.h>
 
@@ -96,7 +98,8 @@ int ShaderAdapter::TypeBackToFront(shadergraph::VarType type, int count)
     return ret;
 }
 
-void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Variant>& back, const std::string& dir)
+void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Variant>& back,
+                               const std::string& dir, const ur::Device& dev)
 {
     // update uniforms
     auto& src = front.GetProps();
@@ -143,6 +146,12 @@ void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Var
         auto& dst = static_cast<shadergraph::block::CustomBlock&>(back);
         dst.SetCode(src.GetCode());
         const_cast<node::CustomBlock&>(src).Init(dst);
+    }
+    else if (type == rttr::type::get<node::Texture2DAsset>())
+    {
+        auto& src = static_cast<const node::Texture2DAsset&>(front);
+        auto& dst = static_cast<shadergraph::block::Texture2DAsset&>(back);
+        const_cast<node::Texture2DAsset&>(src).UpdateTexture(dev);
     }
 }
 

@@ -122,9 +122,11 @@ void WxPreviewCanvas::RebuildShader()
         return true;
     });
 
+    auto textures = m_eval.QueryTextures(nodes);
+
     auto shader = m_eval.BuildShader(m_dev, vs, nodes);
     for (auto& viewer : m_viewers) {
-        viewer->Update(*GetRenderContext().ur_ctx, shader);
+        viewer->Update(*GetRenderContext().ur_ctx, shader, textures);
     }
 
     for (auto& bp_node : nodes) {

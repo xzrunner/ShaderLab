@@ -3,6 +3,7 @@
 #include <blueprint/typedef.h>
 #include <blueprint/BackendGraph.h>
 
+#include <unirender/typedef.h>
 #include <shadergraph/Variant.h>
 #include <shadergraph/Evaluator.h>
 
@@ -24,6 +25,9 @@ public:
         BuildShader(const ur::Device& dev, const std::string& vs,
             const std::vector<bp::NodePtr>& nodes);
     void UpdateUniforms();
+
+    std::vector<std::pair<std::string, ur::TexturePtr>>
+        QueryTextures(const std::vector<bp::NodePtr>& nodes) const;
 
 private:
     std::shared_ptr<bp::BackendGraph<shadergraph::Variant>> m_front_eval = nullptr;

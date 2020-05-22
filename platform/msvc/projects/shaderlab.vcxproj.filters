@@ -106,6 +106,9 @@
     <ClInclude Include="..\..\..\include\shaderlab\NodePreview.h">
       <Filter>dataset\node</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\shaderlab\node\Texture2DAsset.h">
+      <Filter>nodes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\Node.cpp">
@@ -147,6 +150,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\NodePreview.cpp">
       <Filter>dataset\node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\node\Texture2DAsset.cpp">
+      <Filter>nodes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
