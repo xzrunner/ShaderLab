@@ -85,35 +85,47 @@ void Node::InitProps(const std::vector<shadergraph::Variant>& vars)
         {
         case shadergraph::VarType::Bool:
             var.type = bp::VarType::Bool;
-            var.b = std::static_pointer_cast<shadergraph::BoolVal>(u_var.val)->x;
+            if (u_var.val) {
+                var.b = std::static_pointer_cast<shadergraph::BoolVal>(u_var.val)->x;
+            }
             break;
         case shadergraph::VarType::Int:
             var.type = bp::VarType::Int;
-            var.i = std::static_pointer_cast<shadergraph::IntVal>(u_var.val)->x;
+            if (u_var.val) {
+                var.i = std::static_pointer_cast<shadergraph::IntVal>(u_var.val)->x;
+            }
             break;
         case shadergraph::VarType::Float:
             var.type = bp::VarType::Float;
-            var.f = std::static_pointer_cast<shadergraph::FloatVal>(u_var.val)->x;
+            if (u_var.val) {
+                var.f = std::static_pointer_cast<shadergraph::FloatVal>(u_var.val)->x;
+            }
             break;
         case shadergraph::VarType::Float2:
         {
             var.type = bp::VarType::Float2;
-            auto src = std::static_pointer_cast<shadergraph::Float2Val>(u_var.val);
-            memcpy(var.f2, src->xy, sizeof(var.f2));
+            if (u_var.val) {
+                auto src = std::static_pointer_cast<shadergraph::Float2Val>(u_var.val);
+                memcpy(var.f2, src->xy, sizeof(var.f2));
+            }
         }
             break;
         case shadergraph::VarType::Float3:
         {
             var.type = bp::VarType::Float3;
-            auto src = std::static_pointer_cast<shadergraph::Float3Val>(u_var.val);
-            memcpy(var.f3, src->xyz, sizeof(var.f3));
+            if (u_var.val) {
+                auto src = std::static_pointer_cast<shadergraph::Float3Val>(u_var.val);
+                memcpy(var.f3, src->xyz, sizeof(var.f3));
+            }
         }
             break;
         case shadergraph::VarType::Float4:
         {
             var.type = bp::VarType::Float4;
-            auto src = std::static_pointer_cast<shadergraph::Float4Val>(u_var.val);
-            memcpy(var.f4, src->xyzw, sizeof(var.f4));
+            if (u_var.val) {
+                auto src = std::static_pointer_cast<shadergraph::Float4Val>(u_var.val);
+                memcpy(var.f4, src->xyzw, sizeof(var.f4));
+            }
         }
             break;
         case shadergraph::VarType::Array:
