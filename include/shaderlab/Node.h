@@ -30,7 +30,7 @@ protected:
     void Init(const std::string& name);
 
 private:
-    void InitProps(const std::vector<shadergraph::Variant>& uniforms);
+    void InitProps(const std::vector<shadergraph::Variant>& vars);
 
 private:
     bool m_preview = false;

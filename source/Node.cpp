@@ -43,7 +43,7 @@ void Node::Init(const shadergraph::Block& block)
     trans.InitNodePins(*this, block);
 
     // props
-    InitProps(block.GetUniforms());
+    InitProps(block.GetVariants());
 }
 
 void Node::Init(const std::string& name)
@@ -60,24 +60,27 @@ void Node::Init(const std::string& name)
         rttr::variant var = t.create();
         assert(var.is_valid());
 
-        auto method_uniforms = t.get_method("GetUniforms");
-        assert(method_uniforms.is_valid());
-        auto var_uniforms = method_uniforms.invoke(var);
-        assert(var_uniforms.is_valid()
-            && var_uniforms.is_type<std::vector<shadergraph::Variant>>());
-        auto& uniforms = var_uniforms.get_value<std::vector<shadergraph::Variant>>();
-        InitProps(uniforms);
+        auto method_vars = t.get_method("GetVariants");
+        assert(method_vars.is_valid());
+        auto var_vars = method_vars.invoke(var);
+        assert(var_vars.is_valid()
+            && var_vars.is_type<std::vector<shadergraph::Variant>>());
+        auto& vars = var_vars.get_value<std::vector<shadergraph::Variant>>();
+        InitProps(vars);
     }
 }
 
-void Node::InitProps(const std::vector<shadergraph::Variant>& uniforms)
+void Node::InitProps(const std::vector<shadergraph::Variant>& vars)
 {
-    for (auto& u : uniforms)
+    for (auto& v : vars)
     {
+        if (v.type != shadergraph::VarType::Uniform) {
+            continue;
+        }
+
         bp::Variant var;
-        var.name = u.name;
-        assert(u.type == shadergraph::VarType::Uniform);
-        auto u_var = std::static_pointer_cast<shadergraph::UniformVal>(u.val)->var;
+        var.name = v.name;
+        auto u_var = std::static_pointer_cast<shadergraph::UniformVal>(v.val)->var;
         switch (u_var.type)
         {
         case shadergraph::VarType::Bool:
@@ -125,7 +128,7 @@ void Node::InitProps(const std::vector<shadergraph::Variant>& uniforms)
         bp::Node::Property prop;
         prop.var = var;
 
-        for (auto& d : std::static_pointer_cast<shadergraph::UniformVal>(u.val)->desc)
+        for (auto& d : std::static_pointer_cast<shadergraph::UniformVal>(v.val)->desc)
         {
             switch (d->GetType())
             {

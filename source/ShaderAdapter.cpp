@@ -103,7 +103,7 @@ void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Var
 {
     // update uniforms
     auto& src = front.GetProps();
-    auto& dst = static_cast<shadergraph::Block&>(back).GetUniforms();
+    auto& dst = static_cast<shadergraph::Block&>(back).GetVariants();
     for (auto& s_p : src) {
         auto& s = s_p.var;
         for (auto& d : dst) {
