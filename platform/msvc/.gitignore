@@ -1,5 +1,8 @@
 shaderlab/
+shaderlab-test/
 projects/*
 
 !projects/shaderlab.vcxproj
 !projects/shaderlab.vcxproj.filters
+!projects/shaderlab-test.vcxproj
+!projects/shaderlab-test.vcxproj.filters

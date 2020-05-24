@@ -1,0 +1,356 @@
+{
+    "nodes": [
+        [
+            {
+                "position": [
+                    20.35000228881836,
+                    27.579999923706056
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": ".",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::fbm",
+                "node_val": {
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node0",
+                    "props": [
+                        {
+                            "name": "u_octaves",
+                            "type": "int",
+                            "value": 2
+                        },
+                        {
+                            "name": "u_lacunarity",
+                            "type": "float",
+                            "value": 1.600000023841858
+                        },
+                        {
+                            "name": "u_gain",
+                            "type": "float",
+                            "value": 0.6000000238418579
+                        }
+                    ]
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "ret",
+                        "to": [
+                            {
+                                "node_idx": 2,
+                                "pin": "r"
+                            }
+                        ]
+                    },
+                    {
+                        "from": "fBm",
+                        "to": []
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    -197.34999084472657,
+                    -44.56999969482422
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": ".",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::worley_noise",
+                "node_val": {
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node1",
+                    "props": [
+                        {
+                            "name": "u_seed",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "u_dist_op",
+                            "type": "int",
+                            "value": 0
+                        },
+                        {
+                            "name": "u_features_mode",
+                            "type": "int",
+                            "value": 0
+                        },
+                        {
+                            "name": "u_manhattan_scale",
+                            "type": "float",
+                            "value": 0.5000000596046448
+                        }
+                    ]
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "ret",
+                        "to": []
+                    },
+                    {
+                        "from": "worley_cells",
+                        "to": [
+                            {
+                                "node_idx": 0,
+                                "pin": "f_noise"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    184.449951171875,
+                    9.126340866088868
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": ".",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::combine",
+                "node_val": {
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node2",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "rgba",
+                        "to": [
+                            {
+                                "node_idx": 3,
+                                "pin": "rgba"
+                            }
+                        ]
+                    },
+                    {
+                        "from": "rgb",
+                        "to": []
+                    },
+                    {
+                        "from": "rg",
+                        "to": []
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    346.5522766113281,
+                    39.28303527832031
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": ".",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::frag_shader",
+                "node_val": {
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node3",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "col",
+                        "to": []
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    -262.9986267089844,
+                    120.61090850830078
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": ".",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::uv",
+                "node_val": {
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node4",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "uv",
+                        "to": [
+                            {
+                                "node_idx": 5,
+                                "pin": "a"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    -123.16897583007813,
+                    91.6835708618164
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::mul",
+                "node_val": {
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node5",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "mul",
+                        "to": [
+                            {
+                                "node_idx": 0,
+                                "pin": "st"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    -256.198974609375,
+                    67.80357360839844
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::float1",
+                "node_val": {
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node6",
+                    "val": 5.0,
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "f",
+                        "to": [
+                            {
+                                "node_idx": 5,
+                                "pin": "b"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    ],
+    "comp_type": "n0_complex",
+    "page_type": "render_graph"
+}

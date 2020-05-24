@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\anim\platform\msvc\projects\anim.vcxproj">
+      <Project>{8f1c8db8-6b46-40c8-9acf-e6ad237e47d4}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\aseimp\platform\msvc\projects\aseimp.vcxproj">
+      <Project>{740f5bec-36f1-4dba-ae91-8f9afb782305}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\blueprint\platform\msvc\projects\blueprint.vcxproj">
+      <Project>{6f9a7d73-3025-43e1-8f6f-69558c7d3b9f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\bs\platform\msvc\projects\bs.vcxproj">
+      <Project>{f5e6ae49-23dc-421b-ad33-c422e8590520}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\cpputil\platform\msvc\projects\cpputil.vcxproj">
+      <Project>{bbf1c418-2ee6-4059-bad6-be93a7ce5b90}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\ds\platform\msvc\projects\ds.vcxproj">
+      <Project>{e6044d31-8304-4854-99ac-cbef18b9e7d3}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\dtex\platform\msvc\projects\dtex.vcxproj">
+      <Project>{a709822d-aa0b-4d52-a609-c6e24a7398d8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\easyeditor0\platform\msvc\projects\easyeditor0.vcxproj">
+      <Project>{9a81990c-3c18-4adf-a9eb-46990625c107}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\emitter\platform\msvc\projects\emitter.vcxproj">
+      <Project>{dbef5985-8371-4d60-bde1-0cd58f8017f8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\facade\platform\msvc\projects\facade.vcxproj">
+      <Project>{2370b721-44d7-4c75-82a3-0da31b485cf0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\fs\platform\msvc\projects\fs.vcxproj">
+      <Project>{09c39b9e-27f5-4b39-9829-2815fd1c5469}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\geoshape\platform\msvc\projects\geoshape.vcxproj">
+      <Project>{9a710155-9500-4166-a566-9d6e59f68d0a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\gimg\platform\msvc\projects\gimg.vcxproj">
+      <Project>{d1acc0be-3a2b-450f-a708-f3e84df5e5ad}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\gtxt\platform\msvc\projects\gtxt.vcxproj">
+      <Project>{eb4f1ee0-cb3b-4b2e-9655-a8e22f948575}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\guard\platform\msvc\projects\guard.vcxproj">
+      <Project>{cc45ae0e-8c51-4759-9614-8bc321c565a0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\halfedge\platform\msvc\projects\halfedge.vcxproj">
+      <Project>{d9b1b541-5bcc-4a5f-8a7a-2ced3cead3dd}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\js\platform\msvc\projects\js.vcxproj">
+      <Project>{68c18da9-79bb-43a5-9e0c-79740aea954b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\lexer\platform\msvc\projects\lexer.vcxproj">
+      <Project>{7719a1d1-af73-4e1d-bd99-e9b706195639}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\logger\platform\msvc\projects\logger.vcxproj">
+      <Project>{4031b66e-39a3-401e-918a-e1424a4af944}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\memmgr\platform\msvc\projects\memmgr.vcxproj">
+      <Project>{5ffa0de4-1489-4267-8a79-52decc2d0351}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\model\platform\msvc\projects\model.vcxproj">
+      <Project>{4aba57ff-958f-4077-9010-b25fc862469b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\moon\platform\msvc\projects\moon.vcxproj">
+      <Project>{9fb05942-dcae-4a6f-8f99-86e20de9dfcc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\node0\platform\msvc\projects\node0.vcxproj">
+      <Project>{7f41d3ce-ef51-43b9-a6ac-8c3df4894430}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\node2\platform\msvc\projects\node2.vcxproj">
+      <Project>{88574804-351f-4308-bd45-e33f503fdd70}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\node3\platform\msvc\projects\node3.vcxproj">
+      <Project>{6030cf6b-1a8b-421b-92ce-4eb965751636}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\nserializer\platform\msvc\projects\nserializer.vcxproj">
+      <Project>{8b91994c-018b-4664-b615-a1eac669ca5c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\painting0\platform\msvc\projects\painting0.vcxproj">
+      <Project>{ac2cad0c-553d-4fb9-a1a8-c206e59e021a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\painting2\platform\msvc\projects\painting2.vcxproj">
+      <Project>{18829913-b301-424c-8cd8-d95773038029}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\painting3\platform\msvc\projects\painting3.vcxproj">
+      <Project>{0ba2f6ef-159c-4330-8a7b-74c931cff5f9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\polymesh3\platform\msvc\projects\polymesh3.vcxproj">
+      <Project>{779d12aa-fd47-4705-baf4-67bf84e9a8f2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\primitive\platform\msvc\projects\primitive.vcxproj">
+      <Project>{6cf78ba8-18da-48a8-a7de-c766f32b7a2d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\ps\platform\msvc\projects\ps.vcxproj">
+      <Project>{ee2229a3-ad5f-46e7-afab-729f8aa18036}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\quake\platform\msvc\projects\quake.vcxproj">
+      <Project>{e12e3322-1408-4380-8219-659c02b2020c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\renderpipeline\platform\msvc\projects\renderpipeline.vcxproj">
+      <Project>{1cbd9e7e-98c6-4d18-ac91-7683c4ab23fc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\serializerx\platform\msvc\projects\serializerx.vcxproj">
+      <Project>{e8c6ffa3-644e-45c9-be61-8633db5202f9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\shadergraph\platform\msvc\projects\shadergraph.vcxproj">
+      <Project>{aa04f36c-3055-477e-bd99-e39c745b3321}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\shaderweaver\platform\msvc\projects\shaderweaver.vcxproj">
+      <Project>{cb558c48-c50c-433b-acf6-4ab1c306a11a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\sm\platform\msvc\projects\sm.vcxproj">
+      <Project>{81630e0d-e1ef-4837-a0ee-30435ed4fe59}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\stat\platform\msvc\projects\stat.vcxproj">
+      <Project>{16868cde-6def-4136-8cc8-75212f34462e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\tessellation\platform\msvc\projects\tessellation.vcxproj">
+      <Project>{ab13923f-a55d-4366-8587-677733707c60}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\texpack\platform\msvc\projects\texpack.vcxproj">
+      <Project>{a7737c76-5221-47a5-86b7-84bd56c47730}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\unirender\platform\msvc\projects\unirender.vcxproj">
+      <Project>{637a0e9c-1867-459d-8611-65a064e3b2c2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\volume\platform\msvc\projects\volume.vcxproj">
+      <Project>{e9e3c6d8-5b33-4afc-b1a1-0c1541bf8ddf}</Project>
+    </ProjectReference>
+    <ProjectReference Include="shaderlab.vcxproj">
+      <Project>{7eed0027-ae99-415f-b4da-e51bf361d246}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\test\test.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>0.shaderlab-test</ProjectName>
+    <ProjectGuid>{560AEA65-967A-4D7D-A1D2-A6F21D8AAE3D}</ProjectGuid>
+    <RootNamespace>shaderlab-test</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>15.0.26730.12</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\shaderlab-test\x86\Debug\</OutDir>
+    <IntDir>..\shaderlab-test\x86\Debug\obj\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\shaderlab-test\x86\Release\</OutDir>
+    <IntDir>..\shaderlab-test\x86\Release\obj\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\gimg\src\gimg;..\..\..\..\guard\include;..\..\..\..\dag\include;..\..\..\..\serializerx\include;..\..\..\..\memmgr\include;..\..\..\..\nserializer\include;..\..\..\..\js\include;..\..\..\..\primitive\include;..\..\..\..\geoshape\include;..\..\..\..\node0\include;..\..\..\..\painting0\include;..\..\..\..\unirender\include;..\..\..\..\facade\include;..\..\..\..\shadergraph\include;..\..\..\..\easyeditor0\include;..\..\..\..\blueprint\include;..\..\..\..\external\catch\include;..\..\..\..\external\rttr\include;..\..\..\..\external\boost\include;..\..\..\..\external\gl\include;..\..\..\..\external\glfw\include;..\..\..\..\external\rapidjson\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;__STDC_LIMIT_MACROS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>..\..\..\..\external\boost\lib;..\..\..\..\external\rttr\lib;..\..\..\..\external\gl\lib;..\..\..\..\external\glfw\lib;..\..\..\..\external\lua\lib;..\..\..\..\external\fbxsdk\lib;..\..\..\..\external\assimp\lib;..\..\..\..\external\tbb\lib;..\..\..\..\external\libjpeg\lib;..\..\..\..\external\libpng\lib;..\..\..\..\external\zlib\lib;..\..\..\..\external\openvdb\lib;..\..\..\..\external\OpenEXR\lib;..\..\..\..\external\freetype\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>rttr_core_d.lib;OpenGL32.lib;glew32sd.lib;glfw3d.lib;lua.lib;libfbxsdk.lib;assimp-vc140-mtd.lib;jpeg.lib;libpng16.lib;zlib.lib;openvdbd.lib;Half-2_3.lib;freetype281d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\gimg\src\gimg;..\..\..\..\guard\include;..\..\..\..\dag\include;..\..\..\..\serializerx\include;..\..\..\..\memmgr\include;..\..\..\..\nserializer\include;..\..\..\..\js\include;..\..\..\..\primitive\include;..\..\..\..\geoshape\include;..\..\..\..\node0\include;..\..\..\..\painting0\include;..\..\..\..\unirender\include;..\..\..\..\facade\include;..\..\..\..\shadergraph\include;..\..\..\..\easyeditor0\include;..\..\..\..\blueprint\include;..\..\..\..\external\catch\include;..\..\..\..\external\rttr\include;..\..\..\..\external\boost\include;..\..\..\..\external\gl\include;..\..\..\..\external\glfw\include;..\..\..\..\external\rapidjson\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;__STDC_LIMIT_MACROS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\..\..\..\external\boost\lib;..\..\..\..\external\rttr\lib;..\..\..\..\external\gl\lib;..\..\..\..\external\glfw\lib;..\..\..\..\external\lua\lib;..\..\..\..\external\fbxsdk\lib;..\..\..\..\external\assimp\lib;..\..\..\..\external\tbb\lib;..\..\..\..\external\libjpeg\lib;..\..\..\..\external\libpng\lib;..\..\..\..\external\zlib\lib;..\..\..\..\external\openvdb\lib;..\..\..\..\external\OpenEXR\lib;..\..\..\..\external\freetype\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>rttr_core.lib;OpenGL32.lib;glew32s.lib;glfw3.lib;lua.lib;libfbxsdk.lib;assimp-vc140-mt.lib;jpeg.lib;libpng16.lib;zlib.lib;openvdb.lib;Half-2_3.lib;freetype281.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
