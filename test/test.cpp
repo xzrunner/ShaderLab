@@ -280,6 +280,11 @@ void test_file(const ur::Device& dev, ur::Context& ctx,
     ctx.SetFramebuffer(rt);
     ctx.SetViewport(0, 0, TEX_SIZE, TEX_SIZE);
 
+    ur::ClearState clear;
+    clear.buffers = ur::ClearBuffers::ColorAndDepthBuffer;
+    clear.color.FromRGBA(0x88888888);
+    ctx.Clear(clear);
+
     ur::DrawState ds;
     ds.program      = shader;
     ds.render_state = ur::DefaultRenderState2D();
