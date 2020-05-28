@@ -26,6 +26,9 @@
     <ProjectReference Include="..\..\..\..\cpputil\platform\msvc\projects\cpputil.vcxproj">
       <Project>{bbf1c418-2ee6-4059-bad6-be93a7ce5b90}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\cslang\platform\msvc\projects\cslang.vcxproj">
+      <Project>{7bad2f78-e25a-481e-87bd-d10ce3fc7586}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\ds\platform\msvc\projects\ds.vcxproj">
       <Project>{e6044d31-8304-4854-99ac-cbef18b9e7d3}</Project>
     </ProjectReference>
