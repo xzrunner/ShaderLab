@@ -29,6 +29,7 @@
 #include <blueprint/CompNode.h>
 #include <blueprint/NSCompNode.h>
 #include <shaderlab/ShaderLab.h>
+#include <shaderlab/ShaderAdapter.h>
 #include <shaderlab/Node.h>
 #include <shaderlab/node/Texture2DAsset.h>
 
@@ -100,8 +101,8 @@ bool init_gl()
 	return true;
 }
 
-void setup_nodes(const std::vector<n0::SceneNodePtr>& nodes,
-                 std::vector<bp::NodePtr>& front_nodes,
+void setup_nodes(const ur::Device& dev, const std::string& dir,
+                 const std::vector<n0::SceneNodePtr>& nodes, std::vector<bp::NodePtr>& front_nodes,
                  std::vector<std::shared_ptr<dag::Node<shadergraph::Variant>>>& back_nodes)
 {
     for (int i = 0, n = nodes.size(); i < n; ++i)
@@ -148,6 +149,8 @@ void setup_nodes(const std::vector<n0::SceneNodePtr>& nodes,
                 dst_prop.set_value(back, src_prop.get_value(front));
             }
         }
+
+        shaderlab::ShaderAdapter::Front2Back(*front, *back, dir, dev);
 
         back_nodes[i] = back;
     }
@@ -265,6 +268,8 @@ void test_file(const ur::Device& dev, ur::Context& ctx,
                const std::shared_ptr<ur::Framebuffer>& rt,
                const std::string& filepath)
 {
+    auto dir = boost::filesystem::path(filepath).parent_path().string();
+
     auto root = ns::NodeFactory::Create(dev, filepath);
 
     auto& ccomplex = root->GetSharedComp<n0::CompComplex>();
@@ -272,7 +277,7 @@ void test_file(const ur::Device& dev, ur::Context& ctx,
 
     std::vector<bp::NodePtr> front_nodes(children.size(), nullptr);
     std::vector<std::shared_ptr<dag::Node<shadergraph::Variant>>> back_nodes(children.size(), nullptr);
-    setup_nodes(children, front_nodes, back_nodes);
+    setup_nodes(dev, dir, children, front_nodes, back_nodes);
     setup_connections(filepath, children, front_nodes, back_nodes);
 
     std::vector<std::pair<size_t, ur::TexturePtr>> textures;
