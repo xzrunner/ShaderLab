@@ -25,6 +25,8 @@ public:
         BuildShader(const ur::Device& dev, const std::string& vs,
             const std::vector<bp::NodePtr>& nodes);
     void UpdateUniforms();
+    static void UpdateUniforms(const shadergraph::Evaluator& back_eval,
+        const std::shared_ptr<ur::ShaderProgram>& shader);
 
     std::vector<std::pair<std::string, ur::TexturePtr>>
         QueryTextures(const std::vector<bp::NodePtr>& nodes) const;

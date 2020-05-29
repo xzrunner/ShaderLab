@@ -68,17 +68,23 @@ Evaluator::BuildShader(const ur::Device& dev, const std::string& vs,
         }
     }
 
-    UpdateUniforms();
+    UpdateUniforms(m_back_eval, m_shader);
 
     return m_shader;
 }
 
 void Evaluator::UpdateUniforms()
 {
-    auto uniforms = m_back_eval.CalcUniformValues();
+    UpdateUniforms(m_back_eval, m_shader);
+}
+
+void Evaluator::UpdateUniforms(const shadergraph::Evaluator& back_eval,
+                               const std::shared_ptr<ur::ShaderProgram>& shader)
+{
+    auto uniforms = back_eval.CalcUniformValues();
     for (auto& u : uniforms)
     {
-        auto uniform = m_shader->QueryUniform(u.name);
+        auto uniform = shader->QueryUniform(u.name);
         if (!uniform) {
             continue;
         }

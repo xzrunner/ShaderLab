@@ -139,6 +139,8 @@ void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Var
             default:
                 assert(0);
             }
+
+            break;
         }
     }
 

@@ -30,6 +30,7 @@
 #include <blueprint/NSCompNode.h>
 #include <shaderlab/ShaderLab.h>
 #include <shaderlab/ShaderAdapter.h>
+#include <shaderlab/Evaluator.h>
 #include <shaderlab/Node.h>
 #include <shaderlab/node/Texture2DAsset.h>
 
@@ -260,6 +261,9 @@ build_shader(const ur::Device& dev, const std::vector<bp::NodePtr>& front_nodes,
             textures.push_back({ slot, tex });
         }
     }
+
+    // update uniforms
+    shaderlab::Evaluator::UpdateUniforms(eval, shader);
 
     return shader;
 }
