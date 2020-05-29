@@ -4,7 +4,7 @@
             {
                 "position": [
                     20.35000228881836,
-                    27.579999923706056
+                    26.753557205200197
                 ],
                 "comp_type": "n2_transform"
             },
@@ -31,17 +31,17 @@
                         {
                             "name": "u_octaves",
                             "type": "int",
-                            "value": 2
+                            "value": 3
                         },
                         {
                             "name": "u_lacunarity",
                             "type": "float",
-                            "value": 1.600000023841858
+                            "value": 2.000000238418579
                         },
                         {
                             "name": "u_gain",
                             "type": "float",
-                            "value": 0.6000000238418579
+                            "value": 0.5000000596046448
                         }
                     ]
                 },
@@ -52,7 +52,7 @@
                         "to": [
                             {
                                 "node_idx": 2,
-                                "pin": "r"
+                                "pin": "grey"
                             }
                         ]
                     },
@@ -66,8 +66,8 @@
         [
             {
                 "position": [
-                    -197.34999084472657,
-                    -44.56999969482422
+                    -199.2590789794922,
+                    -43.66090774536133
                 ],
                 "comp_type": "n2_transform"
             },
@@ -109,7 +109,15 @@
                         {
                             "name": "u_manhattan_scale",
                             "type": "float",
-                            "value": 0.5000000596046448
+                            "value": 0.0
+                        },
+                        {
+                            "name": "u_poisson_random_offset",
+                            "type": "float2",
+                            "value": [
+                                0.0,
+                                0.0
+                            ]
                         }
                     ]
                 },
@@ -134,59 +142,8 @@
         [
             {
                 "position": [
-                    184.449951171875,
-                    9.126340866088868
-                ],
-                "comp_type": "n2_transform"
-            },
-            {
-                "filepath": ".",
-                "name": "",
-                "id": 0,
-                "comp_type": "n0_identity"
-            },
-            {
-                "visible": true,
-                "editable": true,
-                "comp_type": "n0_flags"
-            },
-            {
-                "node_type": "shaderlab::combine",
-                "node_val": {
-                    "style": {
-                        "only_title": false,
-                        "small_title_font": false
-                    },
-                    "name": "node2",
-                    "props": []
-                },
-                "comp_type": "bp_node",
-                "connection": [
-                    {
-                        "from": "rgba",
-                        "to": [
-                            {
-                                "node_idx": 3,
-                                "pin": "rgba"
-                            }
-                        ]
-                    },
-                    {
-                        "from": "rgb",
-                        "to": []
-                    },
-                    {
-                        "from": "rg",
-                        "to": []
-                    }
-                ]
-            }
-        ],
-        [
-            {
-                "position": [
-                    346.5522766113281,
-                    39.28303527832031
+                    215.23855590820313,
+                    99.17069244384766
                 ],
                 "comp_type": "n2_transform"
             },
@@ -223,8 +180,8 @@
         [
             {
                 "position": [
-                    -262.9986267089844,
-                    120.61090850830078
+                    -305.725830078125,
+                    144.24725341796876
                 ],
                 "comp_type": "n2_transform"
             },
@@ -255,7 +212,7 @@
                         "from": "uv",
                         "to": [
                             {
-                                "node_idx": 5,
+                                "node_idx": 4,
                                 "pin": "a"
                             }
                         ]
@@ -266,13 +223,13 @@
         [
             {
                 "position": [
-                    -123.16897583007813,
-                    91.6835708618164
+                    -194.9871368408203,
+                    120.77447509765625
                 ],
                 "comp_type": "n2_transform"
             },
             {
-                "filepath": "",
+                "filepath": ".",
                 "name": "",
                 "id": 0,
                 "comp_type": "n0_identity"
@@ -309,13 +266,13 @@
         [
             {
                 "position": [
-                    -256.198974609375,
-                    67.80357360839844
+                    -299.83526611328127,
+                    90.53084564208985
                 ],
                 "comp_type": "n2_transform"
             },
             {
-                "filepath": "",
+                "filepath": ".",
                 "name": "",
                 "id": 0,
                 "comp_type": "n0_identity"
@@ -333,7 +290,7 @@
                         "small_title_font": false
                     },
                     "name": "node6",
-                    "val": 5.0,
+                    "val": 1.0,
                     "props": []
                 },
                 "comp_type": "bp_node",
@@ -342,7 +299,7 @@
                         "from": "f",
                         "to": [
                             {
-                                "node_idx": 5,
+                                "node_idx": 4,
                                 "pin": "b"
                             }
                         ]

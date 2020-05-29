@@ -86,7 +86,7 @@
                         "small_title_font": false
                     },
                     "name": "node1",
-                    "filepath": "..\\rendergraph-samples\\learnopengl\\resources\\textures\\awesomeface.png",
+                    "filepath": "..\\textures\\awesomeface.png",
                     "props": []
                 },
                 "comp_type": "bp_node",

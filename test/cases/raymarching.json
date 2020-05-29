@@ -249,7 +249,7 @@
                         "small_title_font": false
                     },
                     "name": "node5",
-                    "code": "/////////////////////////////////////////////////\r\n/// @function  sdSphere (vec3, float)->float  Sphere\r\n/////////////////////////////////////////////////\r\nfloat scene(vec3 p)\r\n{\r\n    return sdSphere(p, 0.5);\r\n\r\n}",
+                    "code": "/////////////////////////////////////////////////\r\n/// <scene> @function  sdSphere (vec3, float)->float \r\n/////////////////////////////////////////////////\r\nfloat scene(vec3 p)\r\n{\r\n    return sdSphere(p, 0.5);\r\n\r\n}",
                     "props": []
                 },
                 "comp_type": "bp_node",

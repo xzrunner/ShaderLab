@@ -7,6 +7,7 @@
 #include <facade/Facade.h>
 #include <shadergraph/Evaluator.h>
 #include <shadergraph/Block.h>
+#include <shadergraph/ShaderGraph.h>
 #include <shadergraph/block/FragmentShader.h>
 #include <js/RapidJsonHelper.h>
 #include <dag/Node.h>
@@ -341,6 +342,7 @@ int main()
     ns::RegistCallback::Init();
     facade::Facade::Instance()->Init(*dev);
     bp::Blueprint::Instance();
+    shadergraph::ShaderGraph::Instance();
     shaderlab::ShaderLab::Instance();
 
     BUFFER = new uint8_t[TEX_SIZE * TEX_SIZE * 4];
