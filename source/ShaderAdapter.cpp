@@ -104,15 +104,21 @@ void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Var
     // update uniforms
     auto& src = front.GetProps();
     auto& dst = static_cast<shadergraph::Block&>(back).GetVariants();
-    for (auto& s_p : src) {
+    for (auto& s_p : src)
+    {
         auto& s = s_p.var;
-        for (auto& d : dst) {
+        for (auto& d : dst)
+        {
             if (s.name != d.name) {
                 continue;
             }
 
             assert(d.type == shadergraph::VarType::Uniform);
             auto u_var = std::static_pointer_cast<shadergraph::UniformVal>(d.val)->var;
+            if (!u_var.val) {
+                continue;
+            }
+
             switch (u_var.type)
             {
             case shadergraph::VarType::Bool:

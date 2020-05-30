@@ -90,10 +90,14 @@ void Evaluator::UpdateUniforms(const shadergraph::Evaluator& back_eval,
         }
 
         auto unif = std::static_pointer_cast<shadergraph::UniformVal>(u.val);
+        if (!unif->var.val) {
+            continue;
+        }
         switch (unif->var.type)
         {
         case shadergraph::VarType::Invalid:
             break;
+
         case shadergraph::VarType::Bool:
         {
             auto b = std::static_pointer_cast<shadergraph::BoolVal>(unif->var.val)->x;
@@ -101,18 +105,58 @@ void Evaluator::UpdateUniforms(const shadergraph::Evaluator& back_eval,
             uniform->SetValue(&i, 1);
         }
             break;
+
         case shadergraph::VarType::Int:
         {
             const int i = std::static_pointer_cast<shadergraph::IntVal>(unif->var.val)->x;
             uniform->SetValue(&i, 1);
         }
             break;
+
         case shadergraph::VarType::Float:
         {
             const float f = std::static_pointer_cast<shadergraph::FloatVal>(unif->var.val)->x;
             uniform->SetValue(&f, 1);
         }
             break;
+
+        case shadergraph::VarType::Float2:
+        {
+            const auto f2 = std::static_pointer_cast<shadergraph::Float2Val>(unif->var.val)->xy;
+            switch (uniform->GetType())
+            {
+            case ur::UniformType::Float1:
+                uniform->SetValue(f2, 1);
+                break;
+            case ur::UniformType::Float2:
+                uniform->SetValue(f2, 2);
+                break;
+            default:
+                assert(0);
+            }
+        }
+            break;
+
+        case shadergraph::VarType::Float3:
+        {
+            const auto f3 = std::static_pointer_cast<shadergraph::Float3Val>(unif->var.val)->xyz;
+            switch (uniform->GetType())
+            {
+            case ur::UniformType::Float1:
+                uniform->SetValue(f3, 1);
+                break;
+            case ur::UniformType::Float2:
+                uniform->SetValue(f3, 2);
+                break;
+            case ur::UniformType::Float3:
+                uniform->SetValue(f3, 3);
+                break;
+            default:
+                assert(0);
+            }
+        }
+            break;
+
         case shadergraph::VarType::Float4:
         {
             const auto f4 = std::static_pointer_cast<shadergraph::Float4Val>(unif->var.val)->xyzw;
@@ -135,6 +179,7 @@ void Evaluator::UpdateUniforms(const shadergraph::Evaluator& back_eval,
             }
         }
             break;
+
         default:
             assert(0);
         }

@@ -81,6 +81,10 @@ void Node::InitProps(const std::vector<shadergraph::Variant>& vars)
         bp::Variant var;
         var.name = v.name;
         auto u_var = std::static_pointer_cast<shadergraph::UniformVal>(v.val)->var;
+        // todo
+        if (u_var.type == shadergraph::VarType::Array) {
+            continue;
+        }
         switch (u_var.type)
         {
         case shadergraph::VarType::Bool:
@@ -126,11 +130,6 @@ void Node::InitProps(const std::vector<shadergraph::Variant>& vars)
                 auto src = std::static_pointer_cast<shadergraph::Float4Val>(u_var.val);
                 memcpy(var.f4, src->xyzw, sizeof(var.f4));
             }
-        }
-            break;
-        case shadergraph::VarType::Array:
-        {
-            // todo
         }
             break;
         default:
