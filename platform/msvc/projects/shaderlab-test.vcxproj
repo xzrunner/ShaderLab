@@ -151,7 +151,7 @@
     <ClCompile Include="..\..\..\test\test.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>0.shaderlab-test</ProjectName>
+    <ProjectName>1.shaderlab-test</ProjectName>
     <ProjectGuid>{560AEA65-967A-4D7D-A1D2-A6F21D8AAE3D}</ProjectGuid>
     <RootNamespace>shaderlab-test</RootNamespace>
     <Keyword>Win32Proj</Keyword>
