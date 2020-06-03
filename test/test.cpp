@@ -181,7 +181,9 @@ void test_file(const ur::Device& dev, ur::Context& ctx,
     std::vector<bp::NodePtr> front_nodes(children.size(), nullptr);
     std::vector<std::shared_ptr<dag::Node<shadergraph::Variant>>> back_nodes(children.size(), nullptr);
 
-    bp::SerializeHelper::SetupNodes(children, front_nodes, back_nodes);
+    bp::SerializeHelper::SetupNodes<shaderlab::Node, shadergraph::Variant>(
+        children, "shaderlab", "shadergraph", front_nodes, back_nodes
+    );
     assert(front_nodes.size() == back_nodes.size());
     for (int i = 0, n = front_nodes.size(); i < n; ++i) {
         shaderlab::ShaderAdapter::Front2Back(*front_nodes[i], *back_nodes[i], dir, dev);
