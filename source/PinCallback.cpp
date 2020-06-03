@@ -42,21 +42,21 @@ bool can_type_cast_func(int type_from, int type_to)
     if (type_from == type_to) {
         return true;
     }
-    if (type_from == bp::PIN_ANY_VAR ||
-        type_to == bp::PIN_ANY_VAR) {
+    if (type_from == shaderlab::PIN_ANY ||
+        type_to == shaderlab::PIN_ANY) {
         return true;
     }
 
-    if (type_from >= shaderlab::PIN_BOOL && type_from >= shaderlab::PIN_BOOL4 &&
-        type_to >= shaderlab::PIN_BOOL && type_to >= shaderlab::PIN_BOOL4) {
+    if (type_from >= shaderlab::PIN_BOOL && type_from <= shaderlab::PIN_BOOL4 &&
+        type_to >= shaderlab::PIN_BOOL && type_to <= shaderlab::PIN_BOOL4) {
         return true;
     }
-    if (type_from >= shaderlab::PIN_INT && type_from >= shaderlab::PIN_INT4 &&
-        type_to >= shaderlab::PIN_INT && type_to >= shaderlab::PIN_INT4) {
+    if (type_from >= shaderlab::PIN_INT && type_from <= shaderlab::PIN_INT4 &&
+        type_to >= shaderlab::PIN_INT && type_to <= shaderlab::PIN_INT4) {
         return true;
     }
-    if (type_from >= shaderlab::PIN_FLOAT && type_from >= shaderlab::PIN_FLOAT4 &&
-        type_to >= shaderlab::PIN_FLOAT && type_to >= shaderlab::PIN_FLOAT4) {
+    if (type_from >= shaderlab::PIN_FLOAT && type_from <= shaderlab::PIN_FLOAT4 &&
+        type_to >= shaderlab::PIN_FLOAT && type_to <= shaderlab::PIN_FLOAT4) {
         return true;
     }
 
