@@ -364,6 +364,16 @@
 #define PARM_NODE_NAME frag_shader
 #include EXE_FILEPATH
 
+// tools
+
+#define PARM_NODE_CLASS Input
+#define PARM_NODE_NAME input
+#include EXE_FILEPATH
+
+#define PARM_NODE_CLASS Output
+#define PARM_NODE_NAME output
+#include EXE_FILEPATH
+
 #undef NODES_GROUP_NAME
 
 //////////////////////////////////////////////////////////////////////////

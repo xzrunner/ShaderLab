@@ -2,6 +2,7 @@
 #include "shaderlab/PinCallback.h"
 #include "shaderlab/Node.h"
 #include "shaderlab/RegistNodes.h"
+#include "shaderlab/node/SubGraph.h"
 
 #include <blueprint/NodeBuilder.h>
 #include <blueprint/node/Commentary.h>
@@ -70,9 +71,7 @@ void ShaderLab::InitNodes()
 	m_nodes.reserve(bp_count + list.size());
 
     m_nodes.push_back(std::make_shared<bp::node::Commentary>());
-    m_nodes.push_back(std::make_shared<bp::node::Function>());
-    m_nodes.push_back(std::make_shared<bp::node::Input>());
-    m_nodes.push_back(std::make_shared<bp::node::Output>());
+    m_nodes.push_back(std::make_shared<node::SubGraph>());
 
 	for (auto& t : list)
 	{

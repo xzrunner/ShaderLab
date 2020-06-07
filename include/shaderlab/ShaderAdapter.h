@@ -6,6 +6,7 @@
 
 namespace bp { class Node; }
 namespace ur { class Device; }
+namespace shadergraph { class Block; }
 
 namespace shaderlab
 {

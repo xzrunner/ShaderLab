@@ -109,6 +109,12 @@
     <ClInclude Include="..\..\..\include\shaderlab\node\Texture2DAsset.h">
       <Filter>nodes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\shaderlab\node\SubGraph.h">
+      <Filter>nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\shaderlab\ConnectPinOP.h">
+      <Filter>view\graph</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\Node.cpp">
@@ -153,6 +159,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\node\Texture2DAsset.cpp">
       <Filter>nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\node\SubGraph.cpp">
+      <Filter>nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ConnectPinOP.cpp">
+      <Filter>view\graph</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

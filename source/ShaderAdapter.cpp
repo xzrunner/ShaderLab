@@ -2,6 +2,7 @@
 #include "shaderlab/PinType.h"
 #include "shaderlab/node/CustomBlock.h"
 #include "shaderlab/node/Texture2DAsset.h"
+#include "shaderlab/node/SubGraph.h"
 
 #include <blueprint/Pin.h>
 #include <blueprint/Node.h>
@@ -10,6 +11,7 @@
 #include <shadergraph/ValueImpl.h>
 #include <shadergraph/block/CustomBlock.h>
 #include <shadergraph/block/Texture2DAsset.h>
+#include <shadergraph/block/SubGraph.h>
 
 #include <assert.h>
 
@@ -163,6 +165,12 @@ void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Var
         auto& src = static_cast<const node::Texture2DAsset&>(front);
         auto& dst = static_cast<shadergraph::block::Texture2DAsset&>(back);
         const_cast<node::Texture2DAsset&>(src).UpdateTexture(dev);
+    }
+    else if (type == rttr::type::get<node::SubGraph>())
+    {
+        auto& src = static_cast<const node::SubGraph&>(front);
+        auto& dst = static_cast<shadergraph::block::SubGraph&>(back);
+        dst.Setup(src.GetInputVars(), src.GetOutputVars());
     }
 }
 
