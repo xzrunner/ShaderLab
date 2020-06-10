@@ -7,6 +7,7 @@
 #include <blueprint/Pin.h>
 #include <blueprint/Node.h>
 
+#include <dag/Graph.h>
 #include <shadergraph/Block.h>
 #include <shadergraph/ValueImpl.h>
 #include <shadergraph/block/CustomBlock.h>
@@ -25,7 +26,7 @@ int ShaderAdapter::TypeBackToFront(shadergraph::VarType type, int count)
     switch (type)
     {
     case shadergraph::VarType::Invalid:
-        ret = bp::PIN_ANY_VAR;
+        ret = PIN_INVALID;
         break;
     case shadergraph::VarType::Dynamic:
         ret = PIN_DYNAMIC;
@@ -170,7 +171,7 @@ void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Var
     {
         auto& src = static_cast<const node::SubGraph&>(front);
         auto& dst = static_cast<shadergraph::block::SubGraph&>(back);
-        dst.Setup(src.GetInputVars(), src.GetOutputVars());
+        dst.Setup(src.GetBackGraph(), src.GetInputVars(), src.GetOutputVars());
     }
 }
 

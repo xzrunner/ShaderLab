@@ -2,7 +2,7 @@
 #error "You must define PIN_INFO macro before include this file"
 #endif
 
-PIN_INFO(ANY, (255, 255, 255), "")
+PIN_INFO(INVALID, (255, 255, 255), "")
 
 PIN_INFO(DYNAMIC, (139, 139, 255), "d")
 

@@ -44,8 +44,8 @@ bool can_type_cast_func(int type_from, int type_to)
     if (type_from == type_to) {
         return true;
     }
-    if (type_from == shaderlab::PIN_ANY ||
-        type_to == shaderlab::PIN_ANY) {
+    if (type_from == shaderlab::PIN_DYNAMIC ||
+        type_to == shaderlab::PIN_DYNAMIC) {
         return true;
     }
 

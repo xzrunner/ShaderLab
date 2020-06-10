@@ -12,7 +12,7 @@ namespace shaderlab
 namespace node
 {
 
-class SubGraph : public bp::node::SubGraph
+class SubGraph : public bp::node::SubGraph<shadergraph::Variant>
 {
 public:
     SubGraph();
@@ -30,12 +30,12 @@ public:
 private:
     void Insert(const shadergraph::Variant& var, bool is_input);
 
+    void SetupPorts();
+
 private:
     std::vector<shadergraph::Variant> m_in_vars, m_out_vars;
 
-    std::shared_ptr<bp::BackendGraph<shadergraph::Variant>> m_front_eval = nullptr;
-
-    RTTR_ENABLE(bp::node::SubGraph)
+    RTTR_ENABLE(bp::node::SubGraph<shadergraph::Variant>)
 
 }; // SubGraph
 

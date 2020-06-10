@@ -13,7 +13,6 @@
 
 namespace shaderlab
 {
-
 ConnectPinOP::ConnectPinOP(const std::shared_ptr<pt0::Camera>& cam,
                            ee0::WxStagePage& stage, const std::vector<bp::NodePtr>& nodes)
     : bp::ConnectPinOP(cam, stage, nodes)
@@ -61,7 +60,7 @@ void ConnectPinOP::SetupSubGraph(const std::shared_ptr<bp::Pin>& pin,
     auto& sg_front = const_cast<node::SubGraph&>(from_front);
     sg_front.Setup(f_val->inputs, { f_val->output, v_func });
 
-    auto& children = sg_front.GetAllChildren();
+    auto& children = sg_front.GetChildren();
     for (int i = 0, n = children.size(); i < n; ++i)
     {
         auto& bp_node = children[i];
@@ -75,8 +74,8 @@ void ConnectPinOP::SetupSubGraph(const std::shared_ptr<bp::Pin>& pin,
         caabb.SetSize(*node, sm::rect(style.width, style.height));
 
         auto& ctrans = node->GetUniqueComp<n2::CompTransform>();
-        const float x = i < f_val->inputs.size() ? -100 : 100;
-        const float y = -20 * i;
+        const float x = i < f_val->inputs.size() ? -200 : 200;
+        const float y = -50 * i;
         ctrans.SetPosition(*node, sm::vec2(x, y));
 
         n0::NodeFlagsHelper::SetFlag<n0::NodeNotVisible>(*node, true);
@@ -85,7 +84,7 @@ void ConnectPinOP::SetupSubGraph(const std::shared_ptr<bp::Pin>& pin,
     }
 
     auto sg_back = std::static_pointer_cast<shadergraph::block::SubGraph>(from_back);
-    sg_back->Setup(f_val->inputs, { f_val->output, v_func });
+    sg_back->Setup(sg_front.GetBackGraph(), f_val->inputs, { f_val->output, v_func });
 }
 
 }

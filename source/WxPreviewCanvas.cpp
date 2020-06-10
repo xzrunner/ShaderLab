@@ -110,17 +110,16 @@ void WxPreviewCanvas::OnTimer()
 void WxPreviewCanvas::RebuildShader()
 {
     std::vector<bp::NodePtr> nodes;
-    m_graph_page->Traverse([&](const ee0::GameObj& obj)->bool
-    {
-        if (obj->HasUniqueComp<bp::CompNode>())
-        {
-            auto bp_node = obj->GetUniqueComp<bp::CompNode>().GetNode();
-            if (bp_node) {
-                nodes.push_back(bp_node);
-            }
+
+    auto root = m_graph_page->GetTreeRoot();
+    assert(root->HasSharedComp<n0::CompComplex>());
+    auto& ccomplex = root->GetSharedComp<n0::CompComplex>();
+    nodes.reserve(ccomplex.GetAllChildren().size());
+    for (auto& c : ccomplex.GetAllChildren()) {
+        if (c->HasUniqueComp<bp::CompNode>()) {
+            nodes.push_back(c->GetUniqueComp<bp::CompNode>().GetNode());
         }
-        return true;
-    });
+    }
 
     auto textures = m_eval.QueryTextures(nodes);
 
