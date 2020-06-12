@@ -111,7 +111,7 @@ void WxPreviewCanvas::RebuildShader()
 {
     std::vector<bp::NodePtr> nodes;
 
-    auto root = m_graph_page->GetTreeRoot();
+    auto root = m_graph_page->GetSceneTree()->GetRootNode();
     assert(root->HasSharedComp<n0::CompComplex>());
     auto& ccomplex = root->GetSharedComp<n0::CompComplex>();
     nodes.reserve(ccomplex.GetAllChildren().size());

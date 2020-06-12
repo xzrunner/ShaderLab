@@ -28,7 +28,7 @@ void WxGraphCanvas::DrawForeground() const
 {
     ee2::WxStageCanvas::DrawForeground();
 
-    auto eval = m_stage->GetEval();
+    auto eval = m_stage->GetSceneTree()->GetCurrEval();
     if (!eval) {
         return;
     }

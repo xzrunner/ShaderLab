@@ -11,7 +11,7 @@ namespace node
 {
 
 SubGraph::SubGraph()
-    : bp::node::SubGraph<shadergraph::Variant>("SubGraph", "shadergraph", "shaderlab")
+    : bp::node::SubGraph<shadergraph::Variant>("SubGraph", "shadergraph", "shaderlab", nullptr)
 {
 }
 

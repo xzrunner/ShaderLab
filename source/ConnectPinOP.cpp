@@ -44,7 +44,7 @@ void ConnectPinOP::SetupSubGraph(const std::shared_ptr<bp::Pin>& pin,
     auto& ccomplex = node.GetSharedComp<n0::CompComplex>();
 
     auto& from_front = static_cast<const node::SubGraph&>(bp_node);
-    auto eval = static_cast<WxGraphPage&>(m_stage).GetEval();
+    auto eval = static_cast<WxGraphPage&>(m_stage).GetSceneTree()->GetCurrEval();
     auto from_back = eval->QueryBackNode(from_front);
     assert(from_back);
     auto& to_front = pin->GetParent();
