@@ -320,6 +320,160 @@
 #define PARM_NODE_NAME sdf_sphere
 #include EXE_FILEPATH
 
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_Box
+#define PARM_NODE_NAME sdf_box
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_RoundBox
+#define PARM_NODE_NAME sdf_round_box
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_Torus
+#define PARM_NODE_NAME sdf_torus
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_CappedTorus
+#define PARM_NODE_NAME sdf_capped_torus
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_Link
+#define PARM_NODE_NAME sdf_link
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_InfiniteCylinder
+#define PARM_NODE_NAME sdf_infinite_cylinder
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_Cone
+#define PARM_NODE_NAME sdf_cone
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_BoundCone
+#define PARM_NODE_NAME sdf_bound_cone
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_InfiniteCone
+#define PARM_NODE_NAME sdf_infinite_cone
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_Plane
+#define PARM_NODE_NAME sdf_plane
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_HexagonalPrism
+#define PARM_NODE_NAME sdf_hexagonal_prism
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_TriangularPrism
+#define PARM_NODE_NAME sdf_triangular_prism
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_Capsule
+#define PARM_NODE_NAME sdf_capsule
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_VerticalCapsule
+#define PARM_NODE_NAME sdf_vertical_capsule
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_CappedCylinder
+#define PARM_NODE_NAME sdf_capped_cylinder
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_CappedCylinder2
+#define PARM_NODE_NAME sdf_capped_cylinder2
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_RoundedCylinder
+#define PARM_NODE_NAME sdf_rounded_cylinder
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_CappedCone
+#define PARM_NODE_NAME sdf_capped_cone
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_CappedCone2
+#define PARM_NODE_NAME sdf_capped_cone2
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_SolidAngle
+#define PARM_NODE_NAME sdf_solid_angle
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_RoundCone
+#define PARM_NODE_NAME sdf_round_cone
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_RoundCone2
+#define PARM_NODE_NAME sdf_round_cone2
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_Ellipsoid
+#define PARM_NODE_NAME sdf_ellipsoid
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_Rhombus
+#define PARM_NODE_NAME sdf_rhombus
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_Octahedron
+#define PARM_NODE_NAME sdf_octahedron
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_Octahedron2
+#define PARM_NODE_NAME sdf_octahedron2
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_Pyramid
+#define PARM_NODE_NAME sdf_pyramid
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_Triangle
+#define PARM_NODE_NAME sdf_triangle
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_Quad
+#define PARM_NODE_NAME sdf_quad
+#include EXE_FILEPATH
+
+#undef NODES_GROUP_NAME
+
+#define NODES_GROUP_NAME Procedural-SDF-Operations
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SDF_Onion
+#define PARM_NODE_NAME sdf_onion
+#include EXE_FILEPATH
+
 #undef NODES_GROUP_NAME
 
 // shapes
