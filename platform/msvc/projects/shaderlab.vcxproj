@@ -44,6 +44,7 @@
     <ClCompile Include="..\..\..\source\ImageViewer.cpp" />
     <ClCompile Include="..\..\..\source\Node.cpp" />
     <ClCompile Include="..\..\..\source\NodePreview.cpp" />
+    <ClCompile Include="..\..\..\source\node\CustomBlock.cpp" />
     <ClCompile Include="..\..\..\source\node\SubGraph.cpp" />
     <ClCompile Include="..\..\..\source\node\Texture2DAsset.cpp" />
     <ClCompile Include="..\..\..\source\PinCallback.cpp" />

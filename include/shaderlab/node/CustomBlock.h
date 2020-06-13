@@ -17,7 +17,7 @@ public:
     }
 
     auto& GetCode() const { return m_code; }
-    void  SetCode(const std::string& code) { m_code = code; }
+    void  SetCode(const std::string& code);
 
 private:
     std::string m_code;

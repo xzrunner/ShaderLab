@@ -3,29 +3,12 @@
 #include "shaderlab/ShaderAdapter.h"
 
 #include <blueprint/Pin.h>
-#include <blueprint/BackendAdapter.h>
 #include <blueprint/PropDescImpl.h>
 
 #include <shadergraph/VarType.h>
 #include <shadergraph/Variant.h>
 #include <shadergraph/ValueImpl.h>
 #include <shadergraph/Block.h>
-
-namespace
-{
-
-auto back2front = [](const dag::Node<shadergraph::Variant>::Port& back) -> bp::PinDesc
-{
-    bp::PinDesc front;
-
-    front.type = shaderlab::ShaderAdapter::TypeBackToFront(back.var.type.type, 1);
-    const_cast<shadergraph::Block::Port&>(back).var.full_name = back.var.type.name;
-    front.name = back.var.full_name;
-
-    return front;
-};
-
-}
 
 namespace shaderlab
 {
@@ -35,22 +18,11 @@ Node::Node(const std::string& title)
 {
 }
 
-void Node::Init(const shadergraph::Block& block)
-{
-    // pins
-    bp::BackendAdapter<shadergraph::Variant>
-        trans("shadergraph", back2front);
-    trans.InitNodePins(*this, block);
-
-    // props
-    InitProps(block.GetVariants());
-}
-
 void Node::Init(const std::string& name)
 {
     // pins
     bp::BackendAdapter<shadergraph::Variant>
-        trans("shadergraph", back2front);
+        trans("shadergraph", BackToFront);
     trans.InitNodePins(*this, name);
 
     // props
@@ -156,6 +128,17 @@ void Node::InitProps(const std::vector<shadergraph::Variant>& vars)
 
         m_props.push_back(prop);
     }
+}
+
+bp::PinDesc Node::BackToFront(const dag::Node<shadergraph::Variant>::Port& back)
+{
+    bp::PinDesc front;
+
+    front.type = shaderlab::ShaderAdapter::TypeBackToFront(back.var.type.type, 1);
+    const_cast<shadergraph::Block::Port&>(back).var.full_name = back.var.type.name;
+    front.name = back.var.full_name;
+
+    return front;
 }
 
 }

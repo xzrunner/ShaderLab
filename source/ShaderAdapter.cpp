@@ -159,7 +159,6 @@ void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Var
         auto& src = static_cast<const node::CustomBlock&>(front);
         auto& dst = static_cast<shadergraph::block::CustomBlock&>(back);
         dst.SetCode(src.GetCode());
-        const_cast<node::CustomBlock&>(src).Init(dst);
     }
     else if (type == rttr::type::get<node::Texture2DAsset>())
     {

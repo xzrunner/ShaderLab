@@ -166,5 +166,8 @@
     <ClCompile Include="..\..\..\source\ConnectPinOP.cpp">
       <Filter>view\graph</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\node\CustomBlock.cpp">
+      <Filter>nodes</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

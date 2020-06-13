@@ -1,8 +1,11 @@
 #pragma once
 
 #include <blueprint/Node.h>
+#include <blueprint/BackendAdapter.h>
 
-namespace shadergraph { class Block; struct Variant; }
+#include <shadergraph/Variant.h>
+
+namespace shadergraph { class Block; }
 namespace ur { class ShaderProgram; }
 
 namespace shaderlab
@@ -12,8 +15,6 @@ class Node : public bp::Node
 {
 public:
     Node(const std::string& title);
-
-    void Init(const shadergraph::Block& block);
 
     bool GetPreview() const { return m_preview; }
     void SetPreview(bool preview) { m_preview = preview; }
@@ -28,9 +29,9 @@ public:
 
 protected:
     void Init(const std::string& name);
-
-private:
     void InitProps(const std::vector<shadergraph::Variant>& vars);
+
+    static bp::PinDesc BackToFront(const dag::Node<shadergraph::Variant>::Port& back);
 
 private:
     bool m_preview = false;
