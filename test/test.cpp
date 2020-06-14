@@ -29,6 +29,7 @@
 #include <blueprint/CompNode.h>
 #include <blueprint/NSCompNode.h>
 #include <blueprint/SerializeHelper.h>
+#include <blueprint/node/SubGraph.h>
 #include <shaderlab/ShaderLab.h>
 #include <shaderlab/ShaderAdapter.h>
 #include <shaderlab/Evaluator.h>
@@ -178,6 +179,28 @@ void test_file(const ur::Device& dev, ur::Context& ctx,
     auto& ccomplex = root->GetSharedComp<n0::CompComplex>();
     auto& children = ccomplex.GetAllChildren();
 
+    // update subgraph
+    for (auto& c : children)
+    {
+        if (!c->HasUniqueComp<bp::CompNode>()) {
+            continue;
+        }
+        auto bp_node = c->GetUniqueComp<bp::CompNode>().GetNode();
+        if (!bp_node->get_type().is_derived_from<bp::node::SubGraph<shadergraph::Variant>>()) {
+            continue;
+        }
+        assert(c->HasSharedComp<n0::CompComplex>());
+        auto& c_ccomplex = c->GetSharedComp<n0::CompComplex>();
+        std::vector<bp::NodePtr> bp_nodes;
+        for (auto& cc : c_ccomplex.GetAllChildren()) {
+            if (cc->HasUniqueComp<bp::CompNode>()) {
+                bp_nodes.push_back(cc->GetUniqueComp<bp::CompNode>().GetNode());
+            }
+        }
+        auto sub_graph = std::static_pointer_cast<bp::node::SubGraph<shadergraph::Variant>>(bp_node);
+        sub_graph->SetChildren(bp_nodes);
+    }
+
     std::vector<bp::NodePtr> front_nodes(children.size(), nullptr);
     std::vector<std::shared_ptr<dag::Node<shadergraph::Variant>>> back_nodes(children.size(), nullptr);
 
@@ -188,6 +211,7 @@ void test_file(const ur::Device& dev, ur::Context& ctx,
     for (int i = 0, n = front_nodes.size(); i < n; ++i) {
         shaderlab::ShaderAdapter::Front2Back(*front_nodes[i], *back_nodes[i], dir, dev);
     }
+
     bp::SerializeHelper::SetupConnections(filepath, children, front_nodes, back_nodes);
 
     std::vector<std::pair<size_t, ur::TexturePtr>> textures;
@@ -259,6 +283,8 @@ int main()
     bp::Blueprint::Instance();
     shadergraph::ShaderGraph::Instance();
     shaderlab::ShaderLab::Instance();
+
+    bp::SerializeHelper::SetupConnCB();
 
     BUFFER = new uint8_t[TEX_SIZE * TEX_SIZE * 4];
 
