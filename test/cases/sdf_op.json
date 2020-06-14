@@ -9,7 +9,7 @@
                 "comp_type": "n2_transform"
             },
             {
-                "filepath": "",
+                "filepath": ".",
                 "name": "",
                 "id": 0,
                 "comp_type": "n0_identity"
@@ -56,7 +56,7 @@
                 "comp_type": "n2_transform"
             },
             {
-                "filepath": "",
+                "filepath": ".",
                 "name": "",
                 "id": 0,
                 "comp_type": "n0_identity"
@@ -94,7 +94,7 @@
                 "comp_type": "n2_transform"
             },
             {
-                "filepath": "",
+                "filepath": ".",
                 "name": "",
                 "id": 0,
                 "comp_type": "n0_identity"
@@ -134,13 +134,13 @@
                     [
                         {
                             "position": [
-                                -200.0,
-                                0.0
+                                -458.2299499511719,
+                                -37.029991149902347
                             ],
                             "comp_type": "n2_transform"
                         },
                         {
-                            "filepath": "",
+                            "filepath": ".",
                             "name": "_obj0",
                             "id": 0,
                             "comp_type": "n0_identity"
@@ -172,6 +172,10 @@
                                             "pin": "p"
                                         },
                                         {
+                                            "node_idx": 9,
+                                            "pin": "p"
+                                        },
+                                        {
                                             "node_idx": 5,
                                             "pin": "p"
                                         }
@@ -183,13 +187,13 @@
                     [
                         {
                             "position": [
-                                317.6000061035156,
-                                -14.399993896484375
+                                328.8519287109375,
+                                -179.0589141845703
                             ],
                             "comp_type": "n2_transform"
                         },
                         {
-                            "filepath": "",
+                            "filepath": ".",
                             "name": "_obj1",
                             "id": 1,
                             "comp_type": "n0_identity"
@@ -217,13 +221,13 @@
                     [
                         {
                             "position": [
-                                328.70001220703127,
-                                -164.90000915527345
+                                338.7720642089844,
+                                -54.5166015625
                             ],
                             "comp_type": "n2_transform"
                         },
                         {
-                            "filepath": "",
+                            "filepath": ".",
                             "name": "_obj2",
                             "id": 2,
                             "comp_type": "n0_identity"
@@ -257,7 +261,7 @@
                             "comp_type": "n2_transform"
                         },
                         {
-                            "filepath": "",
+                            "filepath": ".",
                             "name": "",
                             "id": 0,
                             "comp_type": "n0_identity"
@@ -285,6 +289,10 @@
                                         {
                                             "node_idx": 7,
                                             "pin": "sdf"
+                                        },
+                                        {
+                                            "node_idx": 12,
+                                            "pin": "d1"
                                         }
                                     ]
                                 },
@@ -304,7 +312,7 @@
                             "comp_type": "n2_transform"
                         },
                         {
-                            "filepath": "",
+                            "filepath": ".",
                             "name": "",
                             "id": 0,
                             "comp_type": "n0_identity"
@@ -322,7 +330,7 @@
                                     "small_title_font": false
                                 },
                                 "name": "node3",
-                                "val": 0.20000000298023225,
+                                "val": 0.4000000059604645,
                                 "props": []
                             },
                             "comp_type": "bp_node",
@@ -342,13 +350,13 @@
                     [
                         {
                             "position": [
-                                -27.5,
-                                98.0
+                                -215.25001525878907,
+                                -218.85995483398438
                             ],
                             "comp_type": "n2_transform"
                         },
                         {
-                            "filepath": "",
+                            "filepath": ".",
                             "name": "",
                             "id": 0,
                             "comp_type": "n0_identity"
@@ -372,11 +380,21 @@
                             "connection": [
                                 {
                                     "from": "ret",
-                                    "to": []
+                                    "to": [
+                                        {
+                                            "node_idx": 12,
+                                            "pin": "d2"
+                                        }
+                                    ]
                                 },
                                 {
                                     "from": "sdBox",
-                                    "to": []
+                                    "to": [
+                                        {
+                                            "node_idx": 9,
+                                            "pin": "f_primitive"
+                                        }
+                                    ]
                                 }
                             ]
                         }
@@ -384,13 +402,13 @@
                     [
                         {
                             "position": [
-                                -169.75,
-                                104.0
+                                -377.1131286621094,
+                                -245.20599365234376
                             ],
                             "comp_type": "n2_transform"
                         },
                         {
-                            "filepath": "",
+                            "filepath": ".",
                             "name": "",
                             "id": 0,
                             "comp_type": "n0_identity"
@@ -438,7 +456,7 @@
                             "comp_type": "n2_transform"
                         },
                         {
-                            "filepath": "",
+                            "filepath": ".",
                             "name": "",
                             "id": 0,
                             "comp_type": "n0_identity"
@@ -462,12 +480,7 @@
                             "connection": [
                                 {
                                     "from": "ret",
-                                    "to": [
-                                        {
-                                            "node_idx": 1,
-                                            "pin": "_in"
-                                        }
-                                    ]
+                                    "to": []
                                 },
                                 {
                                     "from": "opOnion",
@@ -485,7 +498,7 @@
                             "comp_type": "n2_transform"
                         },
                         {
-                            "filepath": "",
+                            "filepath": ".",
                             "name": "",
                             "id": 0,
                             "comp_type": "n0_identity"
@@ -519,6 +532,229 @@
                                 }
                             ]
                         }
+                    ],
+                    [
+                        {
+                            "position": [
+                                30.186004638671876,
+                                -203.864013671875
+                            ],
+                            "comp_type": "n2_transform"
+                        },
+                        {
+                            "filepath": ".",
+                            "name": "",
+                            "id": 0,
+                            "comp_type": "n0_identity"
+                        },
+                        {
+                            "visible": true,
+                            "editable": true,
+                            "comp_type": "n0_flags"
+                        },
+                        {
+                            "node_type": "shaderlab::sdf_displacement",
+                            "node_val": {
+                                "style": {
+                                    "only_title": false,
+                                    "small_title_font": false
+                                },
+                                "name": "node8",
+                                "props": []
+                            },
+                            "comp_type": "bp_node",
+                            "connection": [
+                                {
+                                    "from": "ret",
+                                    "to": []
+                                },
+                                {
+                                    "from": "opDisplace",
+                                    "to": []
+                                }
+                            ]
+                        }
+                    ],
+                    [
+                        {
+                            "position": [
+                                -204.43833923339845,
+                                -307.4617004394531
+                            ],
+                            "comp_type": "n2_transform"
+                        },
+                        {
+                            "filepath": ".",
+                            "name": "",
+                            "id": 0,
+                            "comp_type": "n0_identity"
+                        },
+                        {
+                            "visible": true,
+                            "editable": true,
+                            "comp_type": "n0_flags"
+                        },
+                        {
+                            "node_type": "shaderlab::custom_block",
+                            "node_val": {
+                                "style": {
+                                    "only_title": false,
+                                    "small_title_font": false
+                                },
+                                "name": "node9",
+                                "code": "float displacement(vec3 p)\r\n{\r\nreturn sin(20*p.x)*sin(20*p.y)*sin(20*p.z);\r\n}",
+                                "props": []
+                            },
+                            "comp_type": "bp_node",
+                            "connection": [
+                                {
+                                    "from": "ret",
+                                    "to": []
+                                },
+                                {
+                                    "from": "displacement",
+                                    "to": [
+                                        {
+                                            "node_idx": 9,
+                                            "pin": "f_displacement"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    [
+                        {
+                            "position": [
+                                58.34520721435547,
+                                -392.97833251953127
+                            ],
+                            "comp_type": "n2_transform"
+                        },
+                        {
+                            "filepath": ".",
+                            "name": "",
+                            "id": 0,
+                            "comp_type": "n0_identity"
+                        },
+                        {
+                            "visible": true,
+                            "editable": true,
+                            "comp_type": "n0_flags"
+                        },
+                        {
+                            "node_type": "shaderlab::sdf_union",
+                            "node_val": {
+                                "style": {
+                                    "only_title": false,
+                                    "small_title_font": false
+                                },
+                                "name": "node10",
+                                "props": []
+                            },
+                            "comp_type": "bp_node",
+                            "connection": [
+                                {
+                                    "from": "ret",
+                                    "to": []
+                                },
+                                {
+                                    "from": "opUnion",
+                                    "to": []
+                                }
+                            ]
+                        }
+                    ],
+                    [
+                        {
+                            "position": [
+                                46.252655029296878,
+                                -477.73822021484377
+                            ],
+                            "comp_type": "n2_transform"
+                        },
+                        {
+                            "filepath": "",
+                            "name": "",
+                            "id": 0,
+                            "comp_type": "n0_identity"
+                        },
+                        {
+                            "visible": true,
+                            "editable": true,
+                            "comp_type": "n0_flags"
+                        },
+                        {
+                            "node_type": "shaderlab::sdf_smooth_union",
+                            "node_val": {
+                                "style": {
+                                    "only_title": false,
+                                    "small_title_font": false
+                                },
+                                "name": "node11",
+                                "props": []
+                            },
+                            "comp_type": "bp_node",
+                            "connection": [
+                                {
+                                    "from": "ret",
+                                    "to": [
+                                        {
+                                            "node_idx": 1,
+                                            "pin": "_in"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "from": "opSmoothUnion",
+                                    "to": []
+                                }
+                            ]
+                        }
+                    ],
+                    [
+                        {
+                            "position": [
+                                -107.09434509277344,
+                                -500.4134521484375
+                            ],
+                            "comp_type": "n2_transform"
+                        },
+                        {
+                            "filepath": "",
+                            "name": "",
+                            "id": 0,
+                            "comp_type": "n0_identity"
+                        },
+                        {
+                            "visible": true,
+                            "editable": true,
+                            "comp_type": "n0_flags"
+                        },
+                        {
+                            "node_type": "shaderlab::float1",
+                            "node_val": {
+                                "style": {
+                                    "only_title": false,
+                                    "small_title_font": false
+                                },
+                                "name": "node12",
+                                "val": 0.10000000149011612,
+                                "props": []
+                            },
+                            "comp_type": "bp_node",
+                            "connection": [
+                                {
+                                    "from": "f",
+                                    "to": [
+                                        {
+                                            "node_idx": 12,
+                                            "pin": "k"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     ]
                 ],
                 "comp_type": "n0_complex"
@@ -531,7 +767,7 @@
                 "comp_type": "n2_transform"
             },
             {
-                "filepath": "",
+                "filepath": ".",
                 "name": "",
                 "id": 0,
                 "comp_type": "n0_identity"
