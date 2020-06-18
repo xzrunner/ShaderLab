@@ -275,7 +275,7 @@ int main()
 {
     init_gl();
 
-    auto dev = ur::CreateDeviceGL();
+    auto dev = ur::CreateDeviceGL(nullptr);
     auto ctx = ur::CreateContextGL(*dev);
 
     ns::RegistCallback::Init();
