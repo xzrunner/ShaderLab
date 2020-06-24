@@ -14,7 +14,8 @@ class SubGraph : public bp::node::SubGraph<shadergraph::Variant>
 public:
     SubGraph();
 
-    virtual void LoadFromJson(const std::string& dir, const rapidjson::Value& val) override;
+    virtual void LoadFromJson(const ur::Device& dev, const std::string& dir, 
+		const rapidjson::Value& val) override;
 
     void Setup(const std::vector<shadergraph::Variant>& inputs,
         const std::vector<shadergraph::Variant>& outputs);

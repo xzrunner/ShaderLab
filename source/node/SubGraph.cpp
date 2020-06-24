@@ -15,9 +15,9 @@ SubGraph::SubGraph()
 {
 }
 
-void SubGraph::LoadFromJson(const std::string& dir, const rapidjson::Value& val)
+void SubGraph::LoadFromJson(const ur::Device& dev, const std::string& dir, const rapidjson::Value& val)
 {
-    Node::LoadFromJson(dir, val);
+    Node::LoadFromJson(dev, dir, val);
 
     SetupPorts();
 }
