@@ -2,9 +2,6 @@
 
 #include <blueprint/node/SubGraph.h>
 
-#include <blueprint/BackendGraph.h>
-
-#include <node0/typedef.h>
 #include <shadergraph/Variant.h>
 
 namespace shaderlab

@@ -1,6 +1,5 @@
 #include "shaderlab/PinCallback.h"
 #include "shaderlab/PinType.h"
-#include "shaderlab/node/SubGraph.h"
 
 #include <painting0/Color.h>
 #include <blueprint/Pin.h>
