@@ -77,7 +77,7 @@ bool WxGraphCanvas::OnUpdate()
 	bool dirty = false;
 	m_stage->Traverse([&](const ee0::GameObj& obj)->bool
 	{
-		if (n2::UpdateSystem::Instance()->Update(obj)) {
+		if (n2::UpdateSystem::Instance()->Update(obj, &m_dev)) {
 			dirty = true;
 		}
 		return true;

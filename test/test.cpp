@@ -284,8 +284,6 @@ int main()
     shadergraph::ShaderGraph::Instance();
     shaderlab::ShaderLab::Instance();
 
-    bp::SerializeHelper::SetupConnCB();
-
     BUFFER = new uint8_t[TEX_SIZE * TEX_SIZE * 4];
 
     // fixme: id
