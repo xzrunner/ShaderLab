@@ -275,8 +275,8 @@ int main()
 {
     init_gl();
 
-    auto dev = ur::CreateDevice(ur::APIType::OpenGL, nullptr);
-    auto ctx = ur::CreateContext(ur::APIType::OpenGL, *dev);
+    auto dev = ur::CreateDevice(ur::APIType::OpenGL);
+    auto ctx = ur::CreateContext(ur::APIType::OpenGL, *dev, nullptr);
 
     ns::RegistCallback::Init();
     facade::Facade::Instance()->Init(*dev);
