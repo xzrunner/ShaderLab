@@ -14,6 +14,7 @@
 #include <unirender/Framebuffer.h>
 #include <unirender/Factory.h>
 #include <unirender/ClearState.h>
+#include <shadertrans/ShaderTrans.h>
 #include <painting0/ModelMatUpdater.h>
 #include <painting3/ViewMatUpdater.h>
 #include <painting3/ProjectMatUpdater.h>
@@ -165,8 +166,14 @@ void HeightViewer::Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProg
 
 void HeightViewer::InitShader(const ur::Device& dev)
 {
-    m_shader = dev.CreateShaderProgram(vs, fs);
-    m_img_shader = dev.CreateShaderProgram(vs_img, fs_img);
+    std::vector<unsigned int> _vs, _fs;
+    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::VertexShader, vs, _vs);
+    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::PixelShader, fs, _fs);
+    m_shader = dev.CreateShaderProgram(_vs, _fs);
+
+    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::VertexShader, vs_img, _vs);
+    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::PixelShader, fs_img, _fs);
+    m_img_shader = dev.CreateShaderProgram(_vs, _fs);
 
     m_shader->AddUniformUpdater(std::make_shared<pt0::ModelMatUpdater>(*m_shader, "u_model"));
     m_shader->AddUniformUpdater(std::make_shared<pt3::ViewMatUpdater>(*m_shader, "u_view"));

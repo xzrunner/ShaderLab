@@ -5,6 +5,7 @@
 #include <unirender/Device.h>
 #include <unirender/ShaderProgram.h>
 #include <unirender/Uniform.h>
+#include <shadertrans/ShaderTrans.h>
 #include <shadergraph/typedef.h>
 #include <shadergraph/Evaluator.h>
 #include <shadergraph/ValueImpl.h>
@@ -44,7 +45,10 @@ Evaluator::BuildShader(const ur::Device& dev, const std::string& vs,
         return nullptr;
     }
 
-    m_shader = dev.CreateShaderProgram(vs, code);
+    std::vector<unsigned int> _vs, _fs;
+    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::VertexShader, vs, _vs);
+    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::PixelShader, code, _fs);
+    m_shader = dev.CreateShaderProgram(_vs, _fs);
     if (!m_shader->CheckStatus()) {
         return nullptr;
     }

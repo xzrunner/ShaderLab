@@ -11,6 +11,7 @@
 #include <unirender/DrawState.h>
 #include <unirender/Factory.h>
 #include <unirender/ShaderProgram.h>
+#include <shadertrans/ShaderTrans.h>
 
 namespace
 {
@@ -51,7 +52,10 @@ namespace shaderlab
 
 ImageViewer::ImageViewer(const ur::Device& dev)
 {
-    m_shader = dev.CreateShaderProgram(vs, fs);
+    std::vector<unsigned int> _vs, _fs;
+    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::VertexShader, vs, _vs);
+    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::PixelShader, fs, _fs);
+    m_shader = dev.CreateShaderProgram(_vs, _fs);
     m_va = dev.CreateVertexArray();
 
     auto usage = ur::BufferUsageHint::StaticDraw;

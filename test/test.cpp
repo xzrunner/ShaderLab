@@ -19,6 +19,7 @@
 #include <unirender/Context.h>
 #include <unirender/DrawState.h>
 #include <unirender/ClearState.h>
+#include <shadertrans/ShaderTrans.h>
 #include <gimg_export.h>
 #include <gimg_typedef.h>
 
@@ -132,7 +133,10 @@ build_shader(const ur::Device& dev, const std::vector<bp::NodePtr>& front_nodes,
         return nullptr;
     }
 
-    auto shader = dev.CreateShaderProgram(vs, fs);
+    std::vector<unsigned int> _vs, _fs;
+    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::VertexShader, vs, _vs);
+    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::PixelShader, fs, _fs);
+    auto shader = dev.CreateShaderProgram(_vs, _fs);
     if (!shader->CheckStatus()) {
         return nullptr;
     }
