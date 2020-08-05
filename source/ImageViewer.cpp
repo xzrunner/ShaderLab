@@ -6,7 +6,7 @@
 #include <unirender/IndexBuffer.h>
 #include <unirender/VertexBuffer.h>
 #include <unirender/VertexArray.h>
-#include <unirender/VertexBufferAttribute.h>
+#include <unirender/VertexInputAttribute.h>
 #include <unirender/ComponentDataType.h>
 #include <unirender/DrawState.h>
 #include <unirender/Factory.h>
@@ -83,9 +83,9 @@ ImageViewer::ImageViewer(const ur::Device& dev)
 
     m_va->SetVertexBufferAttrs({
         // pos
-        std::make_shared<ur::VertexBufferAttribute>(0, ur::ComponentDataType::Float, 2, 0, 16),
+        std::make_shared<ur::VertexInputAttribute>(0, ur::ComponentDataType::Float, 2, 0, 16),
         // uv
-        std::make_shared<ur::VertexBufferAttribute>(1, ur::ComponentDataType::Float, 2, 8, 16)
+        std::make_shared<ur::VertexInputAttribute>(1, ur::ComponentDataType::Float, 2, 8, 16)
     });
 
     m_va->SetVertexBuffer(vbuf);

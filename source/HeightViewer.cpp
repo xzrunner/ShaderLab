@@ -9,7 +9,7 @@
 #include <unirender/VertexArray.h>
 #include <unirender/ComponentDataType.h>
 #include <unirender/DrawState.h>
-#include <unirender/VertexBufferAttribute.h>
+#include <unirender/VertexInputAttribute.h>
 #include <unirender/TextureDescription.h>
 #include <unirender/Framebuffer.h>
 #include <unirender/Factory.h>
@@ -238,9 +238,9 @@ void HeightViewer::InitVertBuf(const ur::Device& dev)
 
     m_va->SetVertexBufferAttrs({
         // pos
-        std::make_shared<ur::VertexBufferAttribute>(0, ur::ComponentDataType::Float, 3, 0, 20),
+        std::make_shared<ur::VertexInputAttribute>(0, ur::ComponentDataType::Float, 3, 0, 20),
         // uv
-        std::make_shared<ur::VertexBufferAttribute>(1, ur::ComponentDataType::Float, 2, 12, 20)
+        std::make_shared<ur::VertexInputAttribute>(1, ur::ComponentDataType::Float, 2, 12, 20)
     });
 
 }
@@ -292,9 +292,9 @@ HeightMap(const ur::Device& dev, int width, int height)
 
     m_va->SetVertexBufferAttrs({
         // pos
-        std::make_shared<ur::VertexBufferAttribute>(0, ur::ComponentDataType::Float, 2, 0, 16),
+        std::make_shared<ur::VertexInputAttribute>(0, ur::ComponentDataType::Float, 2, 0, 16),
         // uv
-        std::make_shared<ur::VertexBufferAttribute>(1, ur::ComponentDataType::Float, 2, 8, 16)
+        std::make_shared<ur::VertexInputAttribute>(1, ur::ComponentDataType::Float, 2, 8, 16)
     });
 
     m_va->SetVertexBuffer(vbuf);
