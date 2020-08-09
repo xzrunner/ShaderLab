@@ -309,5 +309,5 @@
         ]
     ],
     "comp_type": "n0_complex",
-    "page_type": "render_graph"
+    "page_type": "shader_graph"
 }
