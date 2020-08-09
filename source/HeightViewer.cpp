@@ -30,12 +30,15 @@ const char* vs = R"(
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec2 texcoord;
 
-uniform mat4 u_projection;
-uniform mat4 u_view;
-uniform mat4 u_model;
+layout(std140) uniform UBO_VS
+{
+    mat4 projection;
+    mat4 view;
+    mat4 model;
 
-uniform float u_height_scale;
-uniform vec2 u_inv_res;
+    float height_scale;
+    vec2  inv_res;
+} ubo_vs;
 
 uniform sampler2D u_heightmap;
 
@@ -46,24 +49,24 @@ out VS_OUT {
 
 vec3 ComputeNormalCentralDifference(vec2 position, float heightExaggeration)
 {
-    float leftHeight = texture(u_heightmap, position - vec2(1.0, 0.0) * u_inv_res).r * heightExaggeration;
-    float rightHeight = texture(u_heightmap, position + vec2(1.0, 0.0) * u_inv_res).r * heightExaggeration;
-    float bottomHeight = texture(u_heightmap, position - vec2(0.0, 1.0) * u_inv_res).r * heightExaggeration;
-    float topHeight = texture(u_heightmap, position + vec2(0.0, 1.0) * u_inv_res).r * heightExaggeration;
+    float leftHeight = texture(u_heightmap, position - vec2(1.0, 0.0) * ubo_vs.inv_res).r * heightExaggeration;
+    float rightHeight = texture(u_heightmap, position + vec2(1.0, 0.0) * ubo_vs.inv_res).r * heightExaggeration;
+    float bottomHeight = texture(u_heightmap, position - vec2(0.0, 1.0) * ubo_vs.inv_res).r * heightExaggeration;
+    float topHeight = texture(u_heightmap, position + vec2(0.0, 1.0) * ubo_vs.inv_res).r * heightExaggeration;
     return normalize(vec3(leftHeight - rightHeight, 2.0, bottomHeight - topHeight));
 }
 
 void main()
 {
-    float h_scale = u_height_scale;
+    float h_scale = ubo_vs.height_scale;
 
 	vec4 pos = vec4(position, 1.0);
 	pos.z = texture(u_heightmap, texcoord).r * h_scale;
 
-    vs_out.fragpos = vec3(u_model * pos);
+    vs_out.fragpos = vec3(ubo_vs.model * pos);
     vs_out.normal = ComputeNormalCentralDifference(texcoord, 500);
 
-	gl_Position = u_projection * u_view * u_model * pos;
+	gl_Position = ubo_vs.projection * ubo_vs.view * ubo_vs.model * pos;
 }
 
 )";
@@ -73,7 +76,10 @@ const char* fs = R"(
 #version 330 core
 out vec4 FragColor;
 
-uniform vec3 u_light_pos;
+layout(std140) uniform UBO_FS
+{
+    vec3 light_pos;
+} ubo_fs;
 
 in VS_OUT {
     vec3 fragpos;
@@ -84,7 +90,7 @@ void main()
 {
     vec3 N = fs_in.normal;
 
-    vec3 light_dir = normalize(u_light_pos - fs_in.fragpos);
+    vec3 light_dir = normalize(ubo_fs.light_pos - fs_in.fragpos);
     float diff = max(dot(N, light_dir), 0.0);
     vec3 diffuse = diff * vec3(1.0, 1.0, 1.0);
 	FragColor = vec4(diffuse, 1.0);
@@ -179,13 +185,13 @@ void HeightViewer::InitShader(const ur::Device& dev)
     m_shader->AddUniformUpdater(std::make_shared<pt3::ViewMatUpdater>(*m_shader, "u_view"));
     m_shader->AddUniformUpdater(std::make_shared<pt3::ProjectMatUpdater>(*m_shader, "u_projection"));
 
-    m_shader->QueryUniform("u_height_scale")->SetValue(&m_height_scale);
+    m_shader->QueryUniform("ubo_vs.height_scale")->SetValue(&m_height_scale);
 
     const float inv_res[2] = { 1.0f / HEIGHT_FIELD_SIZE, 1.0f / HEIGHT_FIELD_SIZE };
-    auto u_inv_res = m_shader->QueryUniform("u_inv_res");
+    auto u_inv_res = m_shader->QueryUniform("ubo_vs.inv_res");
     u_inv_res->SetValue(inv_res, 2);
 
-    auto u_light_pos = m_shader->QueryUniform("u_light_pos");
+    auto u_light_pos = m_shader->QueryUniform("ubo_fs.light_pos");
     float light_pos[3] = { 1000, 1000, 0 };
     u_light_pos->SetValue(light_pos, 3);
 }
