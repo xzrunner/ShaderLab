@@ -49,7 +49,7 @@ Evaluator::BuildShader(const ur::Device& dev, const std::string& vs,
     shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::VertexShader, vs, _vs);
     shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::PixelShader, code, _fs);
     m_shader = dev.CreateShaderProgram(_vs, _fs);
-    if (!m_shader->CheckStatus()) {
+    if (!m_shader || !m_shader->CheckStatus()) {
         return nullptr;
     }
 
@@ -79,7 +79,9 @@ Evaluator::BuildShader(const ur::Device& dev, const std::string& vs,
 
 void Evaluator::UpdateUniforms()
 {
-    UpdateUniforms(m_back_eval, m_shader);
+    if (m_shader) {
+        UpdateUniforms(m_back_eval, m_shader);
+    }
 }
 
 void Evaluator::UpdateUniforms(const shadergraph::Evaluator& back_eval,
