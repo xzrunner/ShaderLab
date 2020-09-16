@@ -117,9 +117,35 @@ void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Var
             }
 
             assert(d.type == shadergraph::VarType::Uniform);
-            auto u_var = std::static_pointer_cast<shadergraph::UniformVal>(d.val)->var;
-            if (!u_var.val) {
-                continue;
+            auto& u_var = std::static_pointer_cast<shadergraph::UniformVal>(d.val)->var;
+            if (!u_var.val)
+            {
+            switch (u_var.type)
+            {
+            case shadergraph::VarType::Bool:
+                u_var.val = std::make_shared<shadergraph::BoolVal>();
+                break;
+            case shadergraph::VarType::Int:
+                u_var.val = std::make_shared<shadergraph::IntVal>();
+                break;
+            case shadergraph::VarType::Float:
+                u_var.val = std::make_shared<shadergraph::FloatVal>();
+                break;
+            case shadergraph::VarType::Float2:
+                u_var.val = std::make_shared<shadergraph::Float2Val>();
+                break;
+            case shadergraph::VarType::Float3:
+                u_var.val = std::make_shared<shadergraph::Float3Val>();
+                break;
+            case shadergraph::VarType::Float4:
+                u_var.val = std::make_shared<shadergraph::Float4Val>();
+                break;
+            case shadergraph::VarType::Array:
+                // todo
+                break;
+            default:
+                assert(0);
+            }
             }
 
             switch (u_var.type)
