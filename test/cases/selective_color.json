@@ -1,0 +1,523 @@
+{
+    "nodes": [
+        [
+            {
+                "position": [
+                    12.699996948242188,
+                    7.0
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::sample_texture2d",
+                "node_val": {
+                    "title": "SampleTexture2D",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node0",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "rgba",
+                        "to": [
+                            {
+                                "node_idx": 4,
+                                "pin": "color"
+                            }
+                        ]
+                    },
+                    {
+                        "from": "r",
+                        "to": []
+                    },
+                    {
+                        "from": "g",
+                        "to": []
+                    },
+                    {
+                        "from": "b",
+                        "to": []
+                    },
+                    {
+                        "from": "a",
+                        "to": []
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    -165.0,
+                    125.0
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::texture2d_asset",
+                "node_val": {
+                    "title": "Texture2DAsset",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node1",
+                    "filepath": "..\\textures\\awesomeface.png",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "tex",
+                        "to": [
+                            {
+                                "node_idx": 0,
+                                "pin": "tex"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    554.1279907226563,
+                    6.946434020996094
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::frag_shader",
+                "node_val": {
+                    "title": "FragmentShader",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node2",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "col",
+                        "to": []
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    -152.75,
+                    -58.0
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::uv",
+                "node_val": {
+                    "title": "UV",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node3",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "uv",
+                        "to": [
+                            {
+                                "node_idx": 0,
+                                "pin": "uv"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    284.6768798828125,
+                    -401.9309387207031
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::selective_color",
+                "node_val": {
+                    "title": "SelectiveColor",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node4",
+                    "props": [
+                        {
+                            "name": "corr_method",
+                            "type": "int",
+                            "value": 0
+                        },
+                        {
+                            "name": "corr_method2",
+                            "type": "int",
+                            "value": 0
+                        },
+                        {
+                            "name": "r_adj_cya",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "r_adj_mag",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "r_adj_yel",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "r_adj_bla",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "r_adj_sat",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "r_adj_vib",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "y_adj_cya",
+                            "type": "float",
+                            "value": 0.5
+                        },
+                        {
+                            "name": "y_adj_mag",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "y_adj_yel",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "y_adj_bla",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "y_adj_sat",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "y_adj_vib",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "g_adj_cya",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "g_adj_mag",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "g_adj_yel",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "g_adj_bla",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "g_adj_sat",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "g_adj_vib",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "c_adj_cya",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "c_adj_mag",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "c_adj_yel",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "c_adj_bla",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "c_adj_sat",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "c_adj_vib",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "b_adj_cya",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "b_adj_mag",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "b_adj_yel",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "b_adj_bla",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "b_adj_sat",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "b_adj_vib",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "m_adj_cya",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "m_adj_mag",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "m_adj_yel",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "m_adj_bla",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "m_adj_sat",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "m_adj_vib",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "w_adj_cya",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "w_adj_mag",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "w_adj_yel",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "w_adj_bla",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "w_adj_sat",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "w_adj_vib",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "n_adj_cya",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "n_adj_mag",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "n_adj_yel",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "n_adj_bla",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "n_adj_sat",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "n_adj_vib",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "bk_adj_cya",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "bk_adj_mag",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "bk_adj_yel",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "bk_adj_bla",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "bk_adj_sat",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "bk_adj_vib",
+                            "type": "float",
+                            "value": 0.0
+                        }
+                    ]
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "ret",
+                        "to": [
+                            {
+                                "node_idx": 2,
+                                "pin": "rgba"
+                            }
+                        ]
+                    },
+                    {
+                        "from": "selective_color",
+                        "to": []
+                    }
+                ]
+            }
+        ]
+    ],
+    "comp_type": "n0_complex",
+    "page_type": "shader_graph"
+}

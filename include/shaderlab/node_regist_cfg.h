@@ -55,6 +55,17 @@
 
 #undef NODES_GROUP_NAME
 
+// filter
+
+#define NODES_GROUP_NAME Artistic-Filter
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SelectiveColor
+#define PARM_NODE_NAME selective_color
+#include EXE_FILEPATH
+
+#undef NODES_GROUP_NAME
+
 // mask
 
 #define NODES_GROUP_NAME Artistic-Mask
