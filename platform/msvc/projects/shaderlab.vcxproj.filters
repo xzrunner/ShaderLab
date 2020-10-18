@@ -115,6 +115,9 @@
     <ClInclude Include="..\..\..\include\shaderlab\ConnectPinOP.h">
       <Filter>view\graph</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\shaderlab\ReflectPropTypes.h">
+      <Filter>tools\rtti</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\Node.cpp">
@@ -168,6 +171,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\node\CustomBlock.cpp">
       <Filter>nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ReflectPropTypes.cpp">
+      <Filter>tools\rtti</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -29,6 +29,7 @@
     <ClInclude Include="..\..\..\include\shaderlab\pin_cfg.h" />
     <ClInclude Include="..\..\..\include\shaderlab\PreviewPage.h" />
     <ClInclude Include="..\..\..\include\shaderlab\PreviewViewer.h" />
+    <ClInclude Include="..\..\..\include\shaderlab\ReflectPropTypes.h" />
     <ClInclude Include="..\..\..\include\shaderlab\RegistNodes.h" />
     <ClInclude Include="..\..\..\include\shaderlab\ShaderAdapter.h" />
     <ClInclude Include="..\..\..\include\shaderlab\ShaderLab.h" />
@@ -49,6 +50,7 @@
     <ClCompile Include="..\..\..\source\node\Texture2DAsset.cpp" />
     <ClCompile Include="..\..\..\source\PinCallback.cpp" />
     <ClCompile Include="..\..\..\source\PreviewPage.cpp" />
+    <ClCompile Include="..\..\..\source\ReflectPropTypes.cpp" />
     <ClCompile Include="..\..\..\source\RegistNodes.cpp">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>

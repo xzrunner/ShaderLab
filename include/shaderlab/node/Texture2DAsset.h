@@ -3,6 +3,7 @@
 #include "shaderlab/Node.h"
 
 #include <unirender/typedef.h>
+#include <unirender/Device.h>
 
 namespace shaderlab
 {
@@ -28,10 +29,15 @@ public:
 
     auto GetTexture() const { return m_tex; }
 
+    auto GetSamplerType() const { return m_sampler_type; }
+    void SetSamplerType(ur::Device::TextureSamplerType type) { m_sampler_type = type; }
+     
 private:
     std::string m_filepath;
 
     ur::TexturePtr m_tex = nullptr;
+
+    ur::Device::TextureSamplerType m_sampler_type = ur::Device::TextureSamplerType::LinearClamp;
 
     RTTR_ENABLE(Node)
 

@@ -55,6 +55,10 @@ rttr::registration::class_<shaderlab::node::Texture2DAsset>("shaderlab::texture2
 	    rttr::metadata(ee0::UIMetaInfoTag(), ee0::UIMetaInfo("Filepath")),
 	    rttr::metadata(ee0::PropOpenFileTag(), ee0::PropOpenFile("*.png"))
     )
+    .property("sampler_type", &shaderlab::node::Texture2DAsset::GetSamplerType, &shaderlab::node::Texture2DAsset::SetSamplerType)
+    (
+        rttr::metadata(ee0::UIMetaInfoTag(), ee0::UIMetaInfo("SamplerType"))
+    )
 ;
 
 }

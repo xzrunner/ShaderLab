@@ -2,6 +2,7 @@
 #include "shaderlab/PinCallback.h"
 #include "shaderlab/Node.h"
 #include "shaderlab/RegistNodes.h"
+#include "shaderlab/ReflectPropTypes.h"
 #include "shaderlab/node/SubGraph.h"
 
 #include <blueprint/NodeBuilder.h>
@@ -40,7 +41,7 @@ void ShaderLab::RegistRTTR()
     bp::regist_sm_rttr();
     bp::regist_pt0_rttr();
 
-//    prop_types_regist_rttr();
+    prop_types_regist_rttr();
     nodes_regist_rttr();
 }
 

@@ -4,6 +4,7 @@
 
 #include <unirender/RenderState.h>
 #include <unirender/Factory.h>
+#include <unirender/Texture.h>
 #include <painting2/RenderSystem.h>
 #include <node2/RenderSystem.h>
 #include <facade/ImageLoader.h>
@@ -28,13 +29,15 @@ void Texture2DAsset::Draw(const ur::Device& dev, ur::Context& ctx,
 
 void Texture2DAsset::UpdateTexture(const ur::Device& dev)
 {
-    if (!m_filepath.empty())
-    {
-        facade::ImageLoader loader(m_filepath);
-        loader.Load(dev);
-
-        m_tex = loader.GetTexture();
+    if (m_filepath.empty()) {
+        return;
     }
+
+    facade::ImageLoader loader(m_filepath);
+    loader.Load(dev);
+
+    m_tex = loader.GetTexture();
+    m_tex->ApplySampler(dev.GetTextureSampler(m_sampler_type));
 }
 
 }
