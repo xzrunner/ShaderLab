@@ -181,9 +181,9 @@ void HeightViewer::InitShader(const ur::Device& dev)
     shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::PixelShader, fs_img, _fs);
     m_img_shader = dev.CreateShaderProgram(_vs, _fs);
 
-    m_shader->AddUniformUpdater(std::make_shared<pt0::ModelMatUpdater>(*m_shader, "u_model"));
-    m_shader->AddUniformUpdater(std::make_shared<pt3::ViewMatUpdater>(*m_shader, "u_view"));
-    m_shader->AddUniformUpdater(std::make_shared<pt3::ProjectMatUpdater>(*m_shader, "u_projection"));
+    m_shader->AddUniformUpdater(std::make_shared<pt0::ModelMatUpdater>(*m_shader, "ubo_vs.model"));
+    m_shader->AddUniformUpdater(std::make_shared<pt3::ViewMatUpdater>(*m_shader, "ubo_vs.view"));
+    m_shader->AddUniformUpdater(std::make_shared<pt3::ProjectMatUpdater>(*m_shader, "ubo_vs.projection"));
 
     m_shader->QueryUniform("ubo_vs.height_scale")->SetValue(&m_height_scale);
 
