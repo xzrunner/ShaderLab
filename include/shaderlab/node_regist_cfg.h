@@ -254,7 +254,9 @@
 // math
 //////////////////////////////////////////////////////////////////////////
 
-#define NODES_GROUP_NAME Math
+// basic
+
+#define NODES_GROUP_NAME Math-Basic
 
 #define NO_PARM_FILEPATH
 #define PARM_NODE_CLASS Add
@@ -274,6 +276,22 @@
 #define NO_PARM_FILEPATH
 #define PARM_NODE_CLASS Divide
 #define PARM_NODE_NAME div
+#include EXE_FILEPATH
+
+#undef NODES_GROUP_NAME
+
+// vector
+
+#define NODES_GROUP_NAME Math-Vector
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS DotProduct
+#define PARM_NODE_NAME dot_product
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS CrossProduct
+#define PARM_NODE_NAME cross_product
 #include EXE_FILEPATH
 
 #undef NODES_GROUP_NAME
