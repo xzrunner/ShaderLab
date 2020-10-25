@@ -96,7 +96,7 @@ void ModelViewer::Draw(ur::Context& ctx, const pt0::CameraPtr& cam, const void* 
         if (cam->TypeID() == pt0::GetCamTypeID<pt3::PerspCam>())
         {
             auto persp = std::static_pointer_cast<pt3::PerspCam>(cam);
-            u_cam_pos->SetValue(persp->GetPos().xyz);
+            u_cam_pos->SetValue(persp->GetPos().xyz, 3);
         }
     }
 
