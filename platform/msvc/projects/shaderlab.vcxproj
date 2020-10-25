@@ -16,6 +16,7 @@
     <ClInclude Include="..\..\..\include\shaderlab\HeightViewer.h" />
     <ClInclude Include="..\..\..\include\shaderlab\ImageViewer.h" />
     <ClInclude Include="..\..\..\include\shaderlab\MessageID.h" />
+    <ClInclude Include="..\..\..\include\shaderlab\ModelViewer.h" />
     <ClInclude Include="..\..\..\include\shaderlab\Node.h" />
     <ClInclude Include="..\..\..\include\shaderlab\NodePreview.h" />
     <ClInclude Include="..\..\..\include\shaderlab\node\CustomBlock.h" />
@@ -43,6 +44,7 @@
     <ClCompile Include="..\..\..\source\Evaluator.cpp" />
     <ClCompile Include="..\..\..\source\HeightViewer.cpp" />
     <ClCompile Include="..\..\..\source\ImageViewer.cpp" />
+    <ClCompile Include="..\..\..\source\ModelViewer.cpp" />
     <ClCompile Include="..\..\..\source\Node.cpp" />
     <ClCompile Include="..\..\..\source\NodePreview.cpp" />
     <ClCompile Include="..\..\..\source\node\CustomBlock.cpp" />

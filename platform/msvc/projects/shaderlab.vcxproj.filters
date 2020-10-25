@@ -118,6 +118,9 @@
     <ClInclude Include="..\..\..\include\shaderlab\ReflectPropTypes.h">
       <Filter>tools\rtti</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\shaderlab\ModelViewer.h">
+      <Filter>view\preview\viewer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\Node.cpp">
@@ -174,6 +177,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\ReflectPropTypes.cpp">
       <Filter>tools\rtti</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ModelViewer.cpp">
+      <Filter>view\preview\viewer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

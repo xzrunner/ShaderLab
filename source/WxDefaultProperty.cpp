@@ -34,6 +34,7 @@ void WxDefaultProperty::InitProps()
     wxArrayString viewer_choices;
     viewer_choices.push_back("Image");
     viewer_choices.push_back("Height");
+    viewer_choices.push_back("Model");
 
     auto viewer_prop = new wxEnumProperty("Viewer", wxPG_LABEL, viewer_choices);
     viewer_prop->SetValue(WxPreviewCanvas::VIEWER_IMAGE);

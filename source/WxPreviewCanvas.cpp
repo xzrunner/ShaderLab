@@ -3,6 +3,7 @@
 #include "shaderlab/WxGraphPage.h"
 #include "shaderlab/ImageViewer.h"
 #include "shaderlab/HeightViewer.h"
+#include "shaderlab/ModelViewer.h"
 #include "shaderlab/Node.h"
 
 #include <ee0/WxStagePage.h>
@@ -24,8 +25,9 @@ WxPreviewCanvas::WxPreviewCanvas(const ur::Device& dev, ee0::WxStagePage* stage,
                                  ECS_WORLD_PARAM const ee0::RenderContext& rc)
     : ee3::WxStageCanvas(dev, stage, ECS_WORLD_VAR &rc, nullptr, true)
 {
-    m_viewers[VIEWER_IMAGE] = std::make_shared<ImageViewer>(dev);
+    m_viewers[VIEWER_IMAGE]  = std::make_shared<ImageViewer>(dev);
     m_viewers[VIEWER_HEIGHT] = std::make_shared<HeightViewer>(dev);
+    m_viewers[VIEWER_MODEL]  = std::make_shared<ModelViewer>(dev);
 
     auto sub_mgr = stage->GetSubjectMgr();
     sub_mgr->RegisterObserver(MSG_SHADER_CHANGED, this);

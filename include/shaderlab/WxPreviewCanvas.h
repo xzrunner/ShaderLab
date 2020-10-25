@@ -23,6 +23,7 @@ public:
     {
         VIEWER_IMAGE,
         VIEWER_HEIGHT,
+        VIEWER_MODEL,
 
         VIEWER_MAX_NUM
     };
