@@ -259,6 +259,32 @@
 // math
 //////////////////////////////////////////////////////////////////////////
 
+// advanced
+
+#define NODES_GROUP_NAME Math-Advanced
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS Absolute
+#define PARM_NODE_NAME absolute
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS Length
+#define PARM_NODE_NAME length
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS Negate
+#define PARM_NODE_NAME negate
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS Normalize
+#define PARM_NODE_NAME normalize
+#include EXE_FILEPATH
+
+#undef NODES_GROUP_NAME
+
 // basic
 
 #define NODES_GROUP_NAME Math-Basic
