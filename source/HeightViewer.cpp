@@ -170,6 +170,11 @@ void HeightViewer::Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProg
     m_img_viewer.Update(ctx, shader, textures);
 }
 
+const char* HeightViewer::GetVertShaderCode() const
+{
+    return vs;
+}
+
 void HeightViewer::InitShader(const ur::Device& dev)
 {
     std::vector<unsigned int> _vs, _fs;

@@ -23,6 +23,8 @@ public:
     virtual void Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgram>& shader,
         const std::vector<std::pair<std::string, ur::TexturePtr>>& textures) = 0;
 
+    virtual const char* GetVertShaderCode() const = 0;
+
     auto GetShader() const { return m_shader; }
     auto GetVertexArray() const { return m_va; }
 

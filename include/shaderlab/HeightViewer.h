@@ -25,6 +25,8 @@ public:
     virtual void Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgram>& shader,
         const std::vector<std::pair<std::string, ur::TexturePtr>>& textures) override;
 
+    virtual const char* GetVertShaderCode() const;
+
     void SetHeightScale(float scale) {
         m_height_scale = scale;
     }

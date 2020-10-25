@@ -17,25 +17,6 @@
 #include <painting3/ProjectMatUpdater.h>
 #include <shadergraph/block/FragmentShader.h>
 
-namespace
-{
-
-const char* vs = R"(
-#version 330 core
-layout (location = 0) in vec2 aPos;
-layout (location = 1) in vec2 aTexCoord;
-
-out vec2 TexCoord;
-
-void main()
-{
-	gl_Position = vec4(aPos, 0.0, 1.0);
-	TexCoord = vec2(aTexCoord.x, aTexCoord.y);
-}
-)";
-
-}
-
 namespace shaderlab
 {
 
@@ -189,6 +170,7 @@ void WxPreviewCanvas::BuildNodePreviewShader(const bp::NodePtr& bp_node) const
     }
 
     std::vector<unsigned int> _vs, _fs;
+    auto vs = m_viewers[m_viewer_type]->GetVertShaderCode();
     shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::VertexShader, vs, _vs);
     shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::PixelShader, fs, _fs);
     auto shader = m_dev.CreateShaderProgram(_vs, _fs);

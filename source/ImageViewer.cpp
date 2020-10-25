@@ -123,4 +123,9 @@ void ImageViewer::Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgr
     }
 }
 
+const char* ImageViewer::GetVertShaderCode() const
+{
+    return vs;
+}
+
 }
