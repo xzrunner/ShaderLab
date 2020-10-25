@@ -56,6 +56,10 @@ ImageViewer::ImageViewer(const ur::Device& dev)
     shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::VertexShader, vs, _vs);
     shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::PixelShader, fs, _fs);
     m_shader = dev.CreateShaderProgram(_vs, _fs);
+    if (!m_shader || !m_shader->CheckStatus()) {
+        return;
+    }
+
     m_va = dev.CreateVertexArray();
 
     auto usage = ur::BufferUsageHint::StaticDraw;
@@ -108,6 +112,10 @@ void ImageViewer::Draw(ur::Context& ctx, const void* scene) const
 void ImageViewer::Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgram>& shader,
                          const std::vector<std::pair<std::string, ur::TexturePtr>>& textures)
 {
+    if (m_shader == shader) {
+        return;
+    }
+
     m_shader = shader;
 
     m_textures.clear();
