@@ -167,7 +167,6 @@ void WxPreviewCanvas::BuildNodePreviewShader(const bp::NodePtr& bp_node) const
     shadergraph::Evaluator back_eval;
     back_eval.Rebuild(fs_out);
 
-    back_eval.Rebuild(fs_out);
     auto fs = back_eval.GenShaderCode();
     if (fs.empty()) {
         return;
