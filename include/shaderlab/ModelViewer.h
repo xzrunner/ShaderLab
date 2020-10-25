@@ -20,12 +20,13 @@ class ModelViewer : public PreviewViewer
 public:
     ModelViewer(const ur::Device& dev);
 
-    virtual void Draw(ur::Context& ctx,
+    virtual void Draw(ur::Context& ctx, const pt0::CameraPtr& cam,
         const void* scene = nullptr) const override;
-    virtual void Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgram>& shader,
+    virtual void Update(ur::Context& ctx, const pt0::CameraPtr& cam, 
+        const std::shared_ptr<ur::ShaderProgram>& shader,
         const std::vector<std::pair<std::string, ur::TexturePtr>>& textures) override;
 
-    virtual const char* GetVertShaderCode() const;
+    virtual std::string GetVertShaderCode() const;
 
 private:
     void InitShader(const ur::Device& dev);

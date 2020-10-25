@@ -141,7 +141,7 @@ HeightViewer::HeightViewer(const ur::Device& dev)
     InitVertBuf(dev);
 }
 
-void HeightViewer::Draw(ur::Context& ctx, const void* scene) const
+void HeightViewer::Draw(ur::Context& ctx, const pt0::CameraPtr& cam, const void* scene) const
 {
 #ifdef ONLY_DRAW_HEIGHTMAP
     ctx.SetTexture(0, m_heightmap.GetTexture());
@@ -163,14 +163,15 @@ void HeightViewer::Draw(ur::Context& ctx, const void* scene) const
 #endif // ONLY_DRAW_HEIGHTMAP
 }
 
-void HeightViewer::Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgram>& shader,
+void HeightViewer::Update(ur::Context& ctx, const pt0::CameraPtr& cam, 
+                          const std::shared_ptr<ur::ShaderProgram>& shader,
                           const std::vector<std::pair<std::string, ur::TexturePtr>>& textures)
 {
-    m_heightmap.Update(ctx, shader, textures, m_img_viewer);
-    m_img_viewer.Update(ctx, shader, textures);
+    m_heightmap.Update(ctx, cam, shader, textures, m_img_viewer);
+    m_img_viewer.Update(ctx, cam, shader, textures);
 }
 
-const char* HeightViewer::GetVertShaderCode() const
+std::string HeightViewer::GetVertShaderCode() const
 {
     return vs;
 }
@@ -318,7 +319,8 @@ HeightMap(const ur::Device& dev, int width, int height)
 }
 
 void HeightViewer::HeightMap::
-Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgram>& shader,
+Update(ur::Context& ctx, const pt0::CameraPtr& cam, 
+       const std::shared_ptr<ur::ShaderProgram>& shader,
        const std::vector<std::pair<std::string, ur::TexturePtr>>& textures, ImageViewer& img_viewer)
 {
     int x, y, w, h;
@@ -332,8 +334,8 @@ Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgram>& shader,
     clear.color.FromRGBA(0x88000088);
     ctx.Clear(clear);
 
-    img_viewer.Update(ctx, shader, textures);
-    img_viewer.Draw(ctx);
+    img_viewer.Update(ctx, cam, shader, textures);
+    img_viewer.Draw(ctx, cam);
 
     ctx.SetFramebuffer(nullptr);
     ctx.SetViewport(x, y, w, h);

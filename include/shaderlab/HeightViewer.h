@@ -20,12 +20,13 @@ class HeightViewer : public PreviewViewer
 public:
     HeightViewer(const ur::Device& dev);
 
-    virtual void Draw(ur::Context& ctx,
+    virtual void Draw(ur::Context& ctx, const pt0::CameraPtr& cam,
         const void* scene = nullptr) const override;
-    virtual void Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgram>& shader,
+    virtual void Update(ur::Context& ctx, const pt0::CameraPtr& cam, 
+        const std::shared_ptr<ur::ShaderProgram>& shader,
         const std::vector<std::pair<std::string, ur::TexturePtr>>& textures) override;
 
-    virtual const char* GetVertShaderCode() const;
+    virtual std::string GetVertShaderCode() const;
 
     void SetHeightScale(float scale) {
         m_height_scale = scale;
@@ -67,7 +68,8 @@ private:
         HeightMap(const ur::Device& dev,
             int width, int height);
 
-        void Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgram>& shader,
+        void Update(ur::Context& ctx, const pt0::CameraPtr& cam,
+            const std::shared_ptr<ur::ShaderProgram>& shader,
             const std::vector<std::pair<std::string, ur::TexturePtr>>& textures, ImageViewer& img_viewer);
 
         auto GetTexture() const { return m_tex; }

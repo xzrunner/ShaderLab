@@ -14,10 +14,13 @@
 #include <unirender/Framebuffer.h>
 #include <unirender/Factory.h>
 #include <unirender/ClearState.h>
+#include <shadergraph/VarNames.h>
 #include <shadertrans/ShaderTrans.h>
 #include <painting0/ModelMatUpdater.h>
 #include <painting3/ViewMatUpdater.h>
 #include <painting3/ProjectMatUpdater.h>
+#include <painting3/PerspCam.h>
+#include <cpputil/StringHelper.h>
 
 namespace
 {
@@ -29,6 +32,7 @@ layout (location = 0) in vec3 position;
 layout (location = 1) in vec2 texcoord;
 
 out vec2 TexCoord;
+out vec4 #frag_pos#;
 
 layout(std140) uniform UBO_VS
 {
@@ -41,8 +45,8 @@ void main()
 {
     TexCoord = vec2(texcoord.x, texcoord.y);
 
-	vec4 pos = vec4(position, 1.0);
-	gl_Position = ubo_vs.projection * ubo_vs.view * ubo_vs.model * pos;
+	#frag_pos# = vec4(position, 1.0);
+	gl_Position = ubo_vs.projection * ubo_vs.view * ubo_vs.model * #frag_pos#;
 }
 
 )";
@@ -74,7 +78,7 @@ ModelViewer::ModelViewer(const ur::Device& dev)
     InitVertBuf(dev);
 }
 
-void ModelViewer::Draw(ur::Context& ctx, const void* scene) const
+void ModelViewer::Draw(ur::Context& ctx, const pt0::CameraPtr& cam, const void* scene) const
 {
     ur::DrawState ds;
     ds.program = m_shader;
@@ -85,11 +89,22 @@ void ModelViewer::Draw(ur::Context& ctx, const void* scene) const
     for (auto& t : m_textures) {
         ctx.SetTexture(t.first, t.second);
     }
+    
+    auto u_cam_pos = m_shader->QueryUniform(shadergraph::VarNames::PositionUniforms::cam_pos);
+    if (u_cam_pos)
+    {
+        if (cam->TypeID() == pt0::GetCamTypeID<pt3::PerspCam>())
+        {
+            auto persp = std::static_pointer_cast<pt3::PerspCam>(cam);
+            u_cam_pos->SetValue(persp->GetPos().xyz);
+        }
+    }
 
     ctx.Draw(ur::PrimitiveType::Triangles, ds, scene);
 }
 
-void ModelViewer::Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgram>& shader,
+void ModelViewer::Update(ur::Context& ctx, const pt0::CameraPtr& cam, 
+                         const std::shared_ptr<ur::ShaderProgram>& shader,
                          const std::vector<std::pair<std::string, ur::TexturePtr>>& textures)
 {
     if (m_shader == shader) {
@@ -115,15 +130,17 @@ void ModelViewer::Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgr
     m_shader->AddUniformUpdater(std::make_shared<pt3::ProjectMatUpdater>(*m_shader, "ubo_vs.projection"));
 }
 
-const char* ModelViewer::GetVertShaderCode() const
+std::string ModelViewer::GetVertShaderCode() const
 {
-    return vs;
+    std::string ret = vs;
+    cpputil::StringHelper::ReplaceAll(ret, "#frag_pos#", shadergraph::VarNames::FragInputs::frag_pos);
+    return ret;
 }
 
 void ModelViewer::InitShader(const ur::Device& dev)
 {
     std::vector<unsigned int> _vs, _fs;
-    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::VertexShader, vs, _vs);
+    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::VertexShader, GetVertShaderCode(), _vs);
     shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::PixelShader, fs, _fs);
     m_shader = dev.CreateShaderProgram(_vs, _fs);
     if (!m_shader || !m_shader->CheckStatus()) {
@@ -133,16 +150,6 @@ void ModelViewer::InitShader(const ur::Device& dev)
     m_shader->AddUniformUpdater(std::make_shared<pt0::ModelMatUpdater>(*m_shader, "ubo_vs.model"));
     m_shader->AddUniformUpdater(std::make_shared<pt3::ViewMatUpdater>(*m_shader, "ubo_vs.view"));
     m_shader->AddUniformUpdater(std::make_shared<pt3::ProjectMatUpdater>(*m_shader, "ubo_vs.projection"));
-
-    //m_shader->QueryUniform("ubo_vs.height_scale")->SetValue(&m_height_scale);
-
-    //const float inv_res[2] = { 1.0f / HEIGHT_FIELD_SIZE, 1.0f / HEIGHT_FIELD_SIZE };
-    //auto u_inv_res = m_shader->QueryUniform("ubo_vs.inv_res");
-    //u_inv_res->SetValue(inv_res, 2);
-
-    //auto u_light_pos = m_shader->QueryUniform("ubo_fs.light_pos");
-    //float light_pos[3] = { 1000, 1000, 0 };
-    //u_light_pos->SetValue(light_pos, 3);
 }
 
 void ModelViewer::InitVertBuf(const ur::Device& dev)

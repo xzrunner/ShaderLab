@@ -199,6 +199,11 @@
 #define PARM_NODE_NAME uv
 #include EXE_FILEPATH
 
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS ViewDir
+#define PARM_NODE_NAME view_dir
+#include EXE_FILEPATH
+
 #undef NODES_GROUP_NAME
 
 // gradient

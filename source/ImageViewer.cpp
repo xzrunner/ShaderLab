@@ -95,7 +95,7 @@ ImageViewer::ImageViewer(const ur::Device& dev)
     m_va->SetVertexBuffer(vbuf);
 }
 
-void ImageViewer::Draw(ur::Context& ctx, const void* scene) const
+void ImageViewer::Draw(ur::Context& ctx, const pt0::CameraPtr& cam, const void* scene) const
 {
     ur::DrawState ds;
     ds.program      = m_shader;
@@ -109,7 +109,8 @@ void ImageViewer::Draw(ur::Context& ctx, const void* scene) const
     ctx.Draw(ur::PrimitiveType::Triangles, ds, nullptr);
 }
 
-void ImageViewer::Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgram>& shader,
+void ImageViewer::Update(ur::Context& ctx, const pt0::CameraPtr& cam, 
+                         const std::shared_ptr<ur::ShaderProgram>& shader,
                          const std::vector<std::pair<std::string, ur::TexturePtr>>& textures)
 {
     if (m_shader == shader) {
@@ -131,7 +132,7 @@ void ImageViewer::Update(ur::Context& ctx, const std::shared_ptr<ur::ShaderProgr
     }
 }
 
-const char* ImageViewer::GetVertShaderCode() const
+std::string ImageViewer::GetVertShaderCode() const
 {
     return vs;
 }

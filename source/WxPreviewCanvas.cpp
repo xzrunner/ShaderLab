@@ -81,7 +81,7 @@ void WxPreviewCanvas::DrawForeground2D() const
             std::static_pointer_cast<pt0::ModelMatUpdater>(model_updater)->Update(sm::mat4());
         }
     }
-    m_viewers[m_viewer_type]->Draw(*GetRenderContext().ur_ctx, GetWidnowContext().wc3.get());
+    m_viewers[m_viewer_type]->Draw(*GetRenderContext().ur_ctx, m_camera, GetWidnowContext().wc3.get());
 }
 
 void WxPreviewCanvas::OnTimer()
@@ -110,7 +110,7 @@ void WxPreviewCanvas::RebuildShader()
     {
         auto shader = m_eval.BuildShader(m_dev, viewer->GetVertShaderCode(), nodes);
         if (shader) {
-            viewer->Update(*GetRenderContext().ur_ctx, shader, textures);
+            viewer->Update(*GetRenderContext().ur_ctx, m_camera, shader, textures);
         }
     }
 
