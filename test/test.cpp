@@ -137,7 +137,7 @@ build_shader(const ur::Device& dev, const std::vector<bp::NodePtr>& front_nodes,
     shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::VertexShader, vs, _vs);
     shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::PixelShader, fs, _fs);
     auto shader = dev.CreateShaderProgram(_vs, _fs);
-    if (!shader->CheckStatus()) {
+    if (!shader || !shader->CheckStatus()) {
         return nullptr;
     }
 
