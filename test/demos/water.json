@@ -49,8 +49,8 @@
         [
             {
                 "position": [
-                    566.936767578125,
-                    -304.55889892578127
+                    1099.494384765625,
+                    -215.17178344726563
                 ],
                 "comp_type": "n2_transform"
             },
@@ -170,8 +170,8 @@
                                 "pin": "normal"
                             },
                             {
-                                "node_idx": 11,
-                                "pin": "a"
+                                "node_idx": 13,
+                                "pin": "rgb"
                             }
                         ]
                     },
@@ -479,8 +479,8 @@
         [
             {
                 "position": [
-                    313.68475341796877,
-                    -175.52870178222657
+                    227.32110595703126,
+                    -4.801422119140625
                 ],
                 "comp_type": "n2_transform"
             },
@@ -523,8 +523,8 @@
         [
             {
                 "position": [
-                    125.66336059570313,
-                    -378.0564880371094
+                    658.2210693359375,
+                    -288.6693115234375
                 ],
                 "comp_type": "n2_transform"
             },
@@ -550,7 +550,7 @@
                     "name": "node0",
                     "props": [
                         {
-                            "name": "camera_pos",
+                            "name": "cam_pos",
                             "type": "float3",
                             "value": [
                                 0.0,
@@ -577,8 +577,8 @@
         [
             {
                 "position": [
-                    265.94580078125,
-                    -296.5080261230469
+                    798.5035400390625,
+                    -207.12091064453126
                 ],
                 "comp_type": "n2_transform"
             },
@@ -621,8 +621,8 @@
         [
             {
                 "position": [
-                    408.31329345703127,
-                    -301.4984130859375
+                    940.8712158203125,
+                    -212.11129760742188
                 ],
                 "comp_type": "n2_transform"
             },
@@ -656,6 +656,212 @@
                             {
                                 "node_idx": 1,
                                 "pin": "rgb"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    267.8560485839844,
+                    -190.85885620117188
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::split",
+                "node_val": {
+                    "title": "Split",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node6",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "r",
+                        "to": [
+                            {
+                                "node_idx": 15,
+                                "pin": "_in"
+                            }
+                        ]
+                    },
+                    {
+                        "from": "g",
+                        "to": [
+                            {
+                                "node_idx": 14,
+                                "pin": "g"
+                            }
+                        ]
+                    },
+                    {
+                        "from": "b",
+                        "to": [
+                            {
+                                "node_idx": 16,
+                                "pin": "_in"
+                            }
+                        ]
+                    },
+                    {
+                        "from": "a",
+                        "to": []
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    590.38916015625,
+                    -187.2320556640625
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::combine",
+                "node_val": {
+                    "title": "Combine",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node7",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "rgba",
+                        "to": []
+                    },
+                    {
+                        "from": "rgb",
+                        "to": [
+                            {
+                                "node_idx": 11,
+                                "pin": "a"
+                            }
+                        ]
+                    },
+                    {
+                        "from": "rg",
+                        "to": []
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    429.0240478515625,
+                    -131.57318115234376
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::negate",
+                "node_val": {
+                    "title": "Negate",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node15",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "_out",
+                        "to": [
+                            {
+                                "node_idx": 14,
+                                "pin": "r"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    438.7369689941406,
+                    -235.5325469970703
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::negate",
+                "node_val": {
+                    "title": "Negate",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node1516",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "_out",
+                        "to": [
+                            {
+                                "node_idx": 14,
+                                "pin": "b"
                             }
                         ]
                     }
