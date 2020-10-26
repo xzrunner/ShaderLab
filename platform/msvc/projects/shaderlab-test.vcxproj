@@ -122,6 +122,9 @@
     <ProjectReference Include="..\..\..\..\shadergraph\platform\msvc\projects\shadergraph.vcxproj">
       <Project>{aa04f36c-3055-477e-bd99-e39c745b3321}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\shadertrans\platform\msvc\projects\shadertrans.vcxproj">
+      <Project>{0af51930-759c-4389-8420-2bf6cb10beff}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\shaderweaver\platform\msvc\projects\shaderweaver.vcxproj">
       <Project>{cb558c48-c50c-433b-acf6-4ab1c306a11a}</Project>
     </ProjectReference>
@@ -193,7 +196,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\gimg\src\gimg;..\..\..\..\guard\include;..\..\..\..\dag\include;..\..\..\..\serializerx\include;..\..\..\..\memmgr\include;..\..\..\..\nserializer\include;..\..\..\..\js\include;..\..\..\..\primitive\include;..\..\..\..\geoshape\include;..\..\..\..\node0\include;..\..\..\..\painting0\include;..\..\..\..\unirender\include;..\..\..\..\facade\include;..\..\..\..\shadergraph\include;..\..\..\..\easyeditor0\include;..\..\..\..\blueprint\include;..\..\..\..\external\catch\include;..\..\..\..\external\rttr\include;..\..\..\..\external\boost\include;..\..\..\..\external\gl\include;..\..\..\..\external\glfw\include;..\..\..\..\external\rapidjson\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\gimg\src\gimg;..\..\..\..\guard\include;..\..\..\..\dag\include;..\..\..\..\serializerx\include;..\..\..\..\memmgr\include;..\..\..\..\nserializer\include;..\..\..\..\js\include;..\..\..\..\primitive\include;..\..\..\..\geoshape\include;..\..\..\..\node0\include;..\..\..\..\painting0\include;..\..\..\..\shadertrans\include;..\..\..\..\unirender\include;..\..\..\..\facade\include;..\..\..\..\shadergraph\include;..\..\..\..\easyeditor0\include;..\..\..\..\blueprint\include;..\..\..\..\external\catch\include;..\..\..\..\external\rttr\include;..\..\..\..\external\boost\include;..\..\..\..\external\gl\include;..\..\..\..\external\glfw\include;..\..\..\..\external\rapidjson\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;__STDC_LIMIT_MACROS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -204,15 +207,15 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>..\..\..\..\external\boost\lib;..\..\..\..\external\rttr\lib;..\..\..\..\external\gl\lib;..\..\..\..\external\glfw\lib;..\..\..\..\external\lua\lib;..\..\..\..\external\fbxsdk\lib;..\..\..\..\external\assimp\lib;..\..\..\..\external\tbb\lib;..\..\..\..\external\libjpeg\lib;..\..\..\..\external\libpng\lib;..\..\..\..\external\zlib\lib;..\..\..\..\external\openvdb\lib;..\..\..\..\external\OpenEXR\lib;..\..\..\..\external\freetype\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>rttr_core_d.lib;OpenGL32.lib;glew32sd.lib;glfw3d.lib;lua.lib;libfbxsdk.lib;assimp-vc140-mtd.lib;jpeg.lib;libpng16.lib;zlib.lib;openvdbd.lib;Half-2_3.lib;freetype281d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\..\..\external\boost\lib;..\..\..\..\external\rttr\lib;..\..\..\..\external\gl\lib;..\..\..\..\external\glfw\lib;..\..\..\..\external\lua\lib;..\..\..\..\external\fbxsdk\lib;..\..\..\..\external\assimp\lib;..\..\..\..\external\tbb\lib;..\..\..\..\external\libjpeg\lib;..\..\..\..\external\libpng\lib;..\..\..\..\external\zlib\lib;..\..\..\..\external\openvdb\lib;..\..\..\..\external\OpenEXR\lib;..\..\..\..\external\freetype\lib;..\..\..\..\external\glslang\lib;..\..\..\..\external\vulkan\lib;..\..\..\..\external\spirv-cross\lib;..\..\..\..\external\DirectXShaderCompiler\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>rttr_core_d.lib;OpenGL32.lib;glew32sd.lib;glfw3d.lib;lua.lib;libfbxsdk.lib;assimp-vc140-mtd.lib;jpeg.lib;libpng16.lib;zlib.lib;openvdbd.lib;Half-2_3.lib;freetype281d.lib;glslangd.lib;HLSLd.lib;OSDependentd.lib;OGLCompilerd.lib;MachineIndependentd.lib;GenericCodeGend.lib;vulkan-1.lib;SPIRVd.lib;spirv-cross-glsld.lib;spirv-cross-utild.lib;spirv-cross-cored.lib;LLVMDxcSupportd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\gimg\src\gimg;..\..\..\..\guard\include;..\..\..\..\dag\include;..\..\..\..\serializerx\include;..\..\..\..\memmgr\include;..\..\..\..\nserializer\include;..\..\..\..\js\include;..\..\..\..\primitive\include;..\..\..\..\geoshape\include;..\..\..\..\node0\include;..\..\..\..\painting0\include;..\..\..\..\unirender\include;..\..\..\..\facade\include;..\..\..\..\shadergraph\include;..\..\..\..\easyeditor0\include;..\..\..\..\blueprint\include;..\..\..\..\external\catch\include;..\..\..\..\external\rttr\include;..\..\..\..\external\boost\include;..\..\..\..\external\gl\include;..\..\..\..\external\glfw\include;..\..\..\..\external\rapidjson\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\gimg\src\gimg;..\..\..\..\guard\include;..\..\..\..\dag\include;..\..\..\..\serializerx\include;..\..\..\..\memmgr\include;..\..\..\..\nserializer\include;..\..\..\..\js\include;..\..\..\..\primitive\include;..\..\..\..\geoshape\include;..\..\..\..\node0\include;..\..\..\..\painting0\include;..\..\..\..\shadertrans\include;..\..\..\..\unirender\include;..\..\..\..\facade\include;..\..\..\..\shadergraph\include;..\..\..\..\easyeditor0\include;..\..\..\..\blueprint\include;..\..\..\..\external\catch\include;..\..\..\..\external\rttr\include;..\..\..\..\external\boost\include;..\..\..\..\external\gl\include;..\..\..\..\external\glfw\include;..\..\..\..\external\rapidjson\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;__STDC_LIMIT_MACROS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -221,8 +224,8 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>..\..\..\..\external\boost\lib;..\..\..\..\external\rttr\lib;..\..\..\..\external\gl\lib;..\..\..\..\external\glfw\lib;..\..\..\..\external\lua\lib;..\..\..\..\external\fbxsdk\lib;..\..\..\..\external\assimp\lib;..\..\..\..\external\tbb\lib;..\..\..\..\external\libjpeg\lib;..\..\..\..\external\libpng\lib;..\..\..\..\external\zlib\lib;..\..\..\..\external\openvdb\lib;..\..\..\..\external\OpenEXR\lib;..\..\..\..\external\freetype\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>rttr_core.lib;OpenGL32.lib;glew32s.lib;glfw3.lib;lua.lib;libfbxsdk.lib;assimp-vc140-mt.lib;jpeg.lib;libpng16.lib;zlib.lib;openvdb.lib;Half-2_3.lib;freetype281.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\..\..\external\boost\lib;..\..\..\..\external\rttr\lib;..\..\..\..\external\gl\lib;..\..\..\..\external\glfw\lib;..\..\..\..\external\lua\lib;..\..\..\..\external\fbxsdk\lib;..\..\..\..\external\assimp\lib;..\..\..\..\external\tbb\lib;..\..\..\..\external\libjpeg\lib;..\..\..\..\external\libpng\lib;..\..\..\..\external\zlib\lib;..\..\..\..\external\openvdb\lib;..\..\..\..\external\OpenEXR\lib;..\..\..\..\external\freetype\lib;..\..\..\..\external\glslang\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>rttr_core.lib;OpenGL32.lib;glew32s.lib;glfw3.lib;lua.lib;libfbxsdk.lib;assimp-vc140-mt.lib;jpeg.lib;libpng16.lib;zlib.lib;openvdb.lib;Half-2_3.lib;freetype281.lib;glslang.lib;HLSL.lib;OSDependent.lib;OGLCompiler.lib;MachineIndependent.lib;GenericCodeGen.lib;vulkan-1.lib;SPIRV.lib;spirv-cross-glsl.lib;spirv-cross-util.lib;spirv-cross-core.lib;LLVMDxcSupport.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
