@@ -202,7 +202,7 @@ void test_file(const ur::Device& dev, ur::Context& ctx,
             }
         }
         auto sub_graph = std::static_pointer_cast<bp::node::SubGraph<shadergraph::Variant>>(bp_node);
-        sub_graph->SetChildren(bp_nodes);
+        sub_graph->SetChildren(bp_nodes, true);
     }
 
     std::vector<bp::NodePtr> front_nodes(children.size(), nullptr);
@@ -280,6 +280,8 @@ int main()
     init_gl();
 
     auto dev = ur::CreateDevice(ur::APIType::OpenGL);
+    dev->Init();
+
     auto ctx = ur::CreateContext(ur::APIType::OpenGL, *dev, nullptr);
 
     ns::RegistCallback::Init();
