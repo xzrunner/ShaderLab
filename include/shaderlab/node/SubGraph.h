@@ -17,7 +17,7 @@ public:
     virtual void LoadFromJson(const ur::Device& dev, const std::string& dir, 
 		const rapidjson::Value& val) override;
 
-    void Setup(const std::vector<shadergraph::Variant>& inputs,
+    bool Setup(const std::vector<shadergraph::Variant>& inputs,
         const std::vector<shadergraph::Variant>& outputs);
 
     auto& GetInputVars() const { return m_in_vars; }

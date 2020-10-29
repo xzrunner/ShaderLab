@@ -22,9 +22,13 @@ void SubGraph::LoadFromJson(const ur::Device& dev, const std::string& dir, const
     SetupPorts();
 }
 
-void SubGraph::Setup(const std::vector<shadergraph::Variant>& inputs,
+bool SubGraph::Setup(const std::vector<shadergraph::Variant>& inputs,
                      const std::vector<shadergraph::Variant>& outputs)
 {
+    if (m_in_vars == inputs && m_out_vars == outputs) {
+        return false;
+    }
+
     // init vars
     m_in_vars = inputs;
     m_out_vars = outputs;
@@ -40,6 +44,10 @@ void SubGraph::Setup(const std::vector<shadergraph::Variant>& inputs,
     for (int i = 0, n = outputs.size(); i < n; ++i) {
         Insert(outputs[i], false);
     }
+
+    Layout();
+
+    return true;
 }
 
 void SubGraph::Insert(const shadergraph::Variant& var, bool is_input)
