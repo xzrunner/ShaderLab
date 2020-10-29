@@ -218,9 +218,6 @@ void test_file(const ur::Device& dev, ur::Context& ctx,
 
     bp::SerializeHelper::SetupConnections(filepath, children, front_nodes, back_nodes);
 
-    std::vector<std::pair<size_t, ur::TexturePtr>> textures;
-    auto shader = build_shader(dev, front_nodes, back_nodes, textures);
-
     ctx.SetFramebuffer(rt);
     ctx.SetViewport(0, 0, TEX_SIZE, TEX_SIZE);
 
@@ -229,16 +226,21 @@ void test_file(const ur::Device& dev, ur::Context& ctx,
     clear.color.FromRGBA(0x88888888);
     ctx.Clear(clear);
 
-    ur::DrawState ds;
-    ds.program      = shader;
-    ds.render_state = ur::DefaultRenderState2D();
-    ds.vertex_array = dev.GetVertexArray(ur::Device::PrimitiveType::Quad, ur::VertexLayoutType::PosTex);
+    std::vector<std::pair<size_t, ur::TexturePtr>> textures;
+    auto shader = build_shader(dev, front_nodes, back_nodes, textures);
+    if (shader)
+    {
+        ur::DrawState ds;
+        ds.program = shader;
+        ds.render_state = ur::DefaultRenderState2D();
+        ds.vertex_array = dev.GetVertexArray(ur::Device::PrimitiveType::Quad, ur::VertexLayoutType::PosTex);
 
-    for (auto& t : textures) {
-        ctx.SetTexture(t.first, t.second);
+        for (auto& t : textures) {
+            ctx.SetTexture(t.first, t.second);
+        }
+
+        ctx.Draw(ur::PrimitiveType::TriangleStrip, ds, nullptr);
     }
-
-    ctx.Draw(ur::PrimitiveType::TriangleStrip, ds, nullptr);
 
     dev.ReadPixels(BUFFER, ur::TextureFormat::RGB, 0, 0, TEX_SIZE, TEX_SIZE);
 
