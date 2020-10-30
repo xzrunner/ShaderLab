@@ -65,7 +65,10 @@ bool WxGraphPage::IsNodeInputOrOutput(const ee0::VariantSet& variants) const
 void WxGraphPage::SetupSubGraphPorts()
 {
     auto root = GetSceneTree()->GetCurrNode();
-    assert(root && root->HasUniqueComp<bp::CompNode>());
+    assert(root);
+    if (!root->HasUniqueComp<bp::CompNode>()) {
+        return;
+    }
     auto& bp_node = root->GetUniqueComp<bp::CompNode>().GetNode();
     if (bp_node->get_type() != rttr::type::get<node::SubGraph>()) {
         return;
