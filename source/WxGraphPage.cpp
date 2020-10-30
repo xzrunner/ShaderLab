@@ -89,7 +89,7 @@ void WxGraphPage::SetupSubGraphPorts()
             else if (type == rttr::type::get<node::Output>()) 
             {
                 auto output = std::static_pointer_cast<node::Output>(bp_node);
-                outputs.push_back({ output->m_var_type, "ret" });
+                outputs.push_back({ output->m_var_type, output->m_var_name });
             }
         }
 		return true;

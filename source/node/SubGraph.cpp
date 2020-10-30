@@ -65,6 +65,7 @@ void SubGraph::Insert(const shadergraph::Variant& var, bool is_input)
     {
         auto o = std::make_shared<node::Output>();
         o->m_var_type = var.type;
+        o->m_var_name = var.name;
         bp_node = o;
     }
     m_graph->OnAddNode(*bp_node);
