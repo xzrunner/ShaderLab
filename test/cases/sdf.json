@@ -174,6 +174,10 @@
                                         {
                                             "node_idx": 3,
                                             "pin": "p"
+                                        },
+                                        {
+                                            "node_idx": 5,
+                                            "pin": "p"
                                         }
                                     ]
                                 }
@@ -183,8 +187,8 @@
                     [
                         {
                             "position": [
-                                200.0,
-                                -50.0
+                                179.0,
+                                -9.0
                             ],
                             "comp_type": "n2_transform"
                         },
@@ -209,6 +213,7 @@
                                 },
                                 "name": "node0",
                                 "var_type": "float",
+                                "var_name": "dist",
                                 "props": []
                             },
                             "comp_type": "bp_node",
@@ -218,8 +223,8 @@
                     [
                         {
                             "position": [
-                                200.0,
-                                -100.0
+                                179.0,
+                                -59.0
                             ],
                             "comp_type": "n2_transform"
                         },
@@ -244,6 +249,7 @@
                                 },
                                 "name": "node1",
                                 "var_type": "function",
+                                "var_name": "func",
                                 "props": []
                             },
                             "comp_type": "bp_node",
@@ -253,8 +259,8 @@
                     [
                         {
                             "position": [
-                                -3.1411027908325197,
-                                -55.03907775878906
+                                -5.1411027908325199,
+                                -58.03907775878906
                             ],
                             "comp_type": "n2_transform"
                         },
@@ -284,12 +290,7 @@
                             "connection": [
                                 {
                                     "from": "ret",
-                                    "to": [
-                                        {
-                                            "node_idx": 1,
-                                            "pin": "_in"
-                                        }
-                                    ]
+                                    "to": []
                                 },
                                 {
                                     "from": "sdSphere",
@@ -301,8 +302,8 @@
                     [
                         {
                             "position": [
-                                -135.35939025878907,
-                                -90.98723602294922
+                                -141.35939025878907,
+                                -115.98724365234375
                             ],
                             "comp_type": "n2_transform"
                         },
@@ -326,7 +327,7 @@
                                     "small_title_font": false
                                 },
                                 "name": "node3",
-                                "val": 0.4000000059604645,
+                                "val": 0.800000011920929,
                                 "props": []
                             },
                             "comp_type": "bp_node",
@@ -342,13 +343,61 @@
                                 }
                             ]
                         }
+                    ],
+                    [
+                        {
+                            "position": [
+                                -11.0,
+                                44.0
+                            ],
+                            "comp_type": "n2_transform"
+                        },
+                        {
+                            "filepath": "",
+                            "name": "",
+                            "id": 0,
+                            "comp_type": "n0_identity"
+                        },
+                        {
+                            "visible": false,
+                            "editable": true,
+                            "comp_type": "n0_flags"
+                        },
+                        {
+                            "node_type": "shaderlab::sdf_sphere",
+                            "node_val": {
+                                "title": "SDF_Sphere",
+                                "style": {
+                                    "only_title": false,
+                                    "small_title_font": false
+                                },
+                                "name": "node4",
+                                "props": []
+                            },
+                            "comp_type": "bp_node",
+                            "connection": [
+                                {
+                                    "from": "ret",
+                                    "to": [
+                                        {
+                                            "node_idx": 1,
+                                            "pin": "_in"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "from": "sdSphere",
+                                    "to": []
+                                }
+                            ]
+                        }
                     ]
                 ],
                 "comp_type": "n0_complex"
             },
             {
                 "position": [
-                    -208.59588623046876,
+                    -209.16033935546876,
                     -84.33917236328125
                 ],
                 "comp_type": "n2_transform"
@@ -381,11 +430,11 @@
                     "outputs": [
                         {
                             "Type": "float",
-                            "Name": ""
+                            "Name": "dist"
                         },
                         {
                             "Type": "function",
-                            "Name": "f_scene"
+                            "Name": "func"
                         }
                     ],
                     "props": []
@@ -393,11 +442,11 @@
                 "comp_type": "bp_node",
                 "connection": [
                     {
-                        "from": "",
+                        "from": "dist",
                         "to": []
                     },
                     {
-                        "from": "f_scene",
+                        "from": "func",
                         "to": [
                             {
                                 "node_idx": 0,
