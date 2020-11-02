@@ -6,13 +6,23 @@
 
 #include <blueprint/Pin.h>
 #include <blueprint/Node.h>
+#include <blueprint/CompNode.h>
 
 #include <dag/Graph.h>
 #include <shadergraph/Block.h>
 #include <shadergraph/ValueImpl.h>
+#include <shadergraph/Evaluator.h>
 #include <shadergraph/block/CustomBlock.h>
 #include <shadergraph/block/Texture2DAsset.h>
 #include <shadergraph/block/SubGraph.h>
+#include <shadergraph/block/FragmentShader.h>
+#include <js/RapidJsonHelper.h>
+#include <ns/CompFactory.h>
+#include <node0/CompAsset.h>
+#include <node0/CompComplex.h>
+#include <node0/SceneNode.h>
+
+#include <boost/filesystem.hpp>
 
 #include <assert.h>
 
@@ -198,6 +208,62 @@ void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Var
         auto& dst = static_cast<shadergraph::block::SubGraph&>(back);
         dst.Setup(src.GetBackGraph(), src.GetInputVars(), src.GetOutputVars());
     }
+}
+
+std::string ShaderAdapter::BuildShaderCode(const std::string& filepath, const ur::Device& dev)
+{
+    std::string ret;
+
+    rapidjson::Document doc;
+    js::RapidJsonHelper::ReadFromFile(filepath.c_str(), doc);
+
+    auto dir = boost::filesystem::path(filepath).parent_path().string();
+    n0::CompAssetPtr casset = ns::CompFactory::Instance()->CreateAsset(dev, doc, dir);
+    if (!casset) {
+        return ret;
+    }
+
+    assert(casset->TypeID() == n0::GetAssetUniqueTypeID<n0::CompComplex>());
+
+    bp::BackendGraph<shadergraph::Variant> front_eval("shadergraph", "shaderlab", [&](const bp::Node& front, dag::Node<shadergraph::Variant>& back) {
+        ShaderAdapter::Front2Back(front, back, dir, dev);
+    });
+
+    std::vector<bp::NodePtr> nodes;
+    casset->Traverse([&](const n0::SceneNodePtr& node)->bool
+    {
+        if (!node->HasUniqueComp<bp::CompNode>()) {
+            return true;
+        }
+
+        auto& cnode = node->GetUniqueComp<bp::CompNode>();
+        auto bp_node = cnode.GetNode();
+        front_eval.OnAddNode(*bp_node);
+
+        nodes.push_back(bp_node);
+
+        return true;
+    });
+    front_eval.OnRebuildConnection();
+
+    shadergraph::Evaluator back_eval;
+    for (auto& node : nodes)
+    {
+        auto back_node = front_eval.QueryBackNode(*node);
+        if (!back_node) {
+            continue;
+        }
+        assert(back_node);
+        auto block = std::static_pointer_cast<shadergraph::Block>(back_node);
+        if (block->get_type() == rttr::type::get<shadergraph::block::FragmentShader>())
+        {
+            back_eval.Rebuild(block);
+            ret = back_eval.GenShaderCode();
+            break;
+        }
+    }
+
+    return ret;
 }
 
 }

@@ -19,6 +19,8 @@ public:
     static void Front2Back(const bp::Node& front, dag::Node<shadergraph::Variant>& back,
         const std::string& dir, const ur::Device& dev);
 
+    static std::string BuildShaderCode(const std::string& filepath, const ur::Device& dev);
+
 }; // ShaderAdapter
 
 }
