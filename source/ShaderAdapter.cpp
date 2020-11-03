@@ -210,7 +210,8 @@ void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Var
     }
 }
 
-std::string ShaderAdapter::BuildShaderCode(const std::string& filepath, const ur::Device& dev)
+std::string ShaderAdapter::BuildShaderCode(const std::string& filepath, const ur::Device& dev,
+                                           std::vector<std::pair<std::string, ur::TexturePtr>>& textures)
 {
     std::string ret;
 
@@ -253,6 +254,18 @@ std::string ShaderAdapter::BuildShaderCode(const std::string& filepath, const ur
         if (!back_node) {
             continue;
         }
+
+        if (node->get_type() == rttr::type::get<node::Texture2DAsset>()) 
+        {
+            auto tex = std::static_pointer_cast<node::Texture2DAsset>(node)->GetTexture();
+            if (tex) 
+            {
+                auto block = std::static_pointer_cast<shadergraph::Block>(back_node);
+                auto name = back_eval.QueryRealName(&block->GetExports()[0].var.type);
+                textures.push_back({ name, tex });
+            }
+        }
+
         assert(back_node);
         auto block = std::static_pointer_cast<shadergraph::Block>(back_node);
         if (block->get_type() == rttr::type::get<shadergraph::block::FragmentShader>())
