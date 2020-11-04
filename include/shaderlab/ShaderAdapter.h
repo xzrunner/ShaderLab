@@ -21,7 +21,7 @@ public:
         const std::string& dir, const ur::Device& dev);
 
     static std::string BuildShaderCode(const std::string& filepath, const ur::Device& dev,
-        std::vector<std::pair<std::string, ur::TexturePtr>>& textures);
+        std::vector<std::pair<std::string, ur::TexturePtr>>& textures, bool& time_updater);
 
 }; // ShaderAdapter
 

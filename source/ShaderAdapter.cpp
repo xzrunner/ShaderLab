@@ -3,6 +3,7 @@
 #include "shaderlab/node/CustomBlock.h"
 #include "shaderlab/node/Texture2DAsset.h"
 #include "shaderlab/node/SubGraph.h"
+#include "shaderlab/RegistNodes.h"
 
 #include <blueprint/Pin.h>
 #include <blueprint/Node.h>
@@ -211,7 +212,8 @@ void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Var
 }
 
 std::string ShaderAdapter::BuildShaderCode(const std::string& filepath, const ur::Device& dev,
-                                           std::vector<std::pair<std::string, ur::TexturePtr>>& textures)
+                                           std::vector<std::pair<std::string, ur::TexturePtr>>& textures,
+                                           bool& time_updater)
 {
     std::string ret;
 
@@ -247,6 +249,14 @@ std::string ShaderAdapter::BuildShaderCode(const std::string& filepath, const ur
     });
     front_eval.OnRebuildConnection();
 
+    time_updater = false;
+    for (auto& node : nodes) {
+        auto node_type = node->get_type();
+        if (node_type == rttr::type::get<node::Time>()) {
+            time_updater = true;
+        }
+    }
+
     shadergraph::Evaluator back_eval;
     for (auto& node : nodes)
     {
@@ -255,7 +265,8 @@ std::string ShaderAdapter::BuildShaderCode(const std::string& filepath, const ur
             continue;
         }
 
-        if (node->get_type() == rttr::type::get<node::Texture2DAsset>()) 
+        auto node_type = node->get_type();
+        if (node_type == rttr::type::get<node::Texture2DAsset>())
         {
             auto tex = std::static_pointer_cast<node::Texture2DAsset>(node)->GetTexture();
             if (tex) 
