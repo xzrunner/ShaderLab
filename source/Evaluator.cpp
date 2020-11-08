@@ -11,14 +11,15 @@
 #include <shadergraph/ValueImpl.h>
 #include <shadergraph/block/FragmentShader.h>
 #include <shadergraph/block/Time.h>
+#include <shadergraph/block/Texture2DAsset.h>
 #include <painting0/TimeUpdater.h>
 
 namespace shaderlab
 {
 
 std::shared_ptr<ur::ShaderProgram>
-Evaluator::BuildShader(const ur::Device& dev, const std::string& vs,
-                       const std::vector<bp::NodePtr>& nodes)
+Evaluator::BuildShader(const ur::Device& dev, const std::string& vs, const std::vector<bp::NodePtr>& nodes,
+                       std::vector<std::pair<std::string, ur::TexturePtr>>& textures)
 {
     assert(m_front_eval);
 
@@ -56,12 +57,12 @@ Evaluator::BuildShader(const ur::Device& dev, const std::string& vs,
     for (auto& node : nodes)
     {
         auto back_node = m_front_eval->QueryBackNode(*node);
-        if (!back_node) {
+        if (!back_node || !m_back_eval.HasBlock(std::static_pointer_cast<shadergraph::Block>(back_node))) {
             continue;
         }
-        assert(back_node);
-        auto block = std::static_pointer_cast<shadergraph::Block>(back_node);
-        if (block->get_type() == rttr::type::get<shadergraph::block::Time>())
+
+        auto block_type = std::static_pointer_cast<shadergraph::Block>(back_node)->get_type();
+        if (block_type == rttr::type::get<shadergraph::block::Time>())
         {
             auto up = std::make_shared<pt0::TimeUpdater>(*m_shader,
                 shadergraph::block::Time::TIME_STR,
@@ -69,6 +70,14 @@ Evaluator::BuildShader(const ur::Device& dev, const std::string& vs,
                 shadergraph::block::Time::COS_TIME_STR,
                 shadergraph::block::Time::DELTA_TIME_STR);
             m_shader->AddUniformUpdater(up);
+        }
+        else if (block_type == rttr::type::get<shadergraph::block::Texture2DAsset>())
+        {
+            auto tex = std::static_pointer_cast<node::Texture2DAsset>(node)->GetTexture();
+            if (tex) {
+                auto name = m_back_eval.QueryRealName(&back_node->GetExports()[0].var.type);
+                textures.push_back({ name, tex });
+            }
         }
     }
 
@@ -190,31 +199,6 @@ void Evaluator::UpdateUniforms(const shadergraph::Evaluator& back_eval,
             assert(0);
         }
     }
-}
-
-std::vector<std::pair<std::string, ur::TexturePtr>>
-Evaluator::QueryTextures(const std::vector<bp::NodePtr>& nodes) const
-{
-    std::vector<std::pair<std::string, ur::TexturePtr>> textures;
-    for (auto& node : nodes)
-    {
-        if (node->get_type() != rttr::type::get<node::Texture2DAsset>()) {
-            continue;
-        }
-
-        auto tex = std::static_pointer_cast<node::Texture2DAsset>(node)->GetTexture();
-        if (!tex) {
-            continue;
-        }
-
-        auto back_node = m_front_eval->QueryBackNode(*node);
-        assert(back_node);
-        auto block = std::static_pointer_cast<shadergraph::Block>(back_node);
-        auto name = m_back_eval.QueryRealName(&block->GetExports()[0].var.type);
-
-        textures.push_back({ name, tex });
-    }
-    return textures;
 }
 
 }

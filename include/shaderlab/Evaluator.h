@@ -22,14 +22,11 @@ public:
     }
 
     std::shared_ptr<ur::ShaderProgram>
-        BuildShader(const ur::Device& dev, const std::string& vs,
-            const std::vector<bp::NodePtr>& nodes);
+        BuildShader(const ur::Device& dev, const std::string& vs, const std::vector<bp::NodePtr>& nodes,
+            std::vector<std::pair<std::string, ur::TexturePtr>>& textures);
     void UpdateUniforms();
     static void UpdateUniforms(const shadergraph::Evaluator& back_eval,
         const std::shared_ptr<ur::ShaderProgram>& shader);
-
-    std::vector<std::pair<std::string, ur::TexturePtr>>
-        QueryTextures(const std::vector<bp::NodePtr>& nodes) const;
 
 private:
     std::shared_ptr<bp::BackendGraph<shadergraph::Variant>> m_front_eval = nullptr;
