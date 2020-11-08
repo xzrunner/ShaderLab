@@ -90,6 +90,11 @@
 #include EXE_FILEPATH
 
 #define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS NormalFromHeight
+#define PARM_NODE_NAME normal_from_height
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
 #define PARM_NODE_CLASS NormalReconstructZ
 #define PARM_NODE_NAME normal_reconstruct_z
 #include EXE_FILEPATH
@@ -190,6 +195,11 @@
 #define NODES_GROUP_NAME Input-Geometry
 
 #define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS Position
+#define PARM_NODE_NAME pos
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
 #define PARM_NODE_CLASS TexCoords
 #define PARM_NODE_NAME tex_coords
 #include EXE_FILEPATH
@@ -220,6 +230,15 @@
 // texture
 
 #define NODES_GROUP_NAME Input-Texture
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SampleTexMultiProj
+#define PARM_NODE_NAME sample_tex_multi_proj
+#include EXE_FILEPATH
+
+#define PARM_NODE_CLASS SampleTexNoTile
+#define PARM_NODE_NAME sample_tex_no_tile
+#include EXE_FILEPATH
 
 #define NO_PARM_FILEPATH
 #define PARM_NODE_CLASS SampleTexture2D
@@ -307,6 +326,16 @@
 #define NO_PARM_FILEPATH
 #define PARM_NODE_CLASS Divide
 #define PARM_NODE_NAME div
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS Power
+#define PARM_NODE_NAME pow
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS SquareRoot
+#define PARM_NODE_NAME sqrt
 #include EXE_FILEPATH
 
 #undef NODES_GROUP_NAME

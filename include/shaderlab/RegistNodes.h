@@ -7,6 +7,7 @@
 #include <shadergraph/block/ColorspaceConversion.h>
 #include <shadergraph/block/Swizzle.h>
 #include <shadergraph/block/Constant.h>
+#include <shadergraph/block/SampleTexNoTile.h>
 
 namespace shaderlab
 {
