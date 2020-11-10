@@ -93,6 +93,10 @@ void WxPreviewCanvas::OnTimer()
 
 void WxPreviewCanvas::RebuildShader()
 {
+    if (!m_graph_page) {
+        return;
+    }
+
     std::vector<bp::NodePtr> nodes;
 
     auto root = m_graph_page->GetSceneTree()->GetRootNode();
