@@ -17,6 +17,7 @@
 #include <shadergraph/block/Texture2DAsset.h>
 #include <shadergraph/block/SubGraph.h>
 #include <shadergraph/block/FragmentShader.h>
+#include <shadergraph/block/VertexShader.h>
 #include <js/RapidJsonHelper.h>
 #include <ns/CompFactory.h>
 #include <node0/CompAsset.h>
@@ -211,19 +212,16 @@ void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Var
     }
 }
 
-std::string ShaderAdapter::BuildShaderCode(const std::string& filepath, const ur::Device& dev,
-                                           std::vector<std::pair<std::string, ur::TexturePtr>>& textures,
-                                           bool& time_updater)
+void ShaderAdapter::BuildShaderCode(const std::string& filepath, const ur::Device& dev, std::string& vs, std::string& fs,
+                                    std::vector<std::pair<std::string, ur::TexturePtr>>& textures, bool& time_updater)
 {
-    std::string ret;
-
     rapidjson::Document doc;
     js::RapidJsonHelper::ReadFromFile(filepath.c_str(), doc);
 
     auto dir = boost::filesystem::path(filepath).parent_path().string();
     n0::CompAssetPtr casset = ns::CompFactory::Instance()->CreateAsset(dev, doc, dir);
     if (!casset) {
-        return ret;
+        return;
     }
 
     assert(casset->TypeID() == n0::GetAssetUniqueTypeID<n0::CompComplex>());
@@ -279,15 +277,18 @@ std::string ShaderAdapter::BuildShaderCode(const std::string& filepath, const ur
 
         assert(back_node);
         auto block = std::static_pointer_cast<shadergraph::Block>(back_node);
-        if (block->get_type() == rttr::type::get<shadergraph::block::FragmentShader>())
+        auto type = block->get_type();
+        if (type == rttr::type::get<shadergraph::block::FragmentShader>())
         {
             back_eval.Rebuild(block);
-            ret = back_eval.GenShaderCode();
-            break;
+            fs = back_eval.GenShaderCode();
+        }
+        else if (type == rttr::type::get<shadergraph::block::VertexShader>())
+        {
+            back_eval.Rebuild(block);
+            vs = back_eval.GenShaderCode();
         }
     }
-
-    return ret;
 }
 
 }

@@ -712,6 +712,11 @@
 // shader
 
 #define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS VertexShader
+#define PARM_NODE_NAME vert_shader
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
 #define PARM_NODE_CLASS FragmentShader
 #define PARM_NODE_NAME frag_shader
 #include EXE_FILEPATH

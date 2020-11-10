@@ -20,8 +20,8 @@ public:
     static void Front2Back(const bp::Node& front, dag::Node<shadergraph::Variant>& back,
         const std::string& dir, const ur::Device& dev);
 
-    static std::string BuildShaderCode(const std::string& filepath, const ur::Device& dev,
-        std::vector<std::pair<std::string, ur::TexturePtr>>& textures, bool& time_updater);
+    static void BuildShaderCode(const std::string& filepath, const ur::Device& dev, std::string& vs, 
+        std::string& fs, std::vector<std::pair<std::string, ur::TexturePtr>>& textures, bool& time_updater);
 
 }; // ShaderAdapter
 
