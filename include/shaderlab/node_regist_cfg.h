@@ -721,6 +721,14 @@
 #define PARM_NODE_NAME frag_shader
 #include EXE_FILEPATH
 
+#define PARM_NODE_CLASS VertToFrag
+#define PARM_NODE_NAME vert_to_frag
+#include EXE_FILEPATH
+
+#define PARM_NODE_CLASS VertexAttribute
+#define PARM_NODE_NAME vert_attr
+#include EXE_FILEPATH
+
 // tools
 
 #define PARM_NODE_CLASS Input

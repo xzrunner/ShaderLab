@@ -281,12 +281,12 @@ void ShaderAdapter::BuildShaderCode(const std::string& filepath, const ur::Devic
         if (type == rttr::type::get<shadergraph::block::FragmentShader>())
         {
             back_eval.Rebuild(block);
-            fs = back_eval.GenShaderCode();
+            fs = back_eval.GenShaderCode(shadergraph::Evaluator::ShaderType::Frag);
         }
         else if (type == rttr::type::get<shadergraph::block::VertexShader>())
         {
             back_eval.Rebuild(block);
-            vs = back_eval.GenShaderCode();
+            vs = back_eval.GenShaderCode(shadergraph::Evaluator::ShaderType::Vert);
         }
     }
 }

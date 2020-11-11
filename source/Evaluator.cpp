@@ -10,8 +10,11 @@
 #include <shadergraph/Evaluator.h>
 #include <shadergraph/ValueImpl.h>
 #include <shadergraph/block/FragmentShader.h>
+#include <shadergraph/block/VertexShader.h>
 #include <shadergraph/block/Time.h>
 #include <shadergraph/block/Texture2DAsset.h>
+#include <shadergraph/block/VertToFrag.h>
+#include <shadergraph/block/VertexAttribute.h>
 #include <painting0/TimeUpdater.h>
 
 namespace shaderlab
@@ -23,32 +26,60 @@ Evaluator::BuildShader(const ur::Device& dev, const std::string& vs, const std::
 {
     assert(m_front_eval);
 
-    std::string code;
-
-    // build frag m_shader
+    // prepare nodes
+    shadergraph::BlockPtr vert_node = nullptr;
+    shadergraph::BlockPtr frag_node = nullptr;
+    std::vector<shadergraph::BlockPtr> vert_attr_nodes, vert2frag_nodes;
     for (auto& node : nodes)
     {
         auto back_node = m_front_eval->QueryBackNode(*node);
         if (!back_node) {
             continue;
         }
-        assert(back_node);
+
         auto block = std::static_pointer_cast<shadergraph::Block>(back_node);
-        if (block->get_type() == rttr::type::get<shadergraph::block::FragmentShader>())
-        {
-            m_back_eval.Rebuild(block);
-            code = m_back_eval.GenShaderCode();
-            break;
+        auto type = block->get_type();
+        if (type == rttr::type::get<shadergraph::block::FragmentShader>()) {
+            frag_node = block;
+        } else if (type == rttr::type::get<shadergraph::block::VertexShader>()) {
+            vert_node = block;
+        } else if (type == rttr::type::get<shadergraph::block::VertexAttribute>()) {
+            vert_attr_nodes.push_back(block);
+        } else if (type == rttr::type::get<shadergraph::block::VertToFrag>()) {
+            vert2frag_nodes.push_back(block);
         }
     }
 
-    if (code.empty()) {
+    // build shader code
+    std::string vs_code, fs_code;
+    if (vert_node) 
+    {
+        m_back_eval.Rebuild(vert_node);
+        for (auto& b : vert_attr_nodes) {
+            m_back_eval.AddBlock(b);
+        }
+        for (auto& b : vert2frag_nodes) {
+            m_back_eval.AddBlock(b);
+        }
+        vs_code = m_back_eval.GenShaderCode(shadergraph::Evaluator::ShaderType::Vert);
+    }
+    if (frag_node)
+    {
+        m_back_eval.Rebuild(frag_node);
+        fs_code = m_back_eval.GenShaderCode(shadergraph::Evaluator::ShaderType::Frag);
+    }
+
+    if (fs_code.empty()) {
         return nullptr;
     }
 
+    if (vs_code.empty()) {
+        vs_code = vs;
+    }
+
     std::vector<unsigned int> _vs, _fs;
-    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::VertexShader, vs, _vs);
-    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::PixelShader, code, _fs);
+    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::VertexShader, vs_code, _vs);
+    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::PixelShader, fs_code, _fs);
     m_shader = dev.CreateShaderProgram(_vs, _fs);
     if (!m_shader || !m_shader->CheckStatus()) {
         return nullptr;
