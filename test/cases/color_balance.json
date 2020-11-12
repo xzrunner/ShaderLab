@@ -1,0 +1,303 @@
+{
+    "nodes": [
+        [
+            {
+                "position": [
+                    12.699996948242188,
+                    7.0
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::sample_texture2d",
+                "node_val": {
+                    "title": "SampleTexture2D",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node0",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "rgba",
+                        "to": [
+                            {
+                                "node_idx": 4,
+                                "pin": "color"
+                            }
+                        ]
+                    },
+                    {
+                        "from": "rgb",
+                        "to": []
+                    },
+                    {
+                        "from": "r",
+                        "to": []
+                    },
+                    {
+                        "from": "g",
+                        "to": []
+                    },
+                    {
+                        "from": "b",
+                        "to": []
+                    },
+                    {
+                        "from": "a",
+                        "to": []
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    -165.0,
+                    125.0
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::texture2d_asset",
+                "node_val": {
+                    "title": "Texture2DAsset",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node1",
+                    "filepath": "..\\textures\\awesomeface.png",
+                    "sampler_type": "linear_clamp",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "tex",
+                        "to": [
+                            {
+                                "node_idx": 0,
+                                "pin": "tex"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    549.3322143554688,
+                    103.807373046875
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::frag_shader",
+                "node_val": {
+                    "title": "FragmentShader",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node2",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "col",
+                        "to": []
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    -152.75,
+                    -58.0
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::uv",
+                "node_val": {
+                    "title": "UV",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node3",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "uv",
+                        "to": [
+                            {
+                                "node_idx": 0,
+                                "pin": "uv"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    297.76751708984377,
+                    24.297786712646486
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::color_balance",
+                "node_val": {
+                    "title": "ColorBalance",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node4",
+                    "props": [
+                        {
+                            "name": "preserve_luma",
+                            "type": "int",
+                            "value": 0
+                        },
+                        {
+                            "name": "separation_mode",
+                            "type": "int",
+                            "value": 0
+                        },
+                        {
+                            "name": "s_RedShift",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "s_GreenShift",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "s_BlueShift",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "m_RedShift",
+                            "type": "float",
+                            "value": 1.0
+                        },
+                        {
+                            "name": "m_GreenShift",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "m_BlueShift",
+                            "type": "float",
+                            "value": -1.0
+                        },
+                        {
+                            "name": "h_RedShift",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "h_GreenShift",
+                            "type": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "name": "h_BlueShift",
+                            "type": "float",
+                            "value": 0.0
+                        }
+                    ]
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "ret",
+                        "to": [
+                            {
+                                "node_idx": 2,
+                                "pin": "rgba"
+                            }
+                        ]
+                    },
+                    {
+                        "from": "color_balance",
+                        "to": []
+                    }
+                ]
+            }
+        ]
+    ],
+    "comp_type": "n0_complex",
+    "page_type": "shader_graph"
+}

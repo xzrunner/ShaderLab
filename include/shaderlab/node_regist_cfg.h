@@ -60,6 +60,11 @@
 #define NODES_GROUP_NAME Artistic-Filter
 
 #define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS ColorBalance
+#define PARM_NODE_NAME color_balance
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
 #define PARM_NODE_CLASS SelectiveColor
 #define PARM_NODE_NAME selective_color
 #include EXE_FILEPATH
