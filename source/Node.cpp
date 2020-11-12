@@ -104,6 +104,33 @@ void Node::InitProps(const std::vector<shadergraph::Variant>& vars)
             }
         }
             break;
+        case shadergraph::VarType::Matrix2:
+        {
+            var.type = bp::VarType::Matrix2;
+            if (u_var.val) {
+                auto src = std::static_pointer_cast<shadergraph::Matrix2Val>(u_var.val);
+                memcpy(var.m2, src->m, sizeof(var.m2));
+            }
+        }
+            break;
+        case shadergraph::VarType::Matrix3:
+        {
+            var.type = bp::VarType::Matrix3;
+            if (u_var.val) {
+                auto src = std::static_pointer_cast<shadergraph::Matrix3Val>(u_var.val);
+                memcpy(var.m3, src->m, sizeof(var.m3));
+            }
+        }
+            break;
+        case shadergraph::VarType::Matrix4:
+        {
+            var.type = bp::VarType::Matrix4;
+            if (u_var.val) {
+                auto src = std::static_pointer_cast<shadergraph::Matrix4Val>(u_var.val);
+                memcpy(var.m4, src->m, sizeof(var.m4));
+            }
+        }
+            break;
         default:
             assert(0);
         }

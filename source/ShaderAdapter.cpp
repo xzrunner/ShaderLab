@@ -152,6 +152,15 @@ void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Var
             case shadergraph::VarType::Float4:
                 u_var.val = std::make_shared<shadergraph::Float4Val>();
                 break;
+            case shadergraph::VarType::Matrix2:
+                u_var.val = std::make_shared<shadergraph::Matrix2Val>();
+                break;
+            case shadergraph::VarType::Matrix3:
+                u_var.val = std::make_shared<shadergraph::Matrix3Val>();
+                break;
+            case shadergraph::VarType::Matrix4:
+                u_var.val = std::make_shared<shadergraph::Matrix4Val>();
+                break;
             case shadergraph::VarType::Array:
                 // todo
                 break;
@@ -179,6 +188,15 @@ void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Var
                 break;
             case shadergraph::VarType::Float4:
                 memcpy(std::static_pointer_cast<shadergraph::Float4Val>(u_var.val)->xyzw, s.f4, sizeof(float) * 4);
+                break;
+            case shadergraph::VarType::Matrix2:
+                memcpy(std::static_pointer_cast<shadergraph::Matrix2Val>(u_var.val)->m, s.m2, sizeof(s.m2));
+                break;
+            case shadergraph::VarType::Matrix3:
+                memcpy(std::static_pointer_cast<shadergraph::Matrix3Val>(u_var.val)->m, s.m3, sizeof(s.m3));
+                break;
+            case shadergraph::VarType::Matrix4:
+                memcpy(std::static_pointer_cast<shadergraph::Matrix4Val>(u_var.val)->m, s.m4, sizeof(s.m4));
                 break;
             case shadergraph::VarType::Array:
                 // todo

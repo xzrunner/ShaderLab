@@ -30,7 +30,7 @@ public:
 
 private:
     std::shared_ptr<bp::BackendGraph<shadergraph::Variant>> m_front_eval = nullptr;
-    shadergraph::Evaluator m_back_eval;
+    shadergraph::Evaluator m_back_eval_vs, m_back_eval_fs;
 
     std::shared_ptr<ur::ShaderProgram> m_shader = nullptr;
 

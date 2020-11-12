@@ -227,6 +227,27 @@
 
 #undef NODES_GROUP_NAME
 
+// matrix
+
+#define NODES_GROUP_NAME Input-Matrix
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS ModelMatrix
+#define PARM_NODE_NAME model_mat
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS ProjectionMatrix
+#define PARM_NODE_NAME proj_mat
+#include EXE_FILEPATH
+
+#define NO_PARM_FILEPATH
+#define PARM_NODE_CLASS ViewMatrix
+#define PARM_NODE_NAME view_mat
+#include EXE_FILEPATH
+
+#undef NODES_GROUP_NAME
+
 // texture
 
 #define NODES_GROUP_NAME Input-Texture
