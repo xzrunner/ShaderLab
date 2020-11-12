@@ -121,15 +121,18 @@ Evaluator::BuildShader(const ur::Device& dev, const std::string& vs, const std::
         }
         else if (block_type == rttr::type::get<shadergraph::block::ModelMatrix>())
         {
-            m_shader->AddUniformUpdater(std::make_shared<pt0::ModelMatUpdater>(*m_shader, "model"));
+            m_shader->AddUniformUpdater(std::make_shared<pt0::ModelMatUpdater>(
+                *m_shader, shadergraph::block::ModelMatrix::VAR_NAME));
         }
         else if (block_type == rttr::type::get<shadergraph::block::ViewMatrix>())
         {
-            m_shader->AddUniformUpdater(std::make_shared<pt3::ViewMatUpdater>(*m_shader, "view"));
+            m_shader->AddUniformUpdater(std::make_shared<pt3::ViewMatUpdater>(
+                *m_shader, shadergraph::block::ViewMatrix::VAR_NAME));
         }
         else if (block_type == rttr::type::get<shadergraph::block::ProjectionMatrix>())
         {
-            m_shader->AddUniformUpdater(std::make_shared<pt3::ProjectMatUpdater>(*m_shader, "projection"));
+            m_shader->AddUniformUpdater(std::make_shared<pt3::ProjectMatUpdater>(
+                *m_shader, shadergraph::block::ProjectionMatrix::VAR_NAME));
         }
     }
     // fs
