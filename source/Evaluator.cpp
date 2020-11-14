@@ -73,7 +73,10 @@ Evaluator::BuildShader(const ur::Device& dev, const std::string& vs, const std::
     }
     if (frag_node)
     {
-        m_back_eval_fs.Rebuild(frag_node);
+        std::vector<std::string> used_symbols;
+        m_back_eval_vs.GetTextureSymbols(used_symbols);
+
+        m_back_eval_fs.Rebuild(frag_node, used_symbols);
         fs_code = m_back_eval_fs.GenShaderCode(shadergraph::Evaluator::ShaderType::Frag);
     }
 
