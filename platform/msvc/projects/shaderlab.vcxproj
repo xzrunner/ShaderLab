@@ -13,10 +13,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\include\shaderlab\ConnectPinOP.h" />
     <ClInclude Include="..\..\..\include\shaderlab\Evaluator.h" />
-    <ClInclude Include="..\..\..\include\shaderlab\HeightViewer.h" />
-    <ClInclude Include="..\..\..\include\shaderlab\ImageViewer.h" />
     <ClInclude Include="..\..\..\include\shaderlab\MessageID.h" />
-    <ClInclude Include="..\..\..\include\shaderlab\ModelViewer.h" />
     <ClInclude Include="..\..\..\include\shaderlab\Node.h" />
     <ClInclude Include="..\..\..\include\shaderlab\NodePreview.h" />
     <ClInclude Include="..\..\..\include\shaderlab\node\CustomBlock.h" />
@@ -42,9 +39,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ConnectPinOP.cpp" />
     <ClCompile Include="..\..\..\source\Evaluator.cpp" />
-    <ClCompile Include="..\..\..\source\HeightViewer.cpp" />
-    <ClCompile Include="..\..\..\source\ImageViewer.cpp" />
-    <ClCompile Include="..\..\..\source\ModelViewer.cpp" />
     <ClCompile Include="..\..\..\source\Node.cpp" />
     <ClCompile Include="..\..\..\source\NodePreview.cpp" />
     <ClCompile Include="..\..\..\source\node\CustomBlock.cpp" />
@@ -52,6 +46,7 @@
     <ClCompile Include="..\..\..\source\node\Texture2DAsset.cpp" />
     <ClCompile Include="..\..\..\source\PinCallback.cpp" />
     <ClCompile Include="..\..\..\source\PreviewPage.cpp" />
+    <ClCompile Include="..\..\..\source\PreviewViewer.cpp" />
     <ClCompile Include="..\..\..\source\ReflectPropTypes.cpp" />
     <ClCompile Include="..\..\..\source\RegistNodes.cpp">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>

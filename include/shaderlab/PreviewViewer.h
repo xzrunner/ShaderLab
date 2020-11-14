@@ -19,22 +19,49 @@ namespace shaderlab
 class PreviewViewer
 {
 public:
-    virtual void Draw(ur::Context& ctx, const pt0::CameraPtr& cam,
-        const void* scene = nullptr) const = 0;
-    virtual void Update(ur::Context& ctx, const pt0::CameraPtr& cam, 
+    enum class VertexArray
+    {
+        Rect2D,
+        Rect3D,
+        Grids3D,
+    };
+
+    enum class RenderState
+    {
+        _2D,
+        _3D,
+    };
+
+public:
+    PreviewViewer(const ur::Device& dev);
+
+    void Draw(ur::Context& ctx, const pt0::CameraPtr& cam,
+        const void* scene = nullptr) const;
+    void Update(ur::Context& ctx, const pt0::CameraPtr& cam,
         const std::shared_ptr<ur::ShaderProgram>& shader,
-        const std::vector<std::pair<std::string, ur::TexturePtr>>& textures) = 0;
+        const std::vector<std::pair<std::string, ur::TexturePtr>>& textures);
 
-    virtual std::string GetVertShaderCode() const = 0;
+    std::string GetVertShaderCode() const;
 
-    auto GetShader() const { return m_shader; }
-    auto GetVertexArray() const { return m_va; }
+    void SetVertexArray(VertexArray va) { m_va = va; }
+    void SetRenderState(RenderState rs) { m_rs = rs; }
 
-protected:
+private:
+    void InitRect2dVA(const ur::Device& dev);
+    void InitRect3dVA(const ur::Device& dev);
+    void InitGrids3dVA(const ur::Device& dev);
+
+private:
     std::shared_ptr<ur::ShaderProgram> m_shader = nullptr;
-    std::shared_ptr<ur::VertexArray>   m_va = nullptr;
+
+    std::shared_ptr<ur::VertexArray> m_rect_2d_va = nullptr;
+    std::shared_ptr<ur::VertexArray> m_rect_3d_va = nullptr;
+    std::shared_ptr<ur::VertexArray> m_grids_3d_va = nullptr;
 
     std::vector<std::pair<size_t, ur::TexturePtr>> m_textures;
+
+    VertexArray m_va = VertexArray::Rect2D;
+    RenderState m_rs = RenderState::_2D;
 
 }; // PreviewViewer
 

@@ -8,13 +8,13 @@ class wxPropertyGridEvent;
 namespace shaderlab
 {
 
-class WxPreviewCanvas;
+class PreviewViewer;
 
 class WxDefaultProperty : public wxPanel
 {
 public:
-    WxDefaultProperty(wxWindow* parent,
-        const std::shared_ptr<WxPreviewCanvas>& preview_canvas);
+    WxDefaultProperty(wxWindow* parent, 
+        const std::shared_ptr<PreviewViewer>& preview_viewer);
 
 private:
     void InitLayout();
@@ -25,7 +25,7 @@ private:
 private:
     wxPropertyGrid* m_pg;
 
-    std::shared_ptr<WxPreviewCanvas> m_preview_canvas = nullptr;
+    std::shared_ptr<PreviewViewer> m_preview_viewer = nullptr;
 
 }; // WxDefaultProperty
 

@@ -1,10 +1,8 @@
 #include "shaderlab/WxPreviewCanvas.h"
 #include "shaderlab/MessageID.h"
 #include "shaderlab/WxGraphPage.h"
-#include "shaderlab/ImageViewer.h"
-#include "shaderlab/HeightViewer.h"
-#include "shaderlab/ModelViewer.h"
 #include "shaderlab/Node.h"
+#include "shaderlab/PreviewViewer.h"
 
 #include <ee0/WxStagePage.h>
 #include <ee0/SubjectMgr.h>
@@ -25,9 +23,7 @@ WxPreviewCanvas::WxPreviewCanvas(const ur::Device& dev, ee0::WxStagePage* stage,
                                  ECS_WORLD_PARAM const ee0::RenderContext& rc)
     : ee3::WxStageCanvas(dev, stage, ECS_WORLD_VAR &rc, nullptr, true)
 {
-    m_viewers[VIEWER_IMAGE]  = std::make_shared<ImageViewer>(dev);
-    m_viewers[VIEWER_HEIGHT] = std::make_shared<HeightViewer>(dev);
-    m_viewers[VIEWER_MODEL]  = std::make_shared<ModelViewer>(dev);
+    m_viewer = std::make_shared<PreviewViewer>(dev);
 
     auto sub_mgr = stage->GetSubjectMgr();
     sub_mgr->RegisterObserver(MSG_SHADER_CHANGED, this);
@@ -73,15 +69,7 @@ void WxPreviewCanvas::DrawForeground3D() const
 
 void WxPreviewCanvas::DrawForeground2D() const
 {
-    auto shader = m_viewers[m_viewer_type]->GetShader();
-    if (shader)
-    {
-        auto model_updater = shader->QueryUniformUpdater(ur::GetUpdaterTypeID<pt0::ModelMatUpdater>());
-        if (model_updater) {
-            std::static_pointer_cast<pt0::ModelMatUpdater>(model_updater)->Update(sm::mat4());
-        }
-    }
-    m_viewers[m_viewer_type]->Draw(*GetRenderContext().ur_ctx, m_camera, GetWidnowContext().wc3.get());
+    m_viewer->Draw(*GetRenderContext().ur_ctx, m_camera, GetWidnowContext().wc3.get());
 }
 
 void WxPreviewCanvas::OnTimer()
@@ -109,13 +97,10 @@ void WxPreviewCanvas::RebuildShader()
         }
     }
 
-    for (auto& viewer : m_viewers) 
-    {
-        std::vector<std::pair<std::string, ur::TexturePtr>> textures;
-        auto shader = m_eval.BuildShader(m_dev, viewer->GetVertShaderCode(), nodes, textures);
-        if (shader) {
-            viewer->Update(*GetRenderContext().ur_ctx, m_camera, shader, textures);
-        }
+    std::vector<std::pair<std::string, ur::TexturePtr>> textures;
+    auto shader = m_eval.BuildShader(m_dev, m_viewer->GetVertShaderCode(), nodes, textures);
+    if (shader) {
+        m_viewer->Update(*GetRenderContext().ur_ctx, m_camera, shader, textures);
     }
 
     for (auto& bp_node : nodes) {
@@ -177,7 +162,7 @@ void WxPreviewCanvas::BuildNodePreviewShader(const bp::NodePtr& bp_node) const
     }
 
     std::vector<unsigned int> _vs, _fs;
-    auto vs = m_viewers[m_viewer_type]->GetVertShaderCode();
+    auto vs = m_viewer->GetVertShaderCode();
     shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::VertexShader, vs, _vs);
     shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::PixelShader, fs, _fs);
     auto shader = m_dev.CreateShaderProgram(_vs, _fs);

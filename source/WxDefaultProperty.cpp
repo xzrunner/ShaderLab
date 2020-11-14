@@ -1,5 +1,5 @@
 #include "shaderlab/WxDefaultProperty.h"
-#include "shaderlab/WxPreviewCanvas.h"
+#include "shaderlab/PreviewViewer.h"
 
 #include <wx/sizer.h>
 #include <wx/propgrid/propgrid.h>
@@ -7,9 +7,9 @@
 namespace shaderlab
 {
 
-WxDefaultProperty::WxDefaultProperty(wxWindow* parent, const std::shared_ptr<WxPreviewCanvas>& preview_canvas)
+WxDefaultProperty::WxDefaultProperty(wxWindow* parent, const std::shared_ptr<PreviewViewer>& preview_viewer)
     : wxPanel(parent)
-    , m_preview_canvas(preview_canvas)
+    , m_preview_viewer(preview_viewer)
 {
     InitLayout();
     InitProps();
@@ -32,12 +32,12 @@ void WxDefaultProperty::InitLayout()
 void WxDefaultProperty::InitProps()
 {
     wxArrayString viewer_choices;
-    viewer_choices.push_back("Image");
-    viewer_choices.push_back("Height");
-    viewer_choices.push_back("Model");
+    viewer_choices.push_back("Rect2D");
+    viewer_choices.push_back("Rect3D");
+    viewer_choices.push_back("Grids3D");
 
-    auto viewer_prop = new wxEnumProperty("Viewer", wxPG_LABEL, viewer_choices);
-    viewer_prop->SetValue(WxPreviewCanvas::VIEWER_IMAGE);
+    auto viewer_prop = new wxEnumProperty("Vertex", wxPG_LABEL, viewer_choices);
+    viewer_prop->SetValue(static_cast<int>(PreviewViewer::VertexArray::Rect2D));
     m_pg->Append(viewer_prop);
 }
 
@@ -47,12 +47,10 @@ void WxDefaultProperty::OnPropertyGridChanged(wxPropertyGridEvent& event)
     auto key = property->GetName();
     wxAny val = property->GetValue();
 
-    if (key == "Viewer")
+    if (key == "Vertex")
     {
         auto idx = wxANY_AS(val, int);
-        m_preview_canvas->SetViewer(
-            static_cast<WxPreviewCanvas::VIEWER_TYPE>(idx)
-        );
+        m_preview_viewer->SetVertexArray(static_cast<PreviewViewer::VertexArray>(idx));
     }
 }
 
