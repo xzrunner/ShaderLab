@@ -37,7 +37,9 @@ void Texture2DAsset::UpdateTexture(const ur::Device& dev)
     loader.Load(dev);
 
     m_tex = loader.GetTexture();
-    m_tex->ApplySampler(dev.GetTextureSampler(m_sampler_type));
+    if (m_tex) {
+        m_tex->ApplySampler(dev.GetTextureSampler(m_sampler_type));
+    }
 }
 
 }
