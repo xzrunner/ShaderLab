@@ -3,8 +3,72 @@
         [
             {
                 "position": [
-                    -410.2053527832031,
-                    288.4868469238281
+                    12.699996948242188,
+                    7.0
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::sample_texture2d",
+                "node_val": {
+                    "title": "SampleTexture2D",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node0",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "rgba",
+                        "to": [
+                            {
+                                "node_idx": 2,
+                                "pin": "rgba"
+                            }
+                        ]
+                    },
+                    {
+                        "from": "rgb",
+                        "to": []
+                    },
+                    {
+                        "from": "r",
+                        "to": []
+                    },
+                    {
+                        "from": "g",
+                        "to": []
+                    },
+                    {
+                        "from": "b",
+                        "to": []
+                    },
+                    {
+                        "from": "a",
+                        "to": []
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    -165.0,
+                    125.0
                 ],
                 "comp_type": "n2_transform"
             },
@@ -28,8 +92,8 @@
                         "small_title_font": false
                     },
                     "name": "node1",
-                    "filepath": "..\\textures\\heightmap.png",
-                    "sampler_type": "linear_repeat",
+                    "filepath": "..\\textures\\awesomeface.png",
+                    "sampler_type": "linear_clamp",
                     "props": []
                 },
                 "comp_type": "bp_node",
@@ -38,8 +102,8 @@
                         "from": "tex",
                         "to": [
                             {
-                                "node_idx": 7,
-                                "pin": "heightmap"
+                                "node_idx": 0,
+                                "pin": "tex"
                             }
                         ]
                     }
@@ -49,8 +113,8 @@
         [
             {
                 "position": [
-                    689.2503662109375,
-                    253.07391357421876
+                    174.29090881347657,
+                    28.727279663085939
                 ],
                 "comp_type": "n2_transform"
             },
@@ -88,8 +152,8 @@
         [
             {
                 "position": [
-                    -262.75,
-                    -67.0
+                    544.6177978515625,
+                    441.0061950683594
                 ],
                 "comp_type": "n2_transform"
             },
@@ -105,35 +169,25 @@
                 "comp_type": "n0_flags"
             },
             {
-                "node_type": "shaderlab::uv",
+                "node_type": "shaderlab::vert_shader",
                 "node_val": {
-                    "title": "UV",
+                    "title": "VertexShader",
                     "style": {
                         "only_title": false,
                         "small_title_font": false
                     },
-                    "name": "node3",
+                    "name": "node4",
                     "props": []
                 },
                 "comp_type": "bp_node",
-                "connection": [
-                    {
-                        "from": "uv",
-                        "to": [
-                            {
-                                "node_idx": 3,
-                                "pin": "a"
-                            }
-                        ]
-                    }
-                ]
+                "connection": []
             }
         ],
         [
             {
                 "position": [
-                    -143.75,
-                    -103.0
+                    -102.25,
+                    306.0
                 ],
                 "comp_type": "n2_transform"
             },
@@ -149,93 +203,9 @@
                 "comp_type": "n0_flags"
             },
             {
-                "node_type": "shaderlab::mul",
+                "node_type": "shaderlab::combine",
                 "node_val": {
-                    "title": "Multiply",
-                    "style": {
-                        "only_title": false,
-                        "small_title_font": false
-                    },
-                    "name": "node0",
-                    "props": []
-                },
-                "comp_type": "bp_node",
-                "connection": [
-                    {
-                        "from": "mul",
-                        "to": []
-                    }
-                ]
-            }
-        ],
-        [
-            {
-                "position": [
-                    -258.25,
-                    -133.0
-                ],
-                "comp_type": "n2_transform"
-            },
-            {
-                "filepath": "",
-                "name": "",
-                "id": 0,
-                "comp_type": "n0_identity"
-            },
-            {
-                "visible": true,
-                "editable": true,
-                "comp_type": "n0_flags"
-            },
-            {
-                "node_type": "shaderlab::float1",
-                "node_val": {
-                    "title": "Float",
-                    "style": {
-                        "only_title": false,
-                        "small_title_font": false
-                    },
-                    "name": "node5",
-                    "val": 5.0,
-                    "props": []
-                },
-                "comp_type": "bp_node",
-                "connection": [
-                    {
-                        "from": "f",
-                        "to": [
-                            {
-                                "node_idx": 3,
-                                "pin": "b"
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        [
-            {
-                "position": [
-                    495.75,
-                    244.0
-                ],
-                "comp_type": "n2_transform"
-            },
-            {
-                "filepath": "",
-                "name": "",
-                "id": 0,
-                "comp_type": "n0_identity"
-            },
-            {
-                "visible": true,
-                "editable": true,
-                "comp_type": "n0_flags"
-            },
-            {
-                "node_type": "shaderlab::sample_tex_multi_proj",
-                "node_val": {
-                    "title": "SampleTexMultiProj",
+                    "title": "Combine",
                     "style": {
                         "only_title": false,
                         "small_title_font": false
@@ -249,103 +219,17 @@
                         "from": "rgba",
                         "to": [
                             {
-                                "node_idx": 1,
-                                "pin": "rgba"
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        [
-            {
-                "position": [
-                    -137.0,
-                    115.0
-                ],
-                "comp_type": "n2_transform"
-            },
-            {
-                "filepath": "",
-                "name": "",
-                "id": 0,
-                "comp_type": "n0_identity"
-            },
-            {
-                "visible": true,
-                "editable": true,
-                "comp_type": "n0_flags"
-            },
-            {
-                "node_type": "shaderlab::texture2d_asset",
-                "node_val": {
-                    "title": "Texture2DAsset",
-                    "style": {
-                        "only_title": false,
-                        "small_title_font": false
-                    },
-                    "name": "node17",
-                    "filepath": "..\\textures\\rock.jpg",
-                    "sampler_type": "linear_repeat",
-                    "props": []
-                },
-                "comp_type": "bp_node",
-                "connection": [
-                    {
-                        "from": "tex",
-                        "to": [
-                            {
-                                "node_idx": 5,
-                                "pin": "tex"
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        [
-            {
-                "position": [
-                    -97.15164184570313,
-                    267.1719665527344
-                ],
-                "comp_type": "n2_transform"
-            },
-            {
-                "filepath": "",
-                "name": "",
-                "id": 0,
-                "comp_type": "n0_identity"
-            },
-            {
-                "visible": true,
-                "editable": true,
-                "comp_type": "n0_flags"
-            },
-            {
-                "node_type": "shaderlab::normal_from_height",
-                "node_val": {
-                    "title": "NormalFromHeight",
-                    "style": {
-                        "only_title": false,
-                        "small_title_font": false
-                    },
-                    "name": "node8",
-                    "props": []
-                },
-                "comp_type": "bp_node",
-                "connection": [
-                    {
-                        "from": "ret",
-                        "to": [
-                            {
-                                "node_idx": 10,
-                                "pin": "a"
+                                "node_idx": 14,
+                                "pin": "b"
                             }
                         ]
                     },
                     {
-                        "from": "compute_normal_sobel_filter",
+                        "from": "rgb",
+                        "to": []
+                    },
+                    {
+                        "from": "rg",
                         "to": []
                     }
                 ]
@@ -354,141 +238,8 @@
         [
             {
                 "position": [
-                    -294.1216125488281,
-                    247.55715942382813
-                ],
-                "comp_type": "n2_transform"
-            },
-            {
-                "filepath": "",
-                "name": "",
-                "id": 0,
-                "comp_type": "n0_identity"
-            },
-            {
-                "visible": true,
-                "editable": true,
-                "comp_type": "n0_flags"
-            },
-            {
-                "node_type": "shaderlab::uv",
-                "node_val": {
-                    "title": "UV",
-                    "style": {
-                        "only_title": false,
-                        "small_title_font": false
-                    },
-                    "name": "node9",
-                    "props": []
-                },
-                "comp_type": "bp_node",
-                "connection": [
-                    {
-                        "from": "uv",
-                        "to": [
-                            {
-                                "node_idx": 7,
-                                "pin": "position"
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        [
-            {
-                "position": [
-                    -288.64434814453127,
-                    201.11224365234376
-                ],
-                "comp_type": "n2_transform"
-            },
-            {
-                "filepath": "",
-                "name": "",
-                "id": 0,
-                "comp_type": "n0_identity"
-            },
-            {
-                "visible": true,
-                "editable": true,
-                "comp_type": "n0_flags"
-            },
-            {
-                "node_type": "shaderlab::float1",
-                "node_val": {
-                    "title": "Float",
-                    "style": {
-                        "only_title": false,
-                        "small_title_font": false
-                    },
-                    "name": "node10",
-                    "val": 100.0,
-                    "props": []
-                },
-                "comp_type": "bp_node",
-                "connection": [
-                    {
-                        "from": "f",
-                        "to": [
-                            {
-                                "node_idx": 7,
-                                "pin": "height_exaggeration"
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        [
-            {
-                "position": [
-                    269.6433410644531,
-                    307.9844055175781
-                ],
-                "comp_type": "n2_transform"
-            },
-            {
-                "filepath": "",
-                "name": "",
-                "id": 0,
-                "comp_type": "n0_identity"
-            },
-            {
-                "visible": true,
-                "editable": true,
-                "comp_type": "n0_flags"
-            },
-            {
-                "node_type": "shaderlab::pow",
-                "node_val": {
-                    "title": "Power",
-                    "style": {
-                        "only_title": false,
-                        "small_title_font": false
-                    },
-                    "name": "node4",
-                    "props": []
-                },
-                "comp_type": "bp_node",
-                "connection": [
-                    {
-                        "from": "_out",
-                        "to": [
-                            {
-                                "node_idx": 5,
-                                "pin": "weights"
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        [
-            {
-                "position": [
-                    160.21766662597657,
-                    271.53948974609377
+                    -236.4427490234375,
+                    301.24090576171877
                 ],
                 "comp_type": "n2_transform"
             },
@@ -512,7 +263,7 @@
                         "small_title_font": false
                     },
                     "name": "node7",
-                    "val": 2.0,
+                    "val": 1.0,
                     "props": []
                 },
                 "comp_type": "bp_node",
@@ -521,8 +272,8 @@
                         "from": "f",
                         "to": [
                             {
-                                "node_idx": 10,
-                                "pin": "b"
+                                "node_idx": 4,
+                                "pin": "a"
                             }
                         ]
                     }
@@ -532,8 +283,8 @@
         [
             {
                 "position": [
-                    -12.75,
-                    39.0
+                    -253.6854705810547,
+                    246.72299194335938
                 ],
                 "comp_type": "n2_transform"
             },
@@ -549,9 +300,326 @@
                 "comp_type": "n0_flags"
             },
             {
-                "node_type": "shaderlab::pos",
+                "node_type": "shaderlab::vert_attr",
                 "node_val": {
-                    "title": "Position",
+                    "title": "VertexAttribute",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node8",
+                    "index": 0,
+                    "var_type": "vec3",
+                    "var_name": "aPos",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "_out",
+                        "to": [
+                            {
+                                "node_idx": 4,
+                                "pin": "in_rgb"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    -438.828857421875,
+                    -73.03034973144531
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::vert_attr",
+                "node_val": {
+                    "title": "VertexAttribute",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node89",
+                    "index": 1,
+                    "var_type": "vec2",
+                    "var_name": "aTexCoord",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "_out",
+                        "to": [
+                            {
+                                "node_idx": 8,
+                                "pin": "_in"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    -270.90087890625,
+                    -73.03030395507813
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::vert_to_frag",
+                "node_val": {
+                    "title": "VertToFrag",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node10",
+                    "var_name": "TexCoord",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "_out",
+                        "to": [
+                            {
+                                "node_idx": 0,
+                                "pin": "uv"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    68.09893035888672,
+                    502.77081298828127
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::mul",
+                "node_val": {
+                    "title": "Multiply",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node3",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "mul",
+                        "to": [
+                            {
+                                "node_idx": 12,
+                                "pin": "a"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    -82.24886322021485,
+                    517.9105224609375
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::proj_mat",
+                "node_val": {
+                    "title": "ProjectionMatrix",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node5",
+                    "props": [
+                        {
+                            "name": "projection",
+                            "type": "matrix4",
+                            "value": [
+                                0.0,
+                                0.0,
+                                0.0,
+                                0.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0
+                            ]
+                        }
+                    ]
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "_out",
+                        "to": [
+                            {
+                                "node_idx": 9,
+                                "pin": "a"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    -65.39391326904297,
+                    473.2823791503906
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::view_mat",
+                "node_val": {
+                    "title": "ViewMatrix",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node9",
+                    "props": [
+                        {
+                            "name": "view",
+                            "type": "matrix4",
+                            "value": [
+                                0.0,
+                                0.0,
+                                0.0,
+                                0.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0
+                            ]
+                        }
+                    ]
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "_out",
+                        "to": [
+                            {
+                                "node_idx": 9,
+                                "pin": "b"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    216.4656524658203,
+                    500.4725036621094
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::mul",
+                "node_val": {
+                    "title": "Multiply",
                     "style": {
                         "only_title": false,
                         "small_title_font": false
@@ -562,11 +630,122 @@
                 "comp_type": "bp_node",
                 "connection": [
                     {
-                        "from": "pos",
+                        "from": "mul",
                         "to": [
                             {
-                                "node_idx": 5,
-                                "pin": "pos"
+                                "node_idx": 14,
+                                "pin": "a"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    88.74858856201172,
+                    443.53033447265627
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::model_mat",
+                "node_val": {
+                    "title": "ModelMatrix",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node12",
+                    "props": [
+                        {
+                            "name": "model",
+                            "type": "matrix4",
+                            "value": [
+                                0.0,
+                                0.0,
+                                0.0,
+                                0.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0,
+                                -107374176.0
+                            ]
+                        }
+                    ]
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "_out",
+                        "to": [
+                            {
+                                "node_idx": 12,
+                                "pin": "b"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "position": [
+                    378.44891357421877,
+                    490.5551452636719
+                ],
+                "comp_type": "n2_transform"
+            },
+            {
+                "filepath": "",
+                "name": "",
+                "id": 0,
+                "comp_type": "n0_identity"
+            },
+            {
+                "visible": true,
+                "editable": true,
+                "comp_type": "n0_flags"
+            },
+            {
+                "node_type": "shaderlab::mul",
+                "node_val": {
+                    "title": "Multiply",
+                    "style": {
+                        "only_title": false,
+                        "small_title_font": false
+                    },
+                    "name": "node13",
+                    "props": []
+                },
+                "comp_type": "bp_node",
+                "connection": [
+                    {
+                        "from": "mul",
+                        "to": [
+                            {
+                                "node_idx": 3,
+                                "pin": "position"
                             }
                         ]
                     }
