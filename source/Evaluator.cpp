@@ -58,6 +58,8 @@ Evaluator::BuildShader(const ur::Device& dev, const std::string& vs, const std::
         }
     }
 
+    std::map<ur::TexturePtr, std::string> tex2name;
+
     // build shader code
     std::string vs_code, fs_code;
     if (vert_node) 
@@ -70,14 +72,18 @@ Evaluator::BuildShader(const ur::Device& dev, const std::string& vs, const std::
             m_back_eval_vs.AddBlock(b);
         }
         vs_code = m_back_eval_vs.GenShaderCode(shadergraph::Evaluator::ShaderType::Vert);
+
+        ResolveTextures(m_back_eval_vs, *m_front_eval, nodes, tex2name);
     }
     if (frag_node)
     {
-        std::vector<std::string> used_symbols;
-        m_back_eval_vs.GetTextureSymbols(used_symbols);
-
-        m_back_eval_fs.Rebuild(frag_node, used_symbols);
+        m_back_eval_fs.Rebuild(frag_node);
         fs_code = m_back_eval_fs.GenShaderCode(shadergraph::Evaluator::ShaderType::Frag);
+
+        ResolveTextures(m_back_eval_fs, *m_front_eval, nodes, tex2name);
+    }
+    for (auto& itr : tex2name) {
+        textures.push_back({ itr.second, itr.first });
     }
 
     if (fs_code.empty()) {
@@ -114,14 +120,6 @@ Evaluator::BuildShader(const ur::Device& dev, const std::string& vs, const std::
                 shadergraph::block::Time::DELTA_TIME_STR);
             m_shader->AddUniformUpdater(up);
         }
-        else if (block_type == rttr::type::get<shadergraph::block::Texture2DAsset>())
-        {
-            auto tex = std::static_pointer_cast<node::Texture2DAsset>(node)->GetTexture();
-            if (tex) {
-                auto name = m_back_eval_vs.QueryRealName(&back_node->GetExports()[0].var.type);
-                textures.push_back({ name, tex });
-            }
-        }
         else if (block_type == rttr::type::get<shadergraph::block::ModelMatrix>())
         {
             m_shader->AddUniformUpdater(std::make_shared<pt0::ModelMatUpdater>(
@@ -155,14 +153,6 @@ Evaluator::BuildShader(const ur::Device& dev, const std::string& vs, const std::
                 shadergraph::block::Time::COS_TIME_STR,
                 shadergraph::block::Time::DELTA_TIME_STR);
             m_shader->AddUniformUpdater(up);
-        }
-        else if (block_type == rttr::type::get<shadergraph::block::Texture2DAsset>())
-        {
-            auto tex = std::static_pointer_cast<node::Texture2DAsset>(node)->GetTexture();
-            if (tex) {
-                auto name = m_back_eval_fs.QueryRealName(&back_node->GetExports()[0].var.type);
-                textures.push_back({ name, tex });
-            }
         }
     }
 
@@ -288,6 +278,35 @@ void Evaluator::UpdateUniforms(const shadergraph::Evaluator& back_eval,
 
         default:
             assert(0);
+        }
+    }
+}
+
+void Evaluator::ResolveTextures(const shadergraph::Evaluator& back_eval, const bp::BackendGraph<shadergraph::Variant>& front_eval,
+                                const std::vector<bp::NodePtr>& nodes, std::map<ur::TexturePtr, std::string>& tex2name)
+{
+    for (auto& node : nodes)
+    {
+        auto back_node = front_eval.QueryBackNode(*node);
+        if (!back_node || !back_eval.HasBlock(std::static_pointer_cast<shadergraph::Block>(back_node))) {
+            continue;
+        }
+
+        auto node_type = node->get_type();
+        if (node_type == rttr::type::get<node::Texture2DAsset>())
+        {
+            auto tex = std::static_pointer_cast<node::Texture2DAsset>(node)->GetTexture();
+            if (!tex) {
+                continue;
+            }
+            auto name = back_eval.QueryRealName(&back_node->GetExports()[0].var.type);
+            auto itr = tex2name.find(tex);
+            if (itr != tex2name.end()) {
+                assert(itr->second == name);
+            } else {
+                tex2name.insert({ tex, name });
+            }
+            const_cast<shadergraph::Variant&>(back_node->GetExports()[0].var.type).name = name;
         }
     }
 }

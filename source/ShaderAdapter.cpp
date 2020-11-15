@@ -4,6 +4,7 @@
 #include "shaderlab/node/Texture2DAsset.h"
 #include "shaderlab/node/SubGraph.h"
 #include "shaderlab/RegistNodes.h"
+#include "shaderlab/Evaluator.h"
 
 #include <blueprint/Pin.h>
 #include <blueprint/Node.h>
@@ -273,7 +274,8 @@ void ShaderAdapter::BuildShaderCode(const std::string& filepath, const ur::Devic
         }
     }
 
-    shadergraph::Evaluator back_eval;
+    shadergraph::BlockPtr vert_node = nullptr;
+    shadergraph::BlockPtr frag_node = nullptr;
     for (auto& node : nodes)
     {
         auto back_node = front_eval.QueryBackNode(*node);
@@ -281,31 +283,34 @@ void ShaderAdapter::BuildShaderCode(const std::string& filepath, const ur::Devic
             continue;
         }
 
-        auto node_type = node->get_type();
-        if (node_type == rttr::type::get<node::Texture2DAsset>())
-        {
-            auto tex = std::static_pointer_cast<node::Texture2DAsset>(node)->GetTexture();
-            if (tex) 
-            {
-                auto block = std::static_pointer_cast<shadergraph::Block>(back_node);
-                auto name = back_eval.QueryRealName(&block->GetExports()[0].var.type);
-                textures.push_back({ name, tex });
-            }
-        }
-
         assert(back_node);
         auto block = std::static_pointer_cast<shadergraph::Block>(back_node);
         auto type = block->get_type();
-        if (type == rttr::type::get<shadergraph::block::FragmentShader>())
-        {
-            back_eval.Rebuild(block);
-            fs = back_eval.GenShaderCode(shadergraph::Evaluator::ShaderType::Frag);
+        if (type == rttr::type::get<shadergraph::block::FragmentShader>()) {
+            frag_node = block;
+        } else if (type == rttr::type::get<shadergraph::block::VertexShader>()) {
+            vert_node = block;
         }
-        else if (type == rttr::type::get<shadergraph::block::VertexShader>())
-        {
-            back_eval.Rebuild(block);
-            vs = back_eval.GenShaderCode(shadergraph::Evaluator::ShaderType::Vert);
-        }
+    }
+
+    std::map<ur::TexturePtr, std::string> tex2name;
+    shadergraph::Evaluator back_eval_vs, back_eval_fs;
+    if (vert_node)
+    {
+        back_eval_vs.Rebuild(vert_node);
+        vs = back_eval_vs.GenShaderCode(shadergraph::Evaluator::ShaderType::Vert);
+
+        Evaluator::ResolveTextures(back_eval_vs, front_eval, nodes, tex2name);
+    }
+    if (frag_node)
+    {
+        back_eval_fs.Rebuild(frag_node);
+        fs = back_eval_fs.GenShaderCode(shadergraph::Evaluator::ShaderType::Frag);
+
+        Evaluator::ResolveTextures(back_eval_fs, front_eval, nodes, tex2name);
+    }
+    for (auto& itr : tex2name) {
+        textures.push_back({ itr.second, itr.first });
     }
 }
 

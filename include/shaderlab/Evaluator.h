@@ -28,6 +28,9 @@ public:
     static void UpdateUniforms(const shadergraph::Evaluator& back_eval,
         const std::shared_ptr<ur::ShaderProgram>& shader);
 
+    static void ResolveTextures(const shadergraph::Evaluator& back_eval, const bp::BackendGraph<shadergraph::Variant>& front_eval,
+        const std::vector<bp::NodePtr>& nodes, std::map<ur::TexturePtr, std::string>& tex2name);
+
 private:
     std::shared_ptr<bp::BackendGraph<shadergraph::Variant>> m_front_eval = nullptr;
     shadergraph::Evaluator m_back_eval_vs, m_back_eval_fs;
