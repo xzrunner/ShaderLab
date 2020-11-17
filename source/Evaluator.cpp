@@ -20,6 +20,8 @@
 #include <shadergraph/block/ModelMatrix.h>
 #include <shadergraph/block/ViewMatrix.h>
 #include <shadergraph/block/ProjectionMatrix.h>
+
+// fixme
 #include <painting0/TimeUpdater.h>
 #include <painting0/ModelMatUpdater.h>
 #include <painting3/ViewMatUpdater.h>
@@ -33,59 +35,8 @@ Evaluator::BuildShader(const ur::Device& dev, const std::string& vs, const std::
                        std::vector<std::pair<std::string, ur::TexturePtr>>& textures)
 {
     assert(m_front_eval);
-
-    // prepare nodes
-    shadergraph::BlockPtr vert_node = nullptr;
-    shadergraph::BlockPtr frag_node = nullptr;
-    std::vector<shadergraph::BlockPtr> vert_attr_nodes, vert2frag_nodes;
-    for (auto& node : nodes)
-    {
-        auto back_node = m_front_eval->QueryBackNode(*node);
-        if (!back_node) {
-            continue;
-        }
-
-        auto block = std::static_pointer_cast<shadergraph::Block>(back_node);
-        auto type = block->get_type();
-        if (type == rttr::type::get<shadergraph::block::FragmentShader>()) {
-            frag_node = block;
-        } else if (type == rttr::type::get<shadergraph::block::VertexShader>()) {
-            vert_node = block;
-        } else if (type == rttr::type::get<shadergraph::block::VertexAttribute>()) {
-            vert_attr_nodes.push_back(block);
-        } else if (type == rttr::type::get<shadergraph::block::VertToFrag>()) {
-            vert2frag_nodes.push_back(block);
-        }
-    }
-
-    std::map<ur::TexturePtr, std::string> tex2name;
-
-    // build shader code
     std::string vs_code, fs_code;
-    if (vert_node) 
-    {
-        m_back_eval_vs.Rebuild(vert_node);
-        for (auto& b : vert_attr_nodes) {
-            m_back_eval_vs.AddBlock(b);
-        }
-        for (auto& b : vert2frag_nodes) {
-            m_back_eval_vs.AddBlock(b);
-        }
-        vs_code = m_back_eval_vs.GenShaderCode(shadergraph::Evaluator::ShaderType::Vert);
-
-        ResolveTextures(m_back_eval_vs, *m_front_eval, nodes, tex2name);
-    }
-    if (frag_node)
-    {
-        m_back_eval_fs.Rebuild(frag_node);
-        fs_code = m_back_eval_fs.GenShaderCode(shadergraph::Evaluator::ShaderType::Frag);
-
-        ResolveTextures(m_back_eval_fs, *m_front_eval, nodes, tex2name);
-    }
-    for (auto& itr : tex2name) {
-        textures.push_back({ itr.second, itr.first });
-    }
-
+    BuildShaderCode(*m_front_eval, nodes, vs_code, fs_code, textures);
     if (fs_code.empty()) {
         return nullptr;
     }
@@ -279,6 +230,63 @@ void Evaluator::UpdateUniforms(const shadergraph::Evaluator& back_eval,
         default:
             assert(0);
         }
+    }
+}
+
+void Evaluator::BuildShaderCode(const bp::BackendGraph<shadergraph::Variant>& front_eval, const std::vector<bp::NodePtr>& nodes, 
+                                std::string& vs, std::string& fs, std::vector<std::pair<std::string, ur::TexturePtr>>& textures)
+{
+    // prepare nodes
+    shadergraph::BlockPtr vert_node = nullptr;
+    shadergraph::BlockPtr frag_node = nullptr;
+    std::vector<shadergraph::BlockPtr> vert_attr_nodes, vert2frag_nodes;
+    for (auto& node : nodes)
+    {
+        auto back_node = front_eval.QueryBackNode(*node);
+        if (!back_node) {
+            continue;
+        }
+
+        auto block = std::static_pointer_cast<shadergraph::Block>(back_node);
+        auto type = block->get_type();
+        if (type == rttr::type::get<shadergraph::block::FragmentShader>()) {
+            frag_node = block;
+        } else if (type == rttr::type::get<shadergraph::block::VertexShader>()) {
+            vert_node = block;
+        } else if (type == rttr::type::get<shadergraph::block::VertexAttribute>()) {
+            vert_attr_nodes.push_back(block);
+        } else if (type == rttr::type::get<shadergraph::block::VertToFrag>()) {
+            vert2frag_nodes.push_back(block);
+        }
+    }
+
+    std::map<ur::TexturePtr, std::string> tex2name;
+
+    // build shader code
+    if (vert_node) 
+    {
+        shadergraph::Evaluator back_eval_vs;
+        back_eval_vs.Rebuild(vert_node);
+        for (auto& b : vert_attr_nodes) {
+            back_eval_vs.AddBlock(b);
+        }
+        for (auto& b : vert2frag_nodes) {
+            back_eval_vs.AddBlock(b);
+        }
+        vs = back_eval_vs.GenShaderCode(shadergraph::Evaluator::ShaderType::Vert);
+
+        ResolveTextures(back_eval_vs, front_eval, nodes, tex2name);
+    }
+    if (frag_node)
+    {
+        shadergraph::Evaluator back_eval_fs;
+        back_eval_fs.Rebuild(frag_node);
+        fs = back_eval_fs.GenShaderCode(shadergraph::Evaluator::ShaderType::Frag);
+
+        ResolveTextures(back_eval_fs, front_eval, nodes, tex2name);
+    }
+    for (auto& itr : tex2name) {
+        textures.push_back({ itr.second, itr.first });
     }
 }
 

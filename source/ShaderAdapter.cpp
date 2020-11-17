@@ -19,11 +19,21 @@
 #include <shadergraph/block/SubGraph.h>
 #include <shadergraph/block/FragmentShader.h>
 #include <shadergraph/block/VertexShader.h>
+#include <shadergraph/block/Time.h>
+#include <shadergraph/block/ModelMatrix.h>
+#include <shadergraph/block/ViewMatrix.h>
+#include <shadergraph/block/ProjectionMatrix.h>
+
 #include <js/RapidJsonHelper.h>
 #include <ns/CompFactory.h>
 #include <node0/CompAsset.h>
 #include <node0/CompComplex.h>
 #include <node0/SceneNode.h>
+#include <unirender/ShaderProgram.h>
+#include <painting0/TimeUpdater.h>
+#include <painting0/ModelMatUpdater.h>
+#include <painting3/ViewMatUpdater.h>
+#include <painting3/ProjectMatUpdater.h>
 
 #include <boost/filesystem.hpp>
 
@@ -232,7 +242,7 @@ void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Var
 }
 
 void ShaderAdapter::BuildShaderCode(const std::string& filepath, const ur::Device& dev, std::string& vs, std::string& fs,
-                                    std::vector<std::pair<std::string, ur::TexturePtr>>& textures, bool& time_updater)
+                                    std::vector<std::pair<std::string, ur::TexturePtr>>& textures, uint32_t& updaters)
 {
     rapidjson::Document doc;
     js::RapidJsonHelper::ReadFromFile(filepath.c_str(), doc);
@@ -266,51 +276,48 @@ void ShaderAdapter::BuildShaderCode(const std::string& filepath, const ur::Devic
     });
     front_eval.OnRebuildConnection();
 
-    time_updater = false;
-    for (auto& node : nodes) {
+    for (auto& node : nodes) 
+    {
         auto node_type = node->get_type();
         if (node_type == rttr::type::get<node::Time>()) {
-            time_updater = true;
+            updaters |= TIME_UPDATER_ID;
+        } else if (node_type == rttr::type::get<node::ModelMatrix>()) {
+            updaters |= MODEL_MAT_UPDATER_ID;
+        } else if (node_type == rttr::type::get<node::ViewMatrix>()) {
+            updaters |= VIEW_MAT_UPDATER_ID;
+        } else if (node_type == rttr::type::get<node::ProjectionMatrix>()) {
+            updaters |= PROJ_MAT_UPDATER_ID;
         }
     }
 
-    shadergraph::BlockPtr vert_node = nullptr;
-    shadergraph::BlockPtr frag_node = nullptr;
-    for (auto& node : nodes)
+    Evaluator::BuildShaderCode(front_eval, nodes, vs, fs, textures);
+}
+
+void ShaderAdapter::InitShaderUpdaters(ur::ShaderProgram& prog, uint32_t updaters)
+{
+    if (updaters & TIME_UPDATER_ID)
     {
-        auto back_node = front_eval.QueryBackNode(*node);
-        if (!back_node) {
-            continue;
-        }
-
-        assert(back_node);
-        auto block = std::static_pointer_cast<shadergraph::Block>(back_node);
-        auto type = block->get_type();
-        if (type == rttr::type::get<shadergraph::block::FragmentShader>()) {
-            frag_node = block;
-        } else if (type == rttr::type::get<shadergraph::block::VertexShader>()) {
-            vert_node = block;
-        }
+        auto up = std::make_shared<pt0::TimeUpdater>(prog,
+            shadergraph::block::Time::TIME_STR,
+            shadergraph::block::Time::SIN_TIME_STR,
+            shadergraph::block::Time::COS_TIME_STR,
+            shadergraph::block::Time::DELTA_TIME_STR);
+        prog.AddUniformUpdater(up);
     }
-
-    std::map<ur::TexturePtr, std::string> tex2name;
-    shadergraph::Evaluator back_eval_vs, back_eval_fs;
-    if (vert_node)
+    if (updaters & MODEL_MAT_UPDATER_ID)
     {
-        back_eval_vs.Rebuild(vert_node);
-        vs = back_eval_vs.GenShaderCode(shadergraph::Evaluator::ShaderType::Vert);
-
-        Evaluator::ResolveTextures(back_eval_vs, front_eval, nodes, tex2name);
+        prog.AddUniformUpdater(std::make_shared<pt0::ModelMatUpdater>(
+            prog, shadergraph::block::ModelMatrix::VAR_NAME));
     }
-    if (frag_node)
+    if (updaters & VIEW_MAT_UPDATER_ID)
     {
-        back_eval_fs.Rebuild(frag_node);
-        fs = back_eval_fs.GenShaderCode(shadergraph::Evaluator::ShaderType::Frag);
-
-        Evaluator::ResolveTextures(back_eval_fs, front_eval, nodes, tex2name);
+        prog.AddUniformUpdater(std::make_shared<pt3::ViewMatUpdater>(
+            prog, shadergraph::block::ViewMatrix::VAR_NAME));
     }
-    for (auto& itr : tex2name) {
-        textures.push_back({ itr.second, itr.first });
+    if (updaters & PROJ_MAT_UPDATER_ID)
+    {
+        prog.AddUniformUpdater(std::make_shared<pt3::ProjectMatUpdater>(
+            prog, shadergraph::block::ProjectionMatrix::VAR_NAME));
     }
 }
 
