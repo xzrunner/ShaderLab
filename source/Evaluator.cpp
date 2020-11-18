@@ -41,7 +41,7 @@ Evaluator::BuildShader(const ur::Device& dev, const std::string& vs, const std::
     if (fs_code.empty()) {
         return nullptr;
     }
-    if (vs_code.empty()) {
+    if (m_back_eval_vs.IsEmpty()) {
         vs_code = vs;
     }
 
