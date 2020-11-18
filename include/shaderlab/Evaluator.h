@@ -29,7 +29,7 @@ public:
         const std::shared_ptr<ur::ShaderProgram>& shader);
 
     static void BuildShaderCode(const bp::BackendGraph<shadergraph::Variant>& front_eval, const std::vector<bp::NodePtr>& nodes, 
-        std::string& vs, std::string& fs, std::vector<std::pair<std::string, ur::TexturePtr>>& textures);
+        shadergraph::Evaluator& back_eval_vs, shadergraph::Evaluator& back_eval_fs, std::vector<std::pair<std::string, ur::TexturePtr>>& textures);
 
 private:
     static void ResolveTextures(const shadergraph::Evaluator& back_eval, const bp::BackendGraph<shadergraph::Variant>& front_eval,

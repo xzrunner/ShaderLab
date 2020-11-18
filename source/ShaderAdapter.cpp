@@ -290,7 +290,10 @@ void ShaderAdapter::BuildShaderCode(const std::string& filepath, const ur::Devic
         }
     }
 
-    Evaluator::BuildShaderCode(front_eval, nodes, vs, fs, textures);
+    shadergraph::Evaluator back_eval_vs, back_eval_fs;
+    Evaluator::BuildShaderCode(front_eval, nodes, back_eval_vs, back_eval_fs, textures);
+    vs = back_eval_vs.GenShaderCode(shadergraph::Evaluator::ShaderType::Vert);
+    fs = back_eval_fs.GenShaderCode(shadergraph::Evaluator::ShaderType::Frag);
 }
 
 void ShaderAdapter::InitShaderUpdaters(ur::ShaderProgram& prog, uint32_t updaters)

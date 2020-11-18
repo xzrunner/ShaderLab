@@ -35,12 +35,12 @@ Evaluator::BuildShader(const ur::Device& dev, const std::string& vs, const std::
                        std::vector<std::pair<std::string, ur::TexturePtr>>& textures)
 {
     assert(m_front_eval);
-    std::string vs_code, fs_code;
-    BuildShaderCode(*m_front_eval, nodes, vs_code, fs_code, textures);
+    BuildShaderCode(*m_front_eval, nodes, m_back_eval_vs, m_back_eval_fs, textures);
+    std::string vs_code = m_back_eval_vs.GenShaderCode(shadergraph::Evaluator::ShaderType::Vert);
+    std::string fs_code = m_back_eval_fs.GenShaderCode(shadergraph::Evaluator::ShaderType::Frag);
     if (fs_code.empty()) {
         return nullptr;
     }
-
     if (vs_code.empty()) {
         vs_code = vs;
     }
@@ -234,7 +234,7 @@ void Evaluator::UpdateUniforms(const shadergraph::Evaluator& back_eval,
 }
 
 void Evaluator::BuildShaderCode(const bp::BackendGraph<shadergraph::Variant>& front_eval, const std::vector<bp::NodePtr>& nodes, 
-                                std::string& vs, std::string& fs, std::vector<std::pair<std::string, ur::TexturePtr>>& textures)
+                                shadergraph::Evaluator& back_eval_vs, shadergraph::Evaluator& back_eval_fs, std::vector<std::pair<std::string, ur::TexturePtr>>& textures)
 {
     // prepare nodes
     shadergraph::BlockPtr vert_node = nullptr;
@@ -265,7 +265,6 @@ void Evaluator::BuildShaderCode(const bp::BackendGraph<shadergraph::Variant>& fr
     // build shader code
     if (vert_node) 
     {
-        shadergraph::Evaluator back_eval_vs;
         back_eval_vs.Rebuild(vert_node);
         for (auto& b : vert_attr_nodes) {
             back_eval_vs.AddBlock(b);
@@ -273,15 +272,12 @@ void Evaluator::BuildShaderCode(const bp::BackendGraph<shadergraph::Variant>& fr
         for (auto& b : vert2frag_nodes) {
             back_eval_vs.AddBlock(b);
         }
-        vs = back_eval_vs.GenShaderCode(shadergraph::Evaluator::ShaderType::Vert);
 
         ResolveTextures(back_eval_vs, front_eval, nodes, tex2name);
     }
     if (frag_node)
     {
-        shadergraph::Evaluator back_eval_fs;
         back_eval_fs.Rebuild(frag_node);
-        fs = back_eval_fs.GenShaderCode(shadergraph::Evaluator::ShaderType::Frag);
 
         ResolveTextures(back_eval_fs, front_eval, nodes, tex2name);
     }
