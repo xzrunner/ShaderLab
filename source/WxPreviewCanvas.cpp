@@ -98,7 +98,8 @@ void WxPreviewCanvas::RebuildShader()
     }
 
     std::vector<std::pair<std::string, ur::TexturePtr>> textures;
-    auto shader = m_eval.BuildShader(m_dev, m_viewer->GetVertShaderCode(), nodes, textures);
+    std::vector<std::pair<shadergraph::VarType, std::string>> input_vars;
+    auto shader = m_eval.BuildShader(m_dev, m_viewer->GetVertShaderCode(), nodes, textures, input_vars);
     if (shader) {
         m_viewer->Update(*GetRenderContext().ur_ctx, m_camera, shader, textures);
     }

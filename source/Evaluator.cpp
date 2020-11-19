@@ -20,6 +20,7 @@
 #include <shadergraph/block/ModelMatrix.h>
 #include <shadergraph/block/ViewMatrix.h>
 #include <shadergraph/block/ProjectionMatrix.h>
+#include <shadergraph/block/Input.h>
 
 // fixme
 #include <painting0/TimeUpdater.h>
@@ -32,10 +33,11 @@ namespace shaderlab
 
 std::shared_ptr<ur::ShaderProgram>
 Evaluator::BuildShader(const ur::Device& dev, const std::string& vs, const std::vector<bp::NodePtr>& nodes,
-                       std::vector<std::pair<std::string, ur::TexturePtr>>& textures)
+                       std::vector<std::pair<std::string, ur::TexturePtr>>& textures,
+                       std::vector<std::pair<shadergraph::VarType, std::string>>& input_vars)
 {
     assert(m_front_eval);
-    BuildShaderCode(*m_front_eval, nodes, m_back_eval_vs, m_back_eval_fs, textures);
+    BuildShaderCode(*m_front_eval, nodes, m_back_eval_vs, m_back_eval_fs, textures, input_vars);
     std::string vs_code = m_back_eval_vs.GenShaderCode(shadergraph::Evaluator::ShaderType::Vert);
     std::string fs_code = m_back_eval_fs.GenShaderCode(shadergraph::Evaluator::ShaderType::Frag);
     if (fs_code.empty()) {
@@ -234,7 +236,8 @@ void Evaluator::UpdateUniforms(const shadergraph::Evaluator& back_eval,
 }
 
 void Evaluator::BuildShaderCode(const bp::BackendGraph<shadergraph::Variant>& front_eval, const std::vector<bp::NodePtr>& nodes, 
-                                shadergraph::Evaluator& back_eval_vs, shadergraph::Evaluator& back_eval_fs, std::vector<std::pair<std::string, ur::TexturePtr>>& textures)
+                                shadergraph::Evaluator& back_eval_vs, shadergraph::Evaluator& back_eval_fs, std::vector<std::pair<std::string, ur::TexturePtr>>& textures,
+                                std::vector<std::pair<shadergraph::VarType, std::string>>& input_vars)
 {
     // prepare nodes
     shadergraph::BlockPtr vert_node = nullptr;
@@ -257,6 +260,9 @@ void Evaluator::BuildShaderCode(const bp::BackendGraph<shadergraph::Variant>& fr
             vert_attr_nodes.push_back(block);
         } else if (type == rttr::type::get<shadergraph::block::VertToFrag>()) {
             vert2frag_nodes.push_back(block);
+        } else if (type == rttr::type::get<shadergraph::block::Input>()) {
+            auto input = std::static_pointer_cast<shadergraph::block::Input>(block);
+            input_vars.push_back({ input->GetVarType(), input->GetVarName() });
         }
     }
 

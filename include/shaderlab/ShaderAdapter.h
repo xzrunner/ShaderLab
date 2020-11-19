@@ -25,7 +25,8 @@ public:
     static const uint32_t VIEW_MAT_UPDATER_ID  = 0x0004;
     static const uint32_t PROJ_MAT_UPDATER_ID  = 0x0008;
     static void BuildShaderCode(const std::string& filepath, const ur::Device& dev, std::string& vs, 
-        std::string& fs, std::vector<std::pair<std::string, ur::TexturePtr>>& textures, uint32_t& updaters);
+        std::string& fs, std::vector<std::pair<std::string, ur::TexturePtr>>& textures, 
+        std::vector<std::pair<shadergraph::VarType, std::string>>& input_vars, uint32_t& updaters);
 
     static void InitShaderUpdaters(ur::ShaderProgram& prog, uint32_t updaters);
 

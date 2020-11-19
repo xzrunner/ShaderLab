@@ -242,7 +242,9 @@ void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Var
 }
 
 void ShaderAdapter::BuildShaderCode(const std::string& filepath, const ur::Device& dev, std::string& vs, std::string& fs,
-                                    std::vector<std::pair<std::string, ur::TexturePtr>>& textures, uint32_t& updaters)
+                                    std::vector<std::pair<std::string, ur::TexturePtr>>& textures, 
+                                    std::vector<std::pair<shadergraph::VarType, std::string>>& input_vars,
+                                    uint32_t& updaters)
 {
     rapidjson::Document doc;
     js::RapidJsonHelper::ReadFromFile(filepath.c_str(), doc);
@@ -291,7 +293,7 @@ void ShaderAdapter::BuildShaderCode(const std::string& filepath, const ur::Devic
     }
 
     shadergraph::Evaluator back_eval_vs, back_eval_fs;
-    Evaluator::BuildShaderCode(front_eval, nodes, back_eval_vs, back_eval_fs, textures);
+    Evaluator::BuildShaderCode(front_eval, nodes, back_eval_vs, back_eval_fs, textures, input_vars);
     vs = back_eval_vs.GenShaderCode(shadergraph::Evaluator::ShaderType::Vert);
     fs = back_eval_fs.GenShaderCode(shadergraph::Evaluator::ShaderType::Frag);
 }
