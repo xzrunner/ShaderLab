@@ -13,6 +13,8 @@ namespace ur {
     class VertexArray;
 }
 
+namespace shadergraph { struct Variant; }
+
 namespace shaderlab
 {
 
@@ -37,9 +39,8 @@ public:
 
     void Draw(ur::Context& ctx, const pt0::CameraPtr& cam,
         const void* scene = nullptr) const;
-    void Update(ur::Context& ctx, const pt0::CameraPtr& cam,
-        const std::shared_ptr<ur::ShaderProgram>& shader,
-        const std::vector<std::pair<std::string, ur::TexturePtr>>& textures);
+    void Update(ur::Context& ctx, const pt0::CameraPtr& cam, const std::shared_ptr<ur::ShaderProgram>& shader,
+        const std::vector<std::pair<std::string, ur::TexturePtr>>& textures, const std::vector<shadergraph::Variant>& input_vars);
 
     std::string GetVertShaderCode() const;
 
@@ -59,6 +60,7 @@ private:
     std::shared_ptr<ur::VertexArray> m_grids_3d_va = nullptr;
 
     std::vector<std::pair<size_t, ur::TexturePtr>> m_textures;
+    std::vector<shadergraph::Variant> m_input_vars;
 
     VertexArray m_va = VertexArray::Rect2D;
     RenderState m_rs = RenderState::_2D;

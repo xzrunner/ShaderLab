@@ -13,6 +13,8 @@
 #include <unirender/ShaderProgram.h>
 #include <unirender/Uniform.h>
 #include <shadergraph/VarNames.h>
+#include <shadergraph/Variant.h>
+#include <shadergraph/ValueImpl.h>
 #include <shadertrans/ShaderTrans.h>
 #include <painting0/ModelMatUpdater.h>
 #include <painting3/PerspCam.h>
@@ -120,6 +122,28 @@ void PreviewViewer::Draw(ur::Context& ctx, const pt0::CameraPtr& cam,
                 u_cam_pos->SetValue(persp->GetPos().xyz, 3);
             }
         }
+
+        for (auto& v : m_input_vars)
+        {
+            if (!v.val) {
+                continue;
+            }
+
+            auto uniform = m_shader->QueryUniform(v.name);
+            if (!uniform) {
+                continue;
+            }
+
+            switch (v.type)
+            {
+            case shadergraph::VarType::Float2:
+            {
+                auto f2 = std::static_pointer_cast<shadergraph::Float2Val>(v.val);
+                uniform->SetValue(f2->xy, 2);
+            }
+                break;
+            }
+        }
     }
 
     ur::DrawState ds;
@@ -150,9 +174,8 @@ void PreviewViewer::Draw(ur::Context& ctx, const pt0::CameraPtr& cam,
     ctx.Draw(ur::PrimitiveType::Triangles, ds, scene);
 }
 
-void PreviewViewer::Update(ur::Context& ctx, const pt0::CameraPtr& cam, 
-	                        const std::shared_ptr<ur::ShaderProgram>& shader, 
-	                        const std::vector<std::pair<std::string, ur::TexturePtr>>& textures)
+void PreviewViewer::Update(ur::Context& ctx, const pt0::CameraPtr& cam, const std::shared_ptr<ur::ShaderProgram>& shader, 
+	                       const std::vector<std::pair<std::string, ur::TexturePtr>>& textures, const std::vector<shadergraph::Variant>& input_vars)
 {
     if (m_shader == shader) {
         return;
@@ -171,6 +194,8 @@ void PreviewViewer::Update(ur::Context& ctx, const pt0::CameraPtr& cam,
             }
         }
     }
+
+    m_input_vars = input_vars;
 }
 
 std::string PreviewViewer::GetVertShaderCode() const

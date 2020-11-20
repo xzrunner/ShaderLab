@@ -98,10 +98,10 @@ void WxPreviewCanvas::RebuildShader()
     }
 
     std::vector<std::pair<std::string, ur::TexturePtr>> textures;
-    std::vector<std::pair<shadergraph::VarType, std::string>> input_vars;
+    std::vector<shadergraph::Variant> input_vars;
     auto shader = m_eval.BuildShader(m_dev, m_viewer->GetVertShaderCode(), nodes, textures, input_vars);
     if (shader) {
-        m_viewer->Update(*GetRenderContext().ur_ctx, m_camera, shader, textures);
+        m_viewer->Update(*GetRenderContext().ur_ctx, m_camera, shader, textures, input_vars);
     }
 
     for (auto& bp_node : nodes) {

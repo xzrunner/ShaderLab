@@ -11,6 +11,7 @@
 #include <shadergraph/typedef.h>
 #include <shadergraph/Evaluator.h>
 #include <shadergraph/ValueImpl.h>
+#include <shadergraph/EvalVar.h>
 #include <shadergraph/block/FragmentShader.h>
 #include <shadergraph/block/VertexShader.h>
 #include <shadergraph/block/Time.h>
@@ -33,8 +34,7 @@ namespace shaderlab
 
 std::shared_ptr<ur::ShaderProgram>
 Evaluator::BuildShader(const ur::Device& dev, const std::string& vs, const std::vector<bp::NodePtr>& nodes,
-                       std::vector<std::pair<std::string, ur::TexturePtr>>& textures,
-                       std::vector<std::pair<shadergraph::VarType, std::string>>& input_vars)
+                       std::vector<std::pair<std::string, ur::TexturePtr>>& textures, std::vector<shadergraph::Variant>& input_vars)
 {
     assert(m_front_eval);
     BuildShaderCode(*m_front_eval, nodes, m_back_eval_vs, m_back_eval_fs, textures, input_vars);
@@ -237,9 +237,8 @@ void Evaluator::UpdateUniforms(const shadergraph::Evaluator& back_eval,
 
 void Evaluator::BuildShaderCode(const bp::BackendGraph<shadergraph::Variant>& front_eval, const std::vector<bp::NodePtr>& nodes, 
                                 shadergraph::Evaluator& back_eval_vs, shadergraph::Evaluator& back_eval_fs, std::vector<std::pair<std::string, ur::TexturePtr>>& textures,
-                                std::vector<std::pair<shadergraph::VarType, std::string>>& input_vars)
+                                std::vector<shadergraph::Variant>& input_vars)
 {
-    // prepare nodes
     shadergraph::BlockPtr vert_node = nullptr;
     shadergraph::BlockPtr frag_node = nullptr;
     std::vector<shadergraph::BlockPtr> vert_attr_nodes, vert2frag_nodes;
@@ -262,7 +261,11 @@ void Evaluator::BuildShaderCode(const bp::BackendGraph<shadergraph::Variant>& fr
             vert2frag_nodes.push_back(block);
         } else if (type == rttr::type::get<shadergraph::block::Input>()) {
             auto input = std::static_pointer_cast<shadergraph::block::Input>(block);
-            input_vars.push_back({ input->GetVarType(), input->GetVarName() });
+            auto v = shadergraph::EvalVar::Calc(input->GetImports()[0]);
+            if (!input->GetVarName().empty()) {
+                v.name = input->GetVarName();
+            }
+            input_vars.push_back(v);
         }
     }
 

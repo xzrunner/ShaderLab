@@ -243,8 +243,7 @@ void ShaderAdapter::Front2Back(const bp::Node& front, dag::Node<shadergraph::Var
 
 void ShaderAdapter::BuildShaderCode(const std::string& filepath, const ur::Device& dev, std::string& vs, std::string& fs,
                                     std::vector<std::pair<std::string, ur::TexturePtr>>& textures, 
-                                    std::vector<std::pair<shadergraph::VarType, std::string>>& input_vars,
-                                    uint32_t& updaters)
+                                    std::vector<shadergraph::Variant>& input_vars, uint32_t& updaters)
 {
     rapidjson::Document doc;
     js::RapidJsonHelper::ReadFromFile(filepath.c_str(), doc);
